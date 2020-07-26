@@ -1,6 +1,10 @@
 package beans;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
+	private static final long serialVersionUID = -324986003640574479L;
+
 	private String username;
 	private String password;
 	private String firstName;

@@ -1,0 +1,24 @@
+[{
+	"username" : "jelenag",
+	"password" : "guest",
+	"firstName" : "Jelena",
+	"lastName" : "Garic",
+	"gender" : "FEMALE",
+	"role" : "GUEST"
+}, {
+	"username" : "milosp",
+	"password" : "guest",
+	"firstName" : "Milos",
+	"lastName" : "Poletanovic",
+	"gender" : "MALE",
+	"role" : "GUEST"
+}, {
+	"username" : "igorm",
+	"password" : "guest",
+	"firstName" : "Igor",
+	"lastName" : "Malesevic",
+	"gender" : "MALE",
+	"role" : "GUEST"
+}
+
+]
