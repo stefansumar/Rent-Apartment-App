@@ -14,6 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" type="text/css" href="css/login.css">
 	
+	<script src="js/registration.js"></script>
 	
 </head>
 
@@ -45,13 +46,27 @@
     </div>
 
     <!-- Login Form -->
-    <form>
-      <input type="text" id="firstName" class="fadeIn second" name="register" placeholder="Enter your firstname">
-      <input type="text" id="lastName" class="fadeIn second" name="register" placeholder="Enter your lastname">
-      <input type="text" id="register" class="fadeIn second" name="register" placeholder="Enter your username">
-      <input type="password" id="password" class="fadeIn third" name="register" placeholder="Enter your password">
+    <form id="registrationForm">
+      <input type="text" id="firstName" class="fadeIn second" name="register" placeholder="Enter your firstname (Required)">
+         <p id="emptyFirstName"></p>
+         <p id="lengthFirstName"></p>
+      <input type="text" id="lastName" class="fadeIn second" name="register" placeholder="Enter your lastname (Required)">
+      	<p id="emptyLastName"></p>
+        <p id="lengthLastName"></p>
+      <input type="text" id="username" class="fadeIn second" name="register" placeholder="Enter your username (Required)">
+      	<p id="emptyUsername"></p>
+        <p id="lengthUsername"></p>
+        <p id="error"></p>
+      <input type="password" id="password" class="fadeIn third" name="register" placeholder="Enter your password (Required)">
+      	<p id="emptyPassword"></p>
+        <p id="lengthPassword"></p>
+      <input type="password" id="repeatPassword" class="fadeIn third" name="register" placeholder="Repeat your password (Required)">
+        <p id="emptyRepeatPassword"></p>
+        <p id="matchPassword"></p>
       <input type="submit" class="fadeIn fourth" value="Sign up">
     </form>
+    
+    <p id="success"></p>
 
     <!-- Sign Up -->
     <div id="formFooter">
