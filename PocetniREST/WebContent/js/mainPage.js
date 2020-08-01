@@ -1,4 +1,3 @@
-
 function signOut(){
 	$.get({
 		url: 'rest/user/signOut',

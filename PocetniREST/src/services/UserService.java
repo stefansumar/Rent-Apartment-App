@@ -77,6 +77,16 @@ public class UserService {
 		request.getSession().invalidate();
 	}
 	
+	@GET
+	@Path("/getCurrentUser")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public User getCurrentUser(@Context HttpServletRequest request){
+		User user = (User) request.getSession().getAttribute("loggedIn");
+		
+		return user;
+	}
+	
 	
 	
 		
