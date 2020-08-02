@@ -7,7 +7,9 @@ function myProfile(){
         	console.log(user);
         	$('#searchTextField').hide();
         	$('#searchButton').hide();
+        	$('#editProfile').hide();
         	$('#profile').html("");
+        	$('#profile').show();
         	$('#profile').append("<img src=\"images/avatar.png\" class=\"avatar\"></img>");
         	$('#profile').append("<h2 class=\"text-center\"> " + "My info" + "</h2>");
         	$('#profile').append("<h4 class=\"text-center\"> " + "Firstname:" + " " + user.firstName + "</h4>");
@@ -15,9 +17,11 @@ function myProfile(){
         	$('#profile').append("<h4 class=\"text-center\"> " + "Username:" + " " + user.username + "</h4>");
         	$('#profile').append("<h4 class=\"text-center\"> " + "Gender:" + " " + user.gender + "</h4>");
         	$('#profile').append("<h4 class=\"text-center\"> " + "Role:" + " " + user.role + "</h4>");
-        	$('#profile').append("<input type=\"submit\" class=\"fadeIn fourth\" value=\"Edit My Info\" onclick=\"showSignUpForm()\">");
+        	$('#profile').append("<input type=\"submit\" value=\"Edit My Info\" onclick=\"editProfile()\">");
         	
         }
     });
+    
+    
     
 }

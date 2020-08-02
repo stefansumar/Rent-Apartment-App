@@ -179,4 +179,57 @@ public class UserDAO {
 		
 	}
 	
+	public User findUserByUsername(String username) {
+		for(User user : users.values()) {
+			if(user.getUsername().equals(username)){
+				return user;
+			}
+		}
+		return null;
+	}
+	
+	public void saveUsers(){
+		ObjectMapper objectMapper = new ObjectMapper();
+		
+		ArrayList<Administrator> admins = new ArrayList<Administrator>();
+		ArrayList<Host> hosts = new ArrayList<Host>();
+		ArrayList<Guest> guests = new ArrayList<Guest>();
+		
+		for (User user: this.users.values()) {
+			if (user.getRole().equals("ADMIN")) {
+				admins.add( (Administrator)user );
+			} else if(user.getRole().equals("HOST")){
+				hosts.add((Host)user);
+			} else if(user.getRole().equals("GUEST")){
+				guests.add((Guest)user);
+			}
+		}
+		
+		File file1 = new File(this.contextPath + "/json/admin.json");
+		try {
+			objectMapper.writerWithDefaultPrettyPrinter().writeValue(file1, admins);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		File file2 = new File(this.contextPath + "/json/prodavci.json");
+		try {
+			objectMapper.writerWithDefaultPrettyPrinter().writeValue(file2, hosts);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		File file3 = new File(this.contextPath + "/json/admini.json");
+		try {
+			objectMapper.writerWithDefaultPrettyPrinter().writeValue(file3, guests);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	
 }

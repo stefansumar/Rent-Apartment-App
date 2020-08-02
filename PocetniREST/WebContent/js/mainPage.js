@@ -1,3 +1,10 @@
+$(document).ready(function() {
+	$('#profile').hide();
+	$('#editProfile').hide();
+
+	
+});
+
 function signOut(){
 	$.get({
 		url: 'rest/user/signOut',
