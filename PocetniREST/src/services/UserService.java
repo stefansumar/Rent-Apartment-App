@@ -74,8 +74,16 @@ public class UserService {
 	@Path("/signOut")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public void signOut(@Context HttpServletRequest request) {
+	public Response signOut(@Context HttpServletRequest request) {
+		try {
 		request.getSession().invalidate();
+		return Response.status(200).build();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return Response.status(400).build();
+		
 	}
 	
 	@GET
@@ -111,6 +119,37 @@ public class UserService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return Response.status(400).build();
+	}
+	
+	@PUT
+	@Path("/changePassword/{username}/{currentPassword}/{newPassword}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response changePassword(@PathParam(value = "username") String username, @PathParam(value = "currentPassword") String currentPassword, @PathParam(value = "newPassword") String newPassword) {
+		UserDAO userDAO = (UserDAO) ctx.getAttribute("userDAO");
+		User user = userDAO.findUserByUsername(username);
+		
+		if(!user.getPassword().equals(currentPassword)) {
+			return Response.status(400).build();
+		}
+		
+		try {
+			HashMap<String, User> users = userDAO.getUsers();
+			users.remove(username);
+			user.setPassword(newPassword);
+			users.put(username, user);
+			userDAO.setUsers(users);
+			ctx.setAttribute("userDAO", userDAO);
+			userDAO.saveUsers();
+			
+			return Response.status(200).build();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		
 		return Response.status(400).build();
 	}

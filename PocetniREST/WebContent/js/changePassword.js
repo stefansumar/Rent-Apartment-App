@@ -19,6 +19,7 @@ function changePassword(){
 $(document).ready(function() {
 	$('#changePasswordForm').submit(function(event){
 		event.preventDefault();
+		let username = currentUser.username;
 		let realPassword = currentUser.password;
 		let currentPassword = $('#currentPassword').val();
 		let newPassword = $('#newPassword').val();
@@ -77,6 +78,20 @@ $(document).ready(function() {
 			return;
 		}
 		
+		$.ajax({
+	        url: 'rest/user/changePassword/' + username + '/' + currentPassword + '/' + newPassword,
+			contnentType: 'application/json',
+			type: 'PUT',
+	        success: function () {
+	        	document.getElementById('currentPassword').value = "";
+	        	document.getElementById('newPassword').value = "";
+	        	document.getElementById('repeatNewPassword').value = "";
+				$('#successPasswordMessage').text('You are successfully changed your password.');
+				$('#successPasswordMessage').css({"color": "#7FFF00", "font-size": "16px"});
+				$("#successPasswordMessage").show().delay(3000).fadeOut();
+				
+	        }
+		});
 		
 	});	
 	
