@@ -117,7 +117,7 @@
 	      <label>Current password</label>
 	      <input type="password" id="currentPassword" name="currentPassword" placeholder="Enter your current password">
 	      <p id="emptyCurrentPassword"></p>
-	      <p id="lengthCurrentPassword"></p>
+	      <p id="matchCurrentPassword"></p>
 	      <label>New Password</label>
 	      <input type="password" id="newPassword" name="newPassword" placeholder="Enter new password">
 	      <p id="emptyNewPassword"></p>
@@ -125,11 +125,11 @@
 	      <label>Repeat New Password</label>
 	      <input type="password" id="repeatNewPassword" name="repeatNewPassword" placeholder="Reenter new password">
 	      <p id="emptyRepeatNewPassword"></p>
-	      <p id="lengthRepeatNewPassword"></p>
+	      <p id="matchNewPassword"></p>
 	      <input type="submit" value="Save Changes">
 	      
-	      <p id='successMessage'></p>
-	      <p id='errorMessage'></p>
+	      <p id='successPasswordMessage'></p>
+	      <p id='errorPasswordMessage'></p>
 	    </form>
 	    
 	</div>
@@ -137,42 +137,6 @@
 
   </div>
 </div>
-
-<!-- Modal -->
-<div class="modal fade" id=editProfileModal tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit My Profile</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">First name:</label>
-            <input type="text" class="form-control" id="firstNameEdit" placeholder="Enter your first name">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Last name:</label>
-			<input type="text" class="form-control" id="lastNameEdit" placeholder="Enter your last name">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Username:</label>
-			<input type="text" class="form-control" id="usernameEdit" disabled="disabled">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
 
 </body>
 
