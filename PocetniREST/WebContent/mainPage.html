@@ -12,8 +12,15 @@
 	
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="css/mainPage.css">
+	
 	
 	<script src="js/mainPage.js"></script>
+	<script src="js/userProfile.js"></script>
+	<script src="js/editUserInfo.js"></script>
+	<script src="js/changePassword.js"></script>
+	
+	
 		
 </head>
 
@@ -33,33 +40,103 @@
           Account
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">My profile</a>
+          <a class="dropdown-item" href="#" onclick="myProfile()">My profile</a>
+          <a class="dropdown-item" href="#" onclick="editProfile()">Edit profile</a>
+          <a class="dropdown-item" href="#" onclick="changePassword()">Change password</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#" onclick="signOut()">Sign out</a>
         </div>
       </li>
       
     <li class="nav-item">
-        <a class="nav-link" href="index.html"> Apartments </a>
+        <a class="nav-link" href="#" id="apartmentId"> Apartments </a>
      </li>  
      
      <li class="nav-item">
-        <a class="nav-link" href="index.html"> Reservations </a>
+        <a class="nav-link" href="#" id="reservationsId"> Reservations </a>
      </li>
      
      <li class="nav-item">
-        <a class="nav-link" href="index.html"> Amenities </a>
+        <a class="nav-link" href="#" id="amenitiesId"> Amenities </a>
      </li>
  	
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchTextField">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchButton">Search</button>
     </form>
   </div>
 </nav>
 
 
+<div id="myProfile" class="wrapper fadeInDown">
+  <div id="formContent">
+
+    <!-- Icon -->
+    <div id="profile" class="fadeIn first">
+    </div>
+    
+    <div id="editProfile" class="fadeIn first">
+	
+	    <!-- Icon -->
+	    <div class="fadeIn first">
+	      <img src="images/edit.png" class="avatar"></img>
+	      <h2>Edit profile</h2>
+	    </div>
+	
+	    <!-- Edit Profile Form -->
+	    <form id="editProfileForm">
+	      <label>First name</label>
+	      <input type="text" id="firstNameEdit" name="firstNameEdit" placeholder="Enter your first name">
+	      <p id="emptyFirstNameEdit"></p>
+	      <p id="lengthFirstNameEdit"></p>
+	      <label>Last name</label>
+	      <input type="text" id="lastNameEdit" name="lastNameEdit" placeholder="Enter your last name">
+	      <p id="emptyLastNameEdit"></p>
+	      <p id="lengthLastNameEdit"></p>
+	      <label>Username</label>
+	      <input type="text" id="usernameEdit" name="usernameEdit" disabled="disabled">
+	      <input type="submit" value="Save Changes">
+	      
+	      <p id='successMessage'></p>
+	      <p id='errorMessage'></p>
+	    </form>
+	    
+	
+	</div>
+	
+	<div id="changePassword" class="fadeIn first">
+	    <!-- Icon -->
+	    <div class="fadeIn first">
+	      <img src="images/lock.png" class="avatar"></img>
+	      <h2>Change password</h2>
+	    </div>
+	
+	    <!-- Edit Profile Form -->
+	    <form id="changePasswordForm">
+	      <label>Current password</label>
+	      <input type="password" id="currentPassword" name="currentPassword" placeholder="Enter your current password">
+	      <p id="emptyCurrentPassword"></p>
+	      <p id="matchCurrentPassword"></p>
+	      <label>New Password</label>
+	      <input type="password" id="newPassword" name="newPassword" placeholder="Enter new password">
+	      <p id="emptyNewPassword"></p>
+	      <p id="lengthNewPassword"></p>
+	      <label>Repeat New Password</label>
+	      <input type="password" id="repeatNewPassword" name="repeatNewPassword" placeholder="Reenter new password">
+	      <p id="emptyRepeatNewPassword"></p>
+	      <p id="matchNewPassword"></p>
+	      <input type="submit" value="Save Changes">
+	      
+	      <p id='successPasswordMessage'></p>
+	      <p id='errorPasswordMessage'></p>
+	    </form>
+	    
+	</div>
+    
+
+  </div>
+</div>
 
 </body>
 

@@ -1,3 +1,10 @@
+$(document).ready(function() {
+	$('#profile').hide();
+	$('#editProfile').hide();
+	$('#changePassword').hide();
+
+	
+});
 
 function signOut(){
 	$.get({

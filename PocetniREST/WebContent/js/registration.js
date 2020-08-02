@@ -116,7 +116,6 @@ $(document).ready(function() {
 					
 				},
 				error: function() {
-					console.log('ZASTO UDJES OVDE MAMU TI JEBEM')
 					$('#error').text('Username is already taken.');
 					$('#error').css({"color": "red", "font-size": "12px"});
 					$('#error').show().delay(3000).fadeOut();
