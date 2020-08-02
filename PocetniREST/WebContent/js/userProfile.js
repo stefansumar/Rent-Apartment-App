@@ -8,6 +8,7 @@ function myProfile(){
         	$('#searchTextField').hide();
         	$('#searchButton').hide();
         	$('#editProfile').hide();
+        	$('#changePassword').hide();
         	$('#profile').html("");
         	$('#profile').show();
         	$('#profile').append("<img src=\"images/avatar.png\" class=\"avatar\"></img>");

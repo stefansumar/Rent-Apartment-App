@@ -18,6 +18,7 @@
 	<script src="js/mainPage.js"></script>
 	<script src="js/userProfile.js"></script>
 	<script src="js/editUserInfo.js"></script>
+	<script src="js/changePassword.js"></script>
 	
 	
 		
@@ -41,7 +42,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#" onclick="myProfile()">My profile</a>
           <a class="dropdown-item" href="#" onclick="editProfile()">Edit profile</a>
-          <a class="dropdown-item" href="#">Change password</a>
+          <a class="dropdown-item" href="#" onclick="changePassword()">Change password</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#" onclick="signOut()">Sign out</a>
         </div>
@@ -102,6 +103,35 @@
 	    </form>
 	    
 	
+	</div>
+	
+	<div id="changePassword" class="fadeIn first">
+	    <!-- Icon -->
+	    <div class="fadeIn first">
+	      <img src="images/lock.png" class="avatar"></img>
+	      <h2>Change password</h2>
+	    </div>
+	
+	    <!-- Edit Profile Form -->
+	    <form id="changePasswordForm">
+	      <label>Current password</label>
+	      <input type="password" id="currentPassword" name="currentPassword" placeholder="Enter your current password">
+	      <p id="emptyCurrentPassword"></p>
+	      <p id="lengthCurrentPassword"></p>
+	      <label>New Password</label>
+	      <input type="password" id="newPassword" name="newPassword" placeholder="Enter new password">
+	      <p id="emptyNewPassword"></p>
+	      <p id="lengthNewPassword"></p>
+	      <label>Repeat New Password</label>
+	      <input type="password" id="repeatNewPassword" name="repeatNewPassword" placeholder="Reenter new password">
+	      <p id="emptyRepeatNewPassword"></p>
+	      <p id="lengthRepeatNewPassword"></p>
+	      <input type="submit" value="Save Changes">
+	      
+	      <p id='successMessage'></p>
+	      <p id='errorMessage'></p>
+	    </form>
+	    
 	</div>
     
 

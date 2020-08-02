@@ -9,6 +9,7 @@ function editProfile(){
         	$('#searchTextField').hide();
         	$('#searchButton').hide();
         	$('#profile').hide();
+        	$('#changePassword').hide();
         	$('#editProfile').show();    
         	
         	let firstName = user.firstName;
