@@ -8,6 +8,8 @@ public class Apartment {
 
 	private Long id;
 	private String type;
+	private String name;
+	private String description;
 	private int roomCount;
 	private int guestCount;
 	private Location location;
@@ -21,18 +23,21 @@ public class Apartment {
     private LocalTime timeForCheckIn = LocalTime.of(14, 0, 0, 0);
     private LocalTime timeForCheckOut = LocalTime.of(10, 0, 0, 0);
     private boolean status = true;
-    private ArrayList<Amenity> amenities = new ArrayList<Amenity>();
+    private ArrayList<Long> amenities = new ArrayList<Long>();
     private ArrayList<Reservation> reservations = new ArrayList<Reservation>();
     
     public Apartment() {}
 
-	public Apartment(Long id, String type, int roomCount, int guestCount, Location location, ArrayList<LocalDate> datesForRent,
-			ArrayList<LocalDate> datesAvailable, String hostUsername, ArrayList<Comment> comments, String image,
-			ArrayList<String> images, String pricePerNight, LocalTime timeForCheckIn, LocalTime timeForCheckOut,
-			boolean status, ArrayList<Amenity> amenities, ArrayList<Reservation> reservations) {
+	public Apartment(Long id, String type, String name, String description, int roomCount, int guestCount,
+			Location location, ArrayList<LocalDate> datesForRent, ArrayList<LocalDate> datesAvailable,
+			String hostUsername, ArrayList<Comment> comments, String image, ArrayList<String> images,
+			String pricePerNight, LocalTime timeForCheckIn, LocalTime timeForCheckOut, boolean status,
+			ArrayList<Long> amenities, ArrayList<Reservation> reservations) {
 		super();
 		this.id = id;
 		this.type = type;
+		this.name = name;
+		this.description = description;
 		this.roomCount = roomCount;
 		this.guestCount = guestCount;
 		this.location = location;
@@ -49,8 +54,8 @@ public class Apartment {
 		this.amenities = amenities;
 		this.reservations = reservations;
 	}
-	
-	
+
+
 
 	public Long getId() {
 		return id;
@@ -66,6 +71,23 @@ public class Apartment {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+	
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public int getRoomCount() {
@@ -172,11 +194,11 @@ public class Apartment {
 		this.status = status;
 	}
 
-	public ArrayList<Amenity> getAmenities() {
+	public ArrayList<Long> getAmenities() {
 		return amenities;
 	}
 
-	public void setAmenities(ArrayList<Amenity> amenities) {
+	public void setAmenities(ArrayList<Long> amenities) {
 		this.amenities = amenities;
 	}
 
@@ -187,8 +209,5 @@ public class Apartment {
 	public void setReservations(ArrayList<Reservation> reservations) {
 		this.reservations = reservations;
 	}
-    
-	
-	
-    
+  
 }

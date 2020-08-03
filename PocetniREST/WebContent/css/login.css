@@ -22,7 +22,44 @@ h2 {
   color: #cccccc;
 }
 
+.designText {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+  display:inline-block;
+  color : #17a2b8;
+  
+}
 
+.apartmentCard{
+	width : 950px;
+}
+
+.forMargin{
+	margin-block-start : 0.5em;
+	margin-block-end : 0.5em;
+	margin-inline-start : 0.5em;
+	margin-inline-end : 0.5em;
+}
+
+.forButton{
+	position : absolute;
+	height : 30px;
+	width : 104px;
+	right : -200px;
+}
+
+.price {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+  display:inline-block;
+  position : absolute;
+  right : -200px;
+  color : #17a2b8;
+}
 
 /* STRUCTURE */
 
