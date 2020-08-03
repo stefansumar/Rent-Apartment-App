@@ -112,7 +112,7 @@ $(document).ready(function() {
 	cardDiv = document.getElementById('cardDiv');
 	console.log(cardDiv);
 	$.get({
-		url: 'rest/apartment/all',
+		url: 'rest/apartment/allActive',
 		contentType: 'application/json',
 		success: function(all) {
 			allApartments = all;

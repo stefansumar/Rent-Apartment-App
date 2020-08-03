@@ -1,0 +1,87 @@
+[{
+	"id" : "1",
+	"type" : "Apartment",
+	"name" : "BG Apartments - A1",
+	"description" : "LUX Comfort apartment in the middle of Belgrade. Near Kalemegdan and Republic Square.",
+	"roomCount" : "1",
+	"guestCount" : "2",
+	"location" : {
+		"geoWidth" : "44.818688",
+		"geoHeight" : "20.464033",
+		"address" : {
+			"street" : "Francuska 27",
+			"place" : "Belgrade",
+			"postalCode" : "11000"
+		}
+	},
+	"hostUsername" : "stefan.sumar",
+	"image" : "images/apartment1.jpg",
+	"pricePerNight" : "15",
+	"status" : "false"
+},
+
+{
+	"id" : "2",
+	"type" : "Apartment",
+	"name" : "NS Apartments - A1",
+	"description" : "LUX apartment in the middle of Novi Sad. Special offer during Exit festival. Contact me.",
+	"roomCount" : "1",
+	"guestCount" : "2",
+	"location" : {
+		"geoWidth" : "45.252967",
+		"geoHeight" : "19.839474",
+		"address" : {
+			"street" : "Jevrejska 18",
+			"place" : "Novi Sad",
+			"postalCode" : "21000"
+		}
+	},
+	"hostUsername" : "stefan.sumar",
+	"image" : "images/apartment2.jpg",
+	"pricePerNight" : "12",
+	"status" : "true"
+},
+
+{
+	"id" : "3",
+	"type" : "Room",
+	"name" : "NS Room Rent - R1",
+	"description" : "",
+	"roomCount" : "1",
+	"guestCount" : "1",
+	"location" : {
+		"geoWidth" : "45.247112",
+		"geoHeight" : "19.817446",
+		"address" : {
+			"street" : "Bulevar Evrope 128",
+			"place" : "Novi Sad",
+			"postalCode" : "21000"
+		}
+	},
+	"hostUsername" : "petar.petrovic",
+	"image" : "images/apartment3.jpg",
+	"pricePerNight" : "9",
+	"status" : "true"
+},
+
+{
+	"id" : "4",
+	"type" : "Apartment",
+	"name" : "NS Apartments - A2",
+	"description" : "Large apartment near shopping mall Promenada and city beach Strand",
+	"roomCount" : "2",
+	"guestCount" : "4",
+	"location" : {
+		"geoWidth" : "45.241771",
+		"geoHeight" : "19.843308",
+		"address" : {
+			"street" : "Narodnog fronta 10",
+			"place" : "Novi Sad",
+			"postalCode" : "21000"
+		}
+	},
+	"hostUsername" : "mara.maric",
+	"image" : "images/apartment4.jpg",
+	"pricePerNight" : "20",
+	"status" : "true"
+}]
