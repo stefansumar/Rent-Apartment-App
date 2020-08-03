@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Reservation {
 	
 	private Long reservationId;
-	private Apartment apartment;
+	private Long apartmentId;
 	private LocalDate startDate;
 	private int nightCount = 1;
 	private float price;
@@ -15,11 +15,11 @@ public class Reservation {
 	
 	public Reservation () {}
 
-	public Reservation(Long reservationId, Apartment apartment, LocalDate startDate, int nightCount, float price,
+	public Reservation(Long reservationId, Long apartmentId, LocalDate startDate, int nightCount, float price,
 			String message, String guestUsername, Status status) {
 		super();
 		this.reservationId = reservationId;
-		this.apartment = apartment;
+		this.apartmentId = apartmentId;
 		this.startDate = startDate;
 		this.nightCount = nightCount;
 		this.price = price;
@@ -36,12 +36,12 @@ public class Reservation {
 		this.reservationId = reservationId;
 	}
 
-	public Apartment getApartment() {
-		return apartment;
+	public Long getapartmentId() {
+		return apartmentId;
 	}
 
-	public void setApartment(Apartment apartment) {
-		this.apartment = apartment;
+	public void setapartmentId(Long apartmentId) {
+		this.apartmentId = apartmentId;
 	}
 
 	public LocalDate getStartDate() {

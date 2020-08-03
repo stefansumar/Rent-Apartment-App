@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Apartment {
 
+	private Long id;
 	private String type;
 	private int roomCount;
 	private int guestCount;
@@ -13,24 +14,24 @@ public class Apartment {
 	private ArrayList<LocalDate> datesForRent = new ArrayList<LocalDate>();
     private ArrayList<LocalDate> datesAvailable = new ArrayList<LocalDate>();
     private String hostUsername;
-    private ArrayList<Long> comments = new ArrayList<Long>();
+    private ArrayList<Comment> comments = new ArrayList<Comment>();
+    private String image;
     private ArrayList<String> images = new ArrayList<String>();
     private String pricePerNight;
     private LocalTime timeForCheckIn = LocalTime.of(14, 0, 0, 0);
     private LocalTime timeForCheckOut = LocalTime.of(10, 0, 0, 0);
     private boolean status = true;
-    private ArrayList<Long> amenities = new ArrayList<Long>();
-    private ArrayList<Long> reservations = new ArrayList<Long>();
+    private ArrayList<Amenity> amenities = new ArrayList<Amenity>();
+    private ArrayList<Reservation> reservations = new ArrayList<Reservation>();
     
     public Apartment() {}
-    
-	
 
-	public Apartment(String type, int roomCount, int guestCount, Location location, ArrayList<LocalDate> datesForRent,
-			ArrayList<LocalDate> datesAvailable, String hostUsername, ArrayList<Long> comments,
+	public Apartment(Long id, String type, int roomCount, int guestCount, Location location, ArrayList<LocalDate> datesForRent,
+			ArrayList<LocalDate> datesAvailable, String hostUsername, ArrayList<Comment> comments, String image,
 			ArrayList<String> images, String pricePerNight, LocalTime timeForCheckIn, LocalTime timeForCheckOut,
-			boolean status, ArrayList<Long> amenities, ArrayList<Long> reservations) {
+			boolean status, ArrayList<Amenity> amenities, ArrayList<Reservation> reservations) {
 		super();
+		this.id = id;
 		this.type = type;
 		this.roomCount = roomCount;
 		this.guestCount = guestCount;
@@ -39,6 +40,7 @@ public class Apartment {
 		this.datesAvailable = datesAvailable;
 		this.hostUsername = hostUsername;
 		this.comments = comments;
+		this.image = image;
 		this.images = images;
 		this.pricePerNight = pricePerNight;
 		this.timeForCheckIn = timeForCheckIn;
@@ -46,6 +48,16 @@ public class Apartment {
 		this.status = status;
 		this.amenities = amenities;
 		this.reservations = reservations;
+	}
+	
+	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getType() {
@@ -104,12 +116,20 @@ public class Apartment {
 		this.hostUsername = hostUsername;
 	}
 
-	public ArrayList<Long> getComments() {
+	public ArrayList<Comment> getComments() {
 		return comments;
 	}
 
-	public void setComments(ArrayList<Long> comments) {
+	public void setComments(ArrayList<Comment> comments) {
 		this.comments = comments;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public ArrayList<String> getImages() {
@@ -152,21 +172,23 @@ public class Apartment {
 		this.status = status;
 	}
 
-	public ArrayList<Long> getAmenities() {
+	public ArrayList<Amenity> getAmenities() {
 		return amenities;
 	}
 
-	public void setAmenities(ArrayList<Long> amenities) {
+	public void setAmenities(ArrayList<Amenity> amenities) {
 		this.amenities = amenities;
 	}
 
-	public ArrayList<Long> getReservations() {
+	public ArrayList<Reservation> getReservations() {
 		return reservations;
 	}
 
-	public void setReservations(ArrayList<Long> reservations) {
+	public void setReservations(ArrayList<Reservation> reservations) {
 		this.reservations = reservations;
 	}
+    
+	
 	
     
 }

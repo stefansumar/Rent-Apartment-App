@@ -3,18 +3,18 @@ package beans;
 public class Comment {
 	
 	private String commenter;
-	private Guest guest;
-	private Apartment apartment;
+	private String guestUsername;
+	private Long apartmentId;
 	private String comment;
 	private int rate;
 	
 	public Comment () {}
 
-	public Comment(String commenter, Guest guest, Apartment apartment, String comment, int rate) {
+	public Comment(String commenter, String guestUsername, Long apartmentId, String comment, int rate) {
 		super();
 		this.commenter = commenter;
-		this.guest = guest;
-		this.apartment = apartment;
+		this.guestUsername = guestUsername;
+		this.apartmentId = apartmentId;
 		this.comment = comment;
 		this.rate = rate;
 	}
@@ -27,20 +27,20 @@ public class Comment {
 		this.commenter = commenter;
 	}
 
-	public Guest getGuest() {
-		return guest;
+	public String getGuestUsername() {
+		return guestUsername;
 	}
 
-	public void setGuest(Guest guest) {
-		this.guest = guest;
+	public void setGuestUsername(String guestUsername) {
+		this.guestUsername = guestUsername;
 	}
 
-	public Apartment getApartment() {
-		return apartment;
+	public Long getapartmentId() {
+		return apartmentId;
 	}
 
-	public void setApartment(Apartment apartment) {
-		this.apartment = apartment;
+	public void setApartmentId(Long apartmentId) {
+		this.apartmentId = apartmentId;
 	}
 
 	public String getComment() {
