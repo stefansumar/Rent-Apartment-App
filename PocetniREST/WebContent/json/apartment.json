@@ -17,7 +17,15 @@
 	"hostUsername" : "stefan.sumar",
 	"image" : "images/apartment1.jpg",
 	"pricePerNight" : "15",
-	"status" : "false"
+	"status" : "true",
+	"amenities" : [{
+		"id" : "1",
+		"name" : "WiFi"
+	},
+	{
+		"id" : "2",
+		"name" : "TV"
+	}]
 },
 
 {
@@ -39,7 +47,15 @@
 	"hostUsername" : "stefan.sumar",
 	"image" : "images/apartment2.jpg",
 	"pricePerNight" : "12",
-	"status" : "true"
+	"status" : "true",
+		"amenities" : [{
+		"id" : "3",
+		"name" : "Air Conditioning"
+	},
+	{
+		"id" : "4",
+		"name" : "Free parking"
+	}]
 },
 
 {

@@ -67,6 +67,7 @@ function createCard(apartment){
 	const moreButton = document.createElement('button');
 	moreButton.className = 'btn btn-info forButton';
 	moreButton.innerHTML = 'More';
+	moreButton.onclick = function() { callMoreModal(apartment); };
 	placeRow.appendChild(place);
 	placeRow.appendChild(placeText);
 	placeRow.appendChild(moreButton);
@@ -128,3 +129,37 @@ $(document).ready(function() {
 
 
 });
+
+function callMoreModal(apartment){
+	$('#apartmentImage .col-md-5').html('<img class="imageSize" src="'+ apartment.image  + '">');
+	$('#apartmentName').text(apartment.name);
+	$('#pricePerNight').text(apartment.pricePerNight + "$");
+	$('#type').html("<b>   Type:   </b> " + apartment.type);
+	$('#street').html("<b>   Street:   </b> " + apartment.location.address.street);
+	$('#place').html("<b>   Place:   </b> " + apartment.location.address.place);
+	$('#roomGuests').html("<b>   No.Rooms:   </b> " + apartment.roomCount + "<b>   No.Guests:   </b> " + apartment.guestCount);
+	$('#advertiser').html("<b>   Advertiser:   </b> " + apartment.hostUsername);
+	if(apartment.description){
+	$('#description').html("<b>   Description:   </b> " + apartment.description);
+	} else {
+		$('#description').html("<b>   Description:   </b> There is no description for this apartment. ");
+	}
+	
+	$('#amenities').html(" ");
+	$('#amenities').html("<b>   Amenities:   </b> ");
+	if(apartment.amenities.length !== 0){
+		for(let amenity of apartment.amenities){
+			const correctImg = document.createElement('img');
+			correctImg.className = 'correctImageSize';
+			correctImg.src = 'images/correct.png';
+			$('#amenities').append(correctImg);
+			$('#amenities').append(" " + amenity.name + " ");
+		}
+	} else {
+		$('#amenities').html(" ");
+		$('#amenities').html("<b>   Amenities:   </b> There are no avaible amenities in this apartment.");
+	}
+	
+	$('#moreModal').modal('show');
+
+}

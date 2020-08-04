@@ -23,7 +23,7 @@ public class Apartment {
     private LocalTime timeForCheckIn = LocalTime.of(14, 0, 0, 0);
     private LocalTime timeForCheckOut = LocalTime.of(10, 0, 0, 0);
     private boolean status = true;
-    private ArrayList<Long> amenities = new ArrayList<Long>();
+    private ArrayList<Amenity> amenities = new ArrayList<Amenity>();
     private ArrayList<Reservation> reservations = new ArrayList<Reservation>();
     
     public Apartment() {}
@@ -32,7 +32,7 @@ public class Apartment {
 			Location location, ArrayList<LocalDate> datesForRent, ArrayList<LocalDate> datesAvailable,
 			String hostUsername, ArrayList<Comment> comments, String image, ArrayList<String> images,
 			String pricePerNight, LocalTime timeForCheckIn, LocalTime timeForCheckOut, boolean status,
-			ArrayList<Long> amenities, ArrayList<Reservation> reservations) {
+			ArrayList<Amenity> amenities, ArrayList<Reservation> reservations) {
 		super();
 		this.id = id;
 		this.type = type;
@@ -194,11 +194,11 @@ public class Apartment {
 		this.status = status;
 	}
 
-	public ArrayList<Long> getAmenities() {
+	public ArrayList<Amenity> getAmenities() {
 		return amenities;
 	}
 
-	public void setAmenities(ArrayList<Long> amenities) {
+	public void setAmenities(ArrayList<Amenity> amenities) {
 		this.amenities = amenities;
 	}
 

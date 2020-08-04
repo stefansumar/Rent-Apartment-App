@@ -6,6 +6,7 @@ function editProfile(){
 		contnentType: 'application/json',
         success: function (user) {
         	currentUser = user;
+        	$('#cardDiv').hide();
         	$('#searchTextField').hide();
         	$('#searchButton').hide();
         	$('#profile').hide();
