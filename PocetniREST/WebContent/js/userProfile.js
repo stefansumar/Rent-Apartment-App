@@ -5,6 +5,7 @@ function myProfile(){
 		contnentType: 'application/json',
         success: function (user) {
         	console.log(user);
+        	$('#cardDiv').hide();
         	$('#searchTextField').hide();
         	$('#searchButton').hide();
         	$('#editProfile').hide();
