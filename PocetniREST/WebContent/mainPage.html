@@ -21,6 +21,7 @@
 	<script src="js/userProfile.js"></script>
 	<script src="js/editUserInfo.js"></script>
 	<script src="js/changePassword.js"></script>
+	<script src="js/amenities.js"></script>
 	
 	
 		
@@ -59,7 +60,7 @@
      </li>
      
      <li class="nav-item">
-        <a class="nav-link" href="#" id="amenitiesId"> Amenities </a>
+        <a class="nav-link" href="#" id="amenitiesId" onclick="amenities()"> Amenities </a>
      </li>
  	
     </ul>
@@ -75,17 +76,38 @@
 
 </div>
 
-<div id="myProfile" class="wrapper fadeInDown">
+<!-- Amenity Table -->
+<div class="container mt-3" id="amenityTable">
+	<div class="forTable">
+		<h2 class="forH2 mt-3"> Amenities </h2>
+		<table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col">#</th>
+		      <th scope="col">Name</th>
+		      <th scope="col">Edit</th>
+		      <th scope="col">Delete</th>
+		    </tr>
+		  </thead>
+		  <tbody id="amenityTableBody">
+
+		  </tbody>
+		</table>
+	</div>
+</div>
+
+<div id="myProfile" class="wrapper">
   <div id="formContent">
 
     <!-- Icon -->
-    <div id="profile" class="fadeIn first">
+    <div id="profile" class="">
     </div>
+ 
     
-    <div id="editProfile" class="fadeIn first">
+    <div id="editProfile" class="">
 	
 	    <!-- Icon -->
-	    <div class="fadeIn first">
+	    <div class="">
 	      <img src="images/edit.png" class="avatar"></img>
 	      <h2>Edit profile</h2>
 	    </div>
@@ -111,9 +133,9 @@
 	
 	</div>
 	
-	<div id="changePassword" class="fadeIn first">
+	<div id="changePassword" class="">
 	    <!-- Icon -->
-	    <div class="fadeIn first">
+	    <div>
 	      <img src="images/lock.png" class="avatar"></img>
 	      <h2>Change password</h2>
 	    </div>

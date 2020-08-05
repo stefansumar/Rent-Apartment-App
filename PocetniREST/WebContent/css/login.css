@@ -22,6 +22,14 @@ h2 {
   color: #cccccc;
 }
 
+.forH2 {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: black;
+}
+
 .designText {
   text-align: center;
   font-size: 18px;
@@ -88,6 +96,32 @@ h2 {
 	font-weight : 400;
 	line-height :1.5;
 	color : #212529;
+}
+
+.forTable {
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  background: #fff;
+  padding: 30px;
+  width: 100%;
+  position: relative;
+  padding: 0px;
+  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+.editDeleteButtons{
+	background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+	height : 38px;
+	width : 38px;
+}
+
+.rowHeight {
+	height : 44px;
 }
 
 /* STRUCTURE */

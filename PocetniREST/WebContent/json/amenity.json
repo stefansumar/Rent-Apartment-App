@@ -1,0 +1,19 @@
+[{
+	"id" : "1",
+	"name" : "WiFi"
+},
+
+{
+	"id" : "2",
+	"name" : "TV"
+},
+
+{
+	"id" : "3",
+	"name" : "Air Conditioning"
+},
+
+{
+	"id" : "4",
+	"name" : "Free Parking"
+}]
