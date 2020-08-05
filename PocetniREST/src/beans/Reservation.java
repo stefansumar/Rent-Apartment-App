@@ -13,7 +13,9 @@ public class Reservation {
 	private String guestUsername;
 	private Status status;
 	
-	public Reservation () {}
+	public Reservation () {
+		super();
+	}
 
 	public Reservation(Long reservationId, Long apartmentId, LocalDate startDate, int nightCount, float price,
 			String message, String guestUsername, Status status) {

@@ -3,15 +3,16 @@ package dao;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import beans.Amenity;
-import beans.Apartment;
-
 
 public class AmenityDAO {
 	public HashMap<Long, Amenity> amenities;
@@ -76,6 +77,22 @@ public class AmenityDAO {
 		}
 		
 		return null;
+	}
+	
+	public void saveAmenities(){		
+		ObjectMapper objectMapper = new ObjectMapper();
+		
+		File file = new File(this.contextPath + "/json/amenity.json");
+		
+		try {
+			objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, amenities.values());
+		} catch (JsonGenerationException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

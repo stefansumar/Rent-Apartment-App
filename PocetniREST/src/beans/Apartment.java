@@ -1,7 +1,6 @@
 package beans;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Apartment {
@@ -20,8 +19,8 @@ public class Apartment {
     private String image;
     private ArrayList<String> images = new ArrayList<String>();
     private String pricePerNight;
-    private LocalTime timeForCheckIn = LocalTime.of(14, 0, 0, 0);
-    private LocalTime timeForCheckOut = LocalTime.of(10, 0, 0, 0);
+    private String timeForCheckIn = "14:00";
+    private String timeForCheckOut = "10:00";
     private boolean status = true;
     private ArrayList<Amenity> amenities = new ArrayList<Amenity>();
     private ArrayList<Reservation> reservations = new ArrayList<Reservation>();
@@ -31,7 +30,7 @@ public class Apartment {
 	public Apartment(Long id, String type, String name, String description, int roomCount, int guestCount,
 			Location location, ArrayList<LocalDate> datesForRent, ArrayList<LocalDate> datesAvailable,
 			String hostUsername, ArrayList<Comment> comments, String image, ArrayList<String> images,
-			String pricePerNight, LocalTime timeForCheckIn, LocalTime timeForCheckOut, boolean status,
+			String pricePerNight, String timeForCheckIn, String timeForCheckOut, boolean status,
 			ArrayList<Amenity> amenities, ArrayList<Reservation> reservations) {
 		super();
 		this.id = id;
@@ -170,19 +169,19 @@ public class Apartment {
 		this.pricePerNight = pricePerNight;
 	}
 
-	public LocalTime getTimeForCheckIn() {
+	public String getTimeForCheckIn() {
 		return timeForCheckIn;
 	}
 
-	public void setTimeForCheckIn(LocalTime timeForCheckIn) {
+	public void setTimeForCheckIn(String timeForCheckIn) {
 		this.timeForCheckIn = timeForCheckIn;
 	}
 
-	public LocalTime getTimeForCheckOut() {
+	public String getTimeForCheckOut() {
 		return timeForCheckOut;
 	}
 
-	public void setTimeForCheckOut(LocalTime timeForCheckOut) {
+	public void setTimeForCheckOut(String timeForCheckOut) {
 		this.timeForCheckOut = timeForCheckOut;
 	}
 

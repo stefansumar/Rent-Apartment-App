@@ -8,7 +8,9 @@ public class Comment {
 	private String comment;
 	private int rate;
 	
-	public Comment () {}
+	public Comment () {
+		super();
+	}
 
 	public Comment(String commenter, String guestUsername, Long apartmentId, String comment, int rate) {
 		super();

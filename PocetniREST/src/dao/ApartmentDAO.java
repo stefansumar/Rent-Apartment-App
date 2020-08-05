@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -74,25 +75,32 @@ public class ApartmentDAO {
 			e.printStackTrace();
 		}
 		
+		System.out.println(apartmentList.size());
 		for(Apartment ap : apartmentList){
+			
 			apartments.put(ap.getId(), ap);
 		}
 	}
 	
-	public void saveApartments(){
+	public void saveApartments(HashMap<Long, Apartment> apartments){
 		System.out.println("Usao u save apartments");
-		
-		ObjectMapper objectMapper = new ObjectMapper();
-		
-		File file = new File(this.contextPath + "/json/apartment.json");
-		
 		try {
-			objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, apartments.values());
-		} catch (JsonGenerationException e) {
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+			ObjectMapper objectMapper = new ObjectMapper();
+			objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+			objectMapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
+			objectMapper.configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
+			
+			File file = new File(this.contextPath + "/json/apartment.json");
+			
+			ArrayList<Apartment> apts = new ArrayList<>();
+			
+			for(Apartment apartment : apartments.values()) {
+				apts.add(apartment);
+			}
+			
+			objectMapper.writeValue(new File(contextPath + "/json/apartment.json"), apts);
+		
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

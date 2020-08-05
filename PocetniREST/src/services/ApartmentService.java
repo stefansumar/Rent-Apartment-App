@@ -49,10 +49,10 @@ public class ApartmentService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public ArrayList<Apartment> getAllActiveApartments(){
-		
+		System.out.println("Usao");
 		ArrayList<Apartment> all = new ArrayList<Apartment>();
 		ApartmentDAO apartmentDAO = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
-		
+		System.out.println(apartmentDAO.getApartments().size());
 		for(Apartment apartment : apartmentDAO.getApartments().values()) {
 			if(apartment.isStatus()) {
 				all.add(apartment);
