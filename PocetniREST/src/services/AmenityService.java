@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -65,8 +66,7 @@ public class AmenityService {
 	@Path("/{id}/{name}/{username}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response editAmenity(@PathParam(value = "id") Long id, @PathParam(value = "name") String name, @PathParam(value = "username") String username, @Context HttpServletRequest request) {
-		System.out.println(id + " " + name);
+	public Response editAmenity(@PathParam(value = "id") Long id, @PathParam(value = "name") String name, @PathParam(value = "username") String username) {
 		UserDAO userDAO = (UserDAO) ctx.getAttribute("userDAO");
 		User user = userDAO.findUserByUsername(username);
 		
@@ -95,6 +95,55 @@ public class AmenityService {
 			}
 			
 			a.setName(name);
+			amenities.put(id, a);
+			amenityDAO.saveAmenities();
+			apartmentDAO.saveApartments(apartments);
+			
+			ctx.setAttribute("apartmentDAO", apartmentDAO);
+			ctx.setAttribute("amenityDAO", amenityDAO);
+			return Response.status(200).build();
+			
+		} catch (Exception e) {
+			return Response.status(400).build();
+		}
+		
+		
+	}
+	
+	@DELETE
+	@Path("/{id}/{username}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteAmenity(@PathParam(value = "id") Long id, @PathParam(value = "username") String username) {
+
+		UserDAO userDAO = (UserDAO) ctx.getAttribute("userDAO");
+		User user = userDAO.findUserByUsername(username);
+		
+		if(!user.getRole().equals("ADMIN")) {
+			return Response.status(403).build();
+		}
+		
+		ApartmentDAO apartmentDAO = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		AmenityDAO amenityDAO = (AmenityDAO) ctx.getAttribute("amenityDAO");
+		
+		Amenity a = amenityDAO.find(id);
+		if(a == null) {
+			return Response.status(400).build();
+		}
+		
+		HashMap<Long, Apartment> apartments = apartmentDAO.getApartments();
+		HashMap<Long, Amenity> amenities = amenityDAO.getAmenities();
+		
+		try {
+			for(Apartment apartment : apartments.values()) {
+				for(Amenity amenity : apartment.getAmenities()) {
+					if(amenity.getId().equals(id)) {
+						amenity.setDeleted(true);
+					}
+				}
+			}
+			
+			a.setDeleted(true);
 			amenities.put(id, a);
 			amenityDAO.saveAmenities();
 			apartmentDAO.saveApartments(apartments);

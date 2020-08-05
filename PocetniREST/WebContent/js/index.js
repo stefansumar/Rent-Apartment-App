@@ -149,11 +149,13 @@ function callMoreModal(apartment){
 	$('#amenities').html("<b>   Amenities:   </b> ");
 	if(apartment.amenities.length !== 0){
 		for(let amenity of apartment.amenities){
-			const correctImg = document.createElement('img');
-			correctImg.className = 'correctImageSize';
-			correctImg.src = 'images/correct.png';
-			$('#amenities').append(correctImg);
-			$('#amenities').append(" " + amenity.name + " ");
+			if(!amenity.deleted){
+				const correctImg = document.createElement('img');
+				correctImg.className = 'correctImageSize';
+				correctImg.src = 'images/correct.png';
+				$('#amenities').append(correctImg);
+				$('#amenities').append(" " + amenity.name + " ");
+			}
 		}
 	} else {
 		$('#amenities').html(" ");

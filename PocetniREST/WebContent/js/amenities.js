@@ -51,7 +51,7 @@ function amenities(){
         				const tdDelete = document.createElement('td');
         				tdDelete.className = 'rowHeight';
         				const deleteButton = document.createElement('a');
-        				deleteButton.onclick = function () { deleteAmenity(amenity); };
+        				deleteButton.onclick = function () { amenityTemp = amenity; deleteAmenity(amenity); };
         				const deleteIcon = document.createElement('img');
         				deleteIcon.src = 'images/delete.png';
         				deleteIcon.className = 'editDeleteButtons';
@@ -79,7 +79,7 @@ function editAmenity(amenity){
 }
 
 function deleteAmenity(amenity){
-	console.log(amenity);
+	let id = amenity.id;
 	$('#confirmDeleteAmenityModal').modal('show');
 }
 
@@ -119,5 +119,18 @@ function saveChanges(){
         }
 	});
 	
-	
+}
+
+function confirmDelete(){
+	let id = amenityTemp.id;
+	$.ajax({
+		url: 'rest/amenity/' + id + '/' + username,
+		contnentType: 'application/json',
+		type: 'DELETE',
+        success: function () {
+        	$('#confirmDeleteAmenityModal').modal('hide');
+        	amenities();
+        	
+        }
+	});
 }
