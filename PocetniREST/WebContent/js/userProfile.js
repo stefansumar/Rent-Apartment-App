@@ -10,6 +10,7 @@ function myProfile(){
         	$('#searchButton').hide();
         	$('#editProfile').hide();
         	$('#changePassword').hide();
+        	$('#amenityTable').hide();
         	$('#profile').html("");
         	$('#profile').show();
         	$('#profile').append("<img src=\"images/avatar.png\" class=\"avatar\"></img>");

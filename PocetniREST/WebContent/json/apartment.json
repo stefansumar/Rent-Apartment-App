@@ -20,11 +20,13 @@
 	"status" : "true",
 	"amenities" : [{
 		"id" : "1",
-		"name" : "WiFi"
+		"name" : "WiFi",
+		"deleted" : "false"
 	},
 	{
 		"id" : "2",
-		"name" : "TV"
+		"name" : "TV",
+		"deleted" : "false"
 	}]
 },
 
@@ -50,11 +52,13 @@
 	"status" : "true",
 		"amenities" : [{
 		"id" : "3",
-		"name" : "Air Conditioning"
+		"name" : "Air Conditioning",
+		"deleted" : "false"
 	},
 	{
 		"id" : "4",
-		"name" : "Free parking"
+		"name" : "Free parking",
+		"deleted" : "false"
 	}]
 },
 

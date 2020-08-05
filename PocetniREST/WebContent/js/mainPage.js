@@ -4,6 +4,7 @@ $(document).ready(function() {
 	$('#profile').hide();
 	$('#editProfile').hide();
 	$('#changePassword').hide();
+	$('#amenityTable').hide();
 	cardDiv = document.getElementById('cardDiv');
 	
     $.get({

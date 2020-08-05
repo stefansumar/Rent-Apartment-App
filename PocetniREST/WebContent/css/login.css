@@ -22,6 +22,22 @@ h2 {
   color: #cccccc;
 }
 
+.labelWidth{
+	width : 100%;
+}
+
+#amenityNameEdit{
+	width : 456px;
+}
+
+.forH2 {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: black;
+}
+
 .designText {
   text-align: center;
   font-size: 18px;
@@ -88,6 +104,32 @@ h2 {
 	font-weight : 400;
 	line-height :1.5;
 	color : #212529;
+}
+
+.forTable {
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  background: #fff;
+  padding: 30px;
+  width: 100%;
+  position: relative;
+  padding: 0px;
+  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+.editDeleteButtons{
+	background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+	height : 38px;
+	width : 38px;
+}
+
+.rowHeight {
+	height : 44px;
 }
 
 /* STRUCTURE */
@@ -177,7 +219,7 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
 }
 
 input[type=text] {
-  background-color: #f6f6f6;
+  background-color: #fff;
   border: none;
   color: #0d0d0d;
   padding: 15px 32px;
@@ -186,8 +228,8 @@ input[type=text] {
   display: inline-block;
   font-size: 16px;
   margin: 5px;
-  width: 85%;
-  border: 2px solid #f6f6f6;
+  width: 90%;
+  border: 2px solid #d4d3d2;
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -ms-transition: all 0.5s ease-in-out;
@@ -207,7 +249,7 @@ input[type=text]:placeholder {
 }
 
 input[type=password] {
-  background-color: #f6f6f6;
+  background-color: #fff;
   border: none;
   color: #0d0d0d;
   padding: 15px 32px;
@@ -216,8 +258,8 @@ input[type=password] {
   display: inline-block;
   font-size: 16px;
   margin: 5px;
-  width: 85%;
-  border: 2px solid #f6f6f6;
+  width: 90%;
+  border: 2px solid #d4d3d2;
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -ms-transition: all 0.5s ease-in-out;
