@@ -83,6 +83,11 @@ function deleteAmenity(amenity){
 	$('#confirmDeleteAmenityModal').modal('show');
 }
 
+function addNewAmenityModal(){
+	document.getElementById('newAmenityName').value = "";
+	$('#addNewAmenityModal').modal('show');
+}
+
 function saveChanges(){
 	let id = amenityTemp.id;
 	let name = $('#amenityNameEdit').val();
@@ -133,4 +138,42 @@ function confirmDelete(){
         	
         }
 	});
+}
+
+function addNewAmenity(){
+	let name = $('#newAmenityName').val();
+	console.log(name);
+	
+	if(!name){
+		$('#emptyNewAmenityName').text('Amenity name is required!');
+		$('#emptyNewAmenityName').css({"color": "red", "font-size": "12px"});
+		$('#emptyNewAmenityName').show().delay(3000).fadeOut();
+		return;
+	}
+	
+	if(name.length < 3){
+		$('#ltNewAmenityName').text('Amenity name must contain min. 3 characters.');
+		$('#ltNewAmenityName').css({"color": "red", "font-size": "12px"});
+		$('#ltNewAmenityName').show().delay(3000).fadeOut();
+		return;
+	}
+	
+	if(name.length > 20){
+		$('#gtNewAmenityName').text('Amenity name must contain max. 20 characters.');
+		$('#gtNewAmenityName').css({"color": "red", "font-size": "12px"});
+		$('#gtNewAmenityName').show().delay(3000).fadeOut();
+		return;
+	}
+	
+	$.post({
+        url: 'rest/amenity/' + username + '/' + name,
+		contnentType: 'application/json',
+        success: function () {
+        	$('#addNewAmenityModal').modal('hide');
+        	amenities();
+        	alert('New Amenity is successfully added.');
+        }
+	});
+	
+	
 }
