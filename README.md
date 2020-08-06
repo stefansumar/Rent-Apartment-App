@@ -1,14 +1,14 @@
-# Rent-Apartment-App
+# Rent An Apartment
 
 Predmetni projekat iz Web programiranja
 
-Autori:
+## Autori:
 
 Stefan Šumar RA122/2016
 
 Stanislava Škorić RA135/2016
 
-Tehnologije korišćene prilikom izrade projekta: 
+## Tehnologije korišćene prilikom izrade projekta: 
 
 Backend: Java 1.8
 
