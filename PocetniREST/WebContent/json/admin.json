@@ -3,7 +3,7 @@
 	"password" : "admin",
 	"firstName" : "Stefan",
 	"lastName" : "Sumar",
-	"gender" : "MALE",
+	"gender" : "Male",
 	"role" : "ADMIN"
 	
 }, {
@@ -12,7 +12,7 @@
 	"password" : "admin",
 	"firstName" : "Stasa",
 	"lastName" : "Skoric",
-	"gender" : "FEMALE",
+	"gender" : "Female",
 	"role" : "ADMIN"
 	
 }]

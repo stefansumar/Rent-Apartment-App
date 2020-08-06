@@ -9,12 +9,11 @@ $(document).ready(function() {
 		let username=$('#username').val();
 		let password=$('#password').val();
 		let repeatPassword=$('#repeatPassword').val();
-		let gender = 'MALE';
+		let gender = $('#selectGender').val();
 		let role = 'GUEST';
-		// Treba dodati dropdown za pol u formi
 		
 		// Validacija polja
-		if(!firstName && !lastName && !username && !password && !repeatPassword){
+		if(!firstName && !lastName && !username && !password && !repeatPassword && !gender){
 			$('#error').text('All fields are required!');
 			$('#error').css({"color": "red", "font-size": "12px"});
 			$('#error').show().delay(3000).fadeOut();
@@ -88,6 +87,13 @@ $(document).ready(function() {
 			$('#matchPassword').text('Passwords does not match!');
 			$('#matchPassword').css({"color": "red", "font-size": "12px"});
 			$('#matchPassword').show().delay(3000).fadeOut();
+			return;
+		}
+		
+		if(!gender){
+			$('#selectGenderEmpty').text('Please select your gender!');
+			$('#selectGenderEmpty').css({"color": "red", "font-size": "12px"});
+			$('#selectGenderEmpty').show().delay(3000).fadeOut();
 			return;
 		}
 		

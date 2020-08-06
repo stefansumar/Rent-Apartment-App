@@ -17,10 +17,12 @@ function editProfile(){
         	let firstName = user.firstName;
         	let lastName = user.lastName;
         	let username = user.username;
+        	let gender = user.gender;
         	
         	document.getElementById('firstNameEdit').value = firstName;
         	document.getElementById('lastNameEdit').value = lastName;
         	document.getElementById('usernameEdit').value = username;
+        	document.getElementById('selectGenderEdit').value = gender;
         }
     });
 }
@@ -32,6 +34,7 @@ $(document).ready(function() {
 		let firstName = $('#firstNameEdit').val();
 		let lastName = $('#lastNameEdit').val();
 		let username = $('#usernameEdit').val();
+		let gender = $('#selectGenderEdit').val();
 		
 		if(!firstName && !lastName){
 			$('#errorMessage').text('All fields are required!');
@@ -69,7 +72,7 @@ $(document).ready(function() {
 		}
 
 		$.ajax({
-	        url: 'rest/user/' + username + '/' + firstName + '/' + lastName,
+	        url: 'rest/user/' + username + '/' + firstName + '/' + lastName + '/' + gender,
 			contnentType: 'application/json',
 			type: 'PUT',
 	        success: function () {

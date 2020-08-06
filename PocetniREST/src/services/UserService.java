@@ -97,10 +97,10 @@ public class UserService {
 	}
 	
 	@PUT
-	@Path("/{username}/{firstName}/{lastName}")
+	@Path("/{username}/{firstName}/{lastName}/{gender}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response editUser(@PathParam(value = "username") String username, @PathParam(value = "firstName") String firstName, @PathParam(value = "lastName") String lastName) {
+	public Response editUser(@PathParam(value = "username") String username, @PathParam(value = "firstName") String firstName, @PathParam(value = "lastName") String lastName, @PathParam(value = "gender") String gender) {
 		UserDAO userDAO = (UserDAO) ctx.getAttribute("userDAO");
 		User userForChange = userDAO.findUserByUsername(username);
 	
@@ -109,6 +109,7 @@ public class UserService {
 			users.remove(username);
 			userForChange.setFirstName(firstName);
 			userForChange.setLastName(lastName);
+			userForChange.setGender(gender);
 			users.put(username, userForChange);
 			userDAO.setUsers(users);
 			ctx.setAttribute("userDAO", userDAO);
