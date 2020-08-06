@@ -3,21 +3,21 @@
 	"password" : "guest",
 	"firstName" : "Jelena",
 	"lastName" : "Garic",
-	"gender" : "FEMALE",
+	"gender" : "Female",
 	"role" : "GUEST"
 }, {
 	"username" : "milosp",
 	"password" : "guest",
 	"firstName" : "Milos",
 	"lastName" : "Poletanovic",
-	"gender" : "MALE",
+	"gender" : "Male",
 	"role" : "GUEST"
 }, {
 	"username" : "igorm",
 	"password" : "guest",
 	"firstName" : "Igor",
 	"lastName" : "Malesevic",
-	"gender" : "MALE",
+	"gender" : "Male",
 	"role" : "GUEST"
 }
 

@@ -2,6 +2,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -158,5 +160,37 @@ public class AmenityService {
 		
 		
 	}
+	
+	@POST
+	@Path("/{username}/{name}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addNewAmenity(@PathParam(value = "username") String username, @PathParam(value = "name") String name) {
+		
+		UserDAO userDAO = (UserDAO) ctx.getAttribute("userDAO");
+		User user = userDAO.findUserByUsername(username);
+		
+		if(!user.getRole().equals("ADMIN")) {
+			return Response.status(403).build();
+		}
+		
+		AmenityDAO amenityDAO = (AmenityDAO) ctx.getAttribute("amenityDAO");
+		HashMap<Long, Amenity> amenities = amenityDAO.getAmenities();
+		
+		Long id = 0L;
+		
+		while (amenities.containsKey(id)) {	
+			id = ThreadLocalRandom.current().nextLong(0, 65000);
+		}
+		
+		Amenity amenity = new Amenity(id, name, false);
+		amenities.put(id, amenity);
+		amenityDAO.setAmenities(amenities);
+		amenityDAO.saveAmenities();
+		ctx.setAttribute("amenityDAO", amenityDAO);
+		
+		return Response.status(200).build();
+	}
+	
 
 }
