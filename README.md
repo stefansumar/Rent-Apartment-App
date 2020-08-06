@@ -4,9 +4,9 @@ Predmetni projekat iz Web programiranja
 
 ## Autori:
 
-Stefan Šumar RA122/2016
+* [Stefan Šumar RA122/2016](https://github.com/stefansumar)
 
-Stanislava Škorić RA135/2016
+* [Stanislava Škorić RA135/2016](https://github.com/stanislavaskoric)
 
 ## Tehnologije korišćene prilikom izrade projekta: 
 
