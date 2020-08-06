@@ -15,3 +15,5 @@ Backend: Java 1.8
 Frontend: JavaScript + jQuery
 
 Čuvanje podataka u tekstualnim datotekama - JSON format
+
+Apache Tomcat 8.0
