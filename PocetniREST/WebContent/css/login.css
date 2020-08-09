@@ -38,6 +38,13 @@ h2 {
   color: black;
 }
 
+.bottomLabelCss {
+	display: block;
+    text-align: center;
+    line-height: 150%;
+    font-size: .85em;
+} 
+
 .designText {
   text-align: center;
   font-size: 18px;
