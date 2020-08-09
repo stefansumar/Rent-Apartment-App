@@ -1,54 +1,7 @@
 let cardDiv;
 
 $(document).ready(function() {
-	$('#profile').hide();
-	$('#editProfile').hide();
-	$('#changePassword').hide();
-	$('#amenityTable').hide();
-	cardDiv = document.getElementById('cardDiv');
-	
-    $.get({
-        url: 'rest/user/getCurrentUser',
-		contnentType: 'application/json',
-        success: function (user) {
-        	console.log(user);
-        	
-        	if(user.role === "ADMIN"){
-	    		$.get({
-	    			url: 'rest/apartment/all',
-	    			contentType: 'application/json',
-	    			success: function(all) {
-	    				allApartments = all;
-	    				console.log(all);
-	    				
-	    				for(let apartment of all){
-	    					createCard(apartment);
-	
-	    				}
-	    				
-	    			}
-	    		});
-	        } else if (user.role === "GUEST"){
-	    		$.get({
-	    			url: 'rest/apartment/allActive',
-	    			contentType: 'application/json',
-	    			success: function(all) {
-	    				allApartments = all;
-	    				console.log(all);
-	    				
-	    				for(let apartment of all){
-	    					createCard(apartment);
-	
-	    				}
-	    				
-	    			}
-	    		});
-	        }
-        }
-
-    });
-    	
-	
+	getAllApartments();
 });
 
 function signOut(){
@@ -121,6 +74,7 @@ function createCard(apartment){
 	const moreButton = document.createElement('button');
 	moreButton.className = 'btn btn-info forButton';
 	moreButton.innerHTML = 'More';
+	moreButton.onclick = function() { callMoreModal(apartment); };
 	placeRow.appendChild(place);
 	placeRow.appendChild(placeText);
 	placeRow.appendChild(moreButton);
@@ -160,5 +114,109 @@ function createCard(apartment){
 	
 	cardDiv.appendChild(card);
 	
+}
+
+function callMoreModal(apartment){
+	$('#apartmentImage .col-md-5').html('<img class="imageSize" src="'+ apartment.image  + '">');
+	$('#apartmentName').text(apartment.name);
+	$('#pricePerNight').text(apartment.pricePerNight + "$");
+	$('#type').html("<b>   Type:   </b> " + apartment.type);
+	$('#street').html("<b>   Street:   </b> " + apartment.location.address.street);
+	$('#place').html("<b>   Place:   </b> " + apartment.location.address.place);
+	$('#roomGuests').html("<b>   No.Rooms:   </b> " + apartment.roomCount + "<b>   No.Guests:   </b> " + apartment.guestCount);
+	$('#advertiser').html("<b>   Advertiser:   </b> " + apartment.hostUsername);
+	if(apartment.description){
+	$('#description').html("<b>   Description:   </b> " + apartment.description);
+	} else {
+		$('#description').html("<b>   Description:   </b> There is no description for this apartment. ");
+	}
+	
+	$('#amenities').html(" ");
+	$('#amenities').html("<b>   Amenities:   </b> ");
+	if(apartment.amenities.length !== 0){
+		for(let amenity of apartment.amenities){
+			if(!amenity.deleted){
+				const correctImg = document.createElement('img');
+				correctImg.className = 'correctImageSize';
+				correctImg.src = 'images/correct.png';
+				$('#amenities').append(correctImg);
+				$('#amenities').append(" " + amenity.name + " ");
+			}
+		}
+	} else {
+		$('#amenities').html(" ");
+		$('#amenities').html("<b>   Amenities:   </b> There are no avaible amenities in this apartment.");
+	}
+	
+	$('#moreModal').modal('show');
+
+}
+
+function getAllApartments(){
+	$('#profile').hide();
+	$('#editProfile').hide();
+	$('#changePassword').hide();
+	$('#amenityTable').hide();
+	cardDiv = document.getElementById('cardDiv');
+	$('#cardDiv').html('');
+	$('#cardDiv').show();
+	$('#searchTextField').show();
+	$('#searchButton').show();
+	
+    $.get({
+        url: 'rest/user/getCurrentUser',
+		contnentType: 'application/json',
+        success: function (user) {
+        	console.log(user);
+        	
+        	if(user.role === "ADMIN"){
+	    		$.get({
+	    			url: 'rest/apartment/all',
+	    			contentType: 'application/json',
+	    			success: function(all) {
+	    				allApartments = all;
+	    				console.log(all);
+	    				
+	    				for(let apartment of all){
+	    					createCard(apartment);
+	
+	    				}
+	    				
+	    			}
+	    		});
+	        } else if (user.role === "GUEST"){
+	    		$.get({
+	    			url: 'rest/apartment/allActive',
+	    			contentType: 'application/json',
+	    			success: function(all) {
+	    				allApartments = all;
+	    				console.log(all);
+	    				$('#amenitiesId').hide();
+	    				for(let apartment of all){
+	    					createCard(apartment);
+	
+	    				}
+	    				
+	    			}
+	    		});
+	        } else if (user.role === "HOST"){
+	        	// Dobaviti samo domacinove oglase
+	    		$.get({
+	    			url: 'rest/apartment/allActive',
+	    			contentType: 'application/json',
+	    			success: function(all) {
+	    				allApartments = all;
+	    				console.log(all);
+	    				$('#amenitiesId').hide();
+	    				for(let apartment of all){
+	    					createCard(apartment);
+	    				}
+	    				
+	    			}
+	    		});
+	        }
+        }
+
+    });
 }
 
