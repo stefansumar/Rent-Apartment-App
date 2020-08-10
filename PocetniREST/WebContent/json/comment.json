@@ -1,0 +1,28 @@
+[{
+	"id" : "1",
+	"commenter" : "Jelena Garic",
+	"guestUsername" : "jelenag",
+	"apartmentId" : "1",
+	"comment" : "Joooj jest mi krivo sto ne mogu duze ostati ovde.",
+	"rate" : "10",
+	"visible" : "true"
+},
+{
+	"id" : "2",
+	"commenter" : "Milos Poletanovic",
+	"guestUsername" : "milosp",
+	"apartmentId" : "1",
+	"comment" : "Not bad, but sad.",
+	"rate" : "7",
+	"visible" : "true"
+},
+{
+	"id" : "3",
+	"commenter" : "Igor Malesevic",
+	"guestUsername" : "igorm",
+	"apartmentId" : "3",
+	"comment" : "All correct.",
+	"rate" : "10",
+	"visible" : "false"
+}
+]

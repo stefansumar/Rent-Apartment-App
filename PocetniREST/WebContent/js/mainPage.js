@@ -1,4 +1,7 @@
 let cardDiv;
+let apartmentId;
+let commentDiv;
+let finalRate = 0; 
 
 $(document).ready(function() {
 	getAllApartments();
@@ -96,6 +99,7 @@ function createCard(apartment){
 	const commentsButton = document.createElement('button');
 	commentsButton.className = 'btn btn-info forButton';
 	commentsButton.innerHTML = 'Comments';
+	commentsButton.onclick = function () { commentsModal(apartment); };
 	roomGuestRow.appendChild(roomCount);
 	roomGuestRow.appendChild(roomCountText);
 	roomGuestRow.appendChild(guestCount);
@@ -117,7 +121,17 @@ function createCard(apartment){
 }
 
 function callMoreModal(apartment){
+	apartmentId = apartment.id;
 	$('#apartmentImage .col-md-5').html('<img class="imageSize" src="'+ apartment.image  + '">');
+	const editButton = document.createElement('button');
+	editButton.innerHTML = 'Edit';
+	editButton.className = 'btn btn-info mt-2';
+	$('#apartmentImage .col-md-5').append(editButton);
+	const deleteButton = document.createElement('button');
+	deleteButton.innerHTML = 'Delete';
+	deleteButton.className = 'btn btn-danger mt-2 ml-2';
+	deleteButton.onclick = function () { confirmDeleteApartment(); };
+	$('#apartmentImage .col-md-5').append(deleteButton);
 	$('#apartmentName').text(apartment.name);
 	$('#pricePerNight').text(apartment.pricePerNight + "$");
 	$('#type').html("<b>   Type:   </b> " + apartment.type);
@@ -218,5 +232,135 @@ function getAllApartments(){
         }
 
     });
+}
+
+function confirmDeleteApartment (){
+	console.log(apartmentId);
+	$('#confirmDeleteApartmentModal').modal('show');
+}
+
+function commentsModal(apartment){
+	finalRate = 0;
+	console.log(apartment.id);
+	$('#commentsModal').modal('show');
+	
+    $.get({
+        url: 'rest/user/getCurrentUser',
+		contnentType: 'application/json',
+        success: function (user) {
+        	console.log(user);
+        	
+        	if(user.role === "ADMIN"){
+	    		$.get({
+	    			url: 'rest/comment/all',
+	    			contentType: 'application/json',
+	    			success: function(all) {
+	    				allApartments = all;
+	    				console.log(all);
+	    				
+	    				$('#allComments').html('');
+	    				
+	    				let counter = 0;
+	    				for(let comment of all){
+	    					if(apartment.id == comment.apartmentId){
+	    						counter = counter + 1;
+	    						finalRate = finalRate + comment.rate;
+	    					}
+	    				}
+	    				if(counter !== 0){
+		    				finalRate = finalRate/counter;
+		    				console.log(finalRate);
+	    				}
+	    				
+	    				if(finalRate !== 0){
+	    					$('#allComments').html('<p class="mt-2 mb-2 user_name">Rate: ' + finalRate + '/10</p>');
+	    				} else {
+    						$('#allComments').html('');
+    						$('#allComments').html('<p class="mt-2 mb-2">There are no comments for this apartment.</p>');
+	    					
+	    				}
+	    				
+	    				for(let comment of all){
+	    					if(apartment.id == comment.apartmentId){
+	    						createCommentCard(comment);
+	    					}
+	    				}
+	    				
+	    			}
+	    		});
+        	} else if (user.role === 'GUEST'){
+	    		$.get({
+	    			url: 'rest/comment/allVisible',
+	    			contentType: 'application/json',
+	    			success: function(all) {
+	    				allApartments = all;
+	    				console.log(all);
+	    				
+	    				$('#allComments').html('');
+	    				
+	    				let counter = 0;
+	    				for(let comment of all){
+	    					if(apartment.id == comment.apartmentId){
+	    						counter = counter + 1;
+	    						finalRate = finalRate + comment.rate;
+	    					}
+	    				}
+	    				if(counter !== 0){
+		    				finalRate = finalRate/counter;
+		    				console.log(finalRate);
+	    				}
+	    				
+	    				if(finalRate !== 0){
+	    					$('#allComments').html('<p class="mt-2 mb-2 user_name">Rate: ' + finalRate + '/10</p>');
+	    				} else {
+    						$('#allComments').html('');
+    						$('#allComments').html('<p class="mt-2 mb-2">There are no comments for this apartment.</p>');
+	    					
+	    				}
+	    				
+	    				for(let comment of all){
+	    					if(apartment.id == comment.apartmentId){
+	    						createCommentCard(comment);
+	    					}
+	    				}
+	    				
+	    			}
+	    		});
+        	}
+
+        }
+
+    });
+	
+}
+
+function createCommentCard(comment){
+
+	let line1 = document.createElement('hr');
+	let line2 = document.createElement('hr');
+	let containerList = document.getElementById('allComments');
+	let commentDiv = document.createElement('div');
+	commentDiv.className = 'media-body commentBorder mt-2';
+	let userHeader = document.createElement('h4');
+	userHeader.className = 'media-heading user_name';
+	userHeader.innerHTML = comment.commenter + ' (' + comment.guestUsername + ')';
+	let commentString = document.createElement('p');
+	commentString.className = 'mb-1';
+	commentString.innerHTML = comment.comment;
+	let rate = document.createElement('p');
+	rate.className = 'mt-1';
+	rate.innerHTML = '<b>Rate: </b>' + comment.rate;
+
+	commentDiv.appendChild(userHeader);
+	commentDiv.appendChild(line1);
+	commentDiv.appendChild(commentString);
+	commentDiv.appendChild(rate);
+	containerList.appendChild(commentDiv);
+	
+	
+	
+	
+	
+	
 }
 
