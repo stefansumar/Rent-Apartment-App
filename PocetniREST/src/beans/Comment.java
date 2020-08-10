@@ -2,23 +2,35 @@ package beans;
 
 public class Comment {
 	
+	private Long id;
 	private String commenter;
 	private String guestUsername;
 	private Long apartmentId;
 	private String comment;
 	private int rate;
+	private boolean visible;
 	
 	public Comment () {
 		super();
 	}
 
-	public Comment(String commenter, String guestUsername, Long apartmentId, String comment, int rate) {
+	public Comment(Long id, String commenter, String guestUsername, Long apartmentId, String comment, int rate, boolean visible) {
 		super();
+		this.id = id;
 		this.commenter = commenter;
 		this.guestUsername = guestUsername;
 		this.apartmentId = apartmentId;
 		this.comment = comment;
 		this.rate = rate;
+		this.visible = visible;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getCommenter() {
@@ -37,7 +49,7 @@ public class Comment {
 		this.guestUsername = guestUsername;
 	}
 
-	public Long getapartmentId() {
+	public Long getApartmentId() {
 		return apartmentId;
 	}
 
@@ -60,5 +72,15 @@ public class Comment {
 	public void setRate(int rate) {
 		this.rate = rate;
 	}
+
+	public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+	
+	
 	
 }

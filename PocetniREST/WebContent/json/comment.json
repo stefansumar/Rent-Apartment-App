@@ -1,0 +1,19 @@
+[{
+	"id" : "1",
+	"commenter" : "Jelena Garic",
+	"guestUsername" : "jelenag",
+	"apartmentId" : "1",
+	"comment" : "Joooj jest mi krivo sto ne mogu duze ostati ovde.",
+	"rate" : "10",
+	"visible" : "true"
+},
+{
+	"id" : "2",
+	"commenter" : "Milos Poletanovic",
+	"guestUsername" : "milosp",
+	"apartmentId" : "1",
+	"comment" : "Pa ono, u Palermu ima i boljih.",
+	"rate" : "7",
+	"visible" : "true"
+}
+]
