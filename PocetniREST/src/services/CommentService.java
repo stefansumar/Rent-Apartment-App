@@ -43,4 +43,23 @@ public class CommentService {
 		
 		return all;
 	}
+	
+	@GET
+	@Path("/allVisible")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ArrayList<Comment> getAllVisibleApartments(){
+		
+		ArrayList<Comment> all = new ArrayList<Comment>();
+		CommentDAO commentDAO = (CommentDAO) ctx.getAttribute("commentDAO");
+		
+		for(Comment comment : commentDAO.getComments().values()) {
+			if(comment.isVisible()) {
+				all.add(comment);
+			}
+		}
+		
+		
+		return all;
+	}
 }

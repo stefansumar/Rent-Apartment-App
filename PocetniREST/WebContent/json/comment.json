@@ -12,8 +12,17 @@
 	"commenter" : "Milos Poletanovic",
 	"guestUsername" : "milosp",
 	"apartmentId" : "1",
-	"comment" : "Pa ono, u Palermu ima i boljih.",
+	"comment" : "Not bad, but sad.",
 	"rate" : "7",
 	"visible" : "true"
+},
+{
+	"id" : "3",
+	"commenter" : "Igor Malesevic",
+	"guestUsername" : "igorm",
+	"apartmentId" : "3",
+	"comment" : "All correct.",
+	"rate" : "10",
+	"visible" : "false"
 }
 ]

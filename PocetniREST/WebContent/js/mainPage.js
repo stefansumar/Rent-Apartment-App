@@ -288,6 +288,44 @@ function commentsModal(apartment){
 	    				
 	    			}
 	    		});
+        	} else if (user.role === 'GUEST'){
+	    		$.get({
+	    			url: 'rest/comment/allVisible',
+	    			contentType: 'application/json',
+	    			success: function(all) {
+	    				allApartments = all;
+	    				console.log(all);
+	    				
+	    				$('#allComments').html('');
+	    				
+	    				let counter = 0;
+	    				for(let comment of all){
+	    					if(apartment.id == comment.apartmentId){
+	    						counter = counter + 1;
+	    						finalRate = finalRate + comment.rate;
+	    					}
+	    				}
+	    				if(counter !== 0){
+		    				finalRate = finalRate/counter;
+		    				console.log(finalRate);
+	    				}
+	    				
+	    				if(finalRate !== 0){
+	    					$('#allComments').html('<p class="mt-2 mb-2 user_name">Rate: ' + finalRate + '/10</p>');
+	    				} else {
+    						$('#allComments').html('');
+    						$('#allComments').html('<p class="mt-2 mb-2">There are no comments for this apartment.</p>');
+	    					
+	    				}
+	    				
+	    				for(let comment of all){
+	    					if(apartment.id == comment.apartmentId){
+	    						createCommentCard(comment);
+	    					}
+	    				}
+	    				
+	    			}
+	    		});
         	}
 
         }
