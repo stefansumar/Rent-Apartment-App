@@ -134,7 +134,7 @@ function callMoreModal(apartment){
 		const deleteButton = document.createElement('button');
 		deleteButton.innerHTML = 'Delete';
 		deleteButton.className = 'btn btn-danger mt-2 ml-2';
-		deleteButton.onclick = function () { confirmDeleteApartment(); };
+		deleteButton.onclick = function () { confirmDeleteApartment(apartmentId); };
 		$('#apartmentImage .col-md-5').append(deleteButton);
 	}
 	
@@ -240,7 +240,7 @@ function getAllApartments(){
     });
 }
 
-function confirmDeleteApartment (){
+function confirmDeleteApartment (apartmentId){
 	console.log(apartmentId);
 	$('#confirmDeleteApartmentModal').modal('show');
 }
@@ -362,6 +362,24 @@ function createCommentCard(comment){
 	commentDiv.appendChild(commentString);
 	commentDiv.appendChild(rate);
 	containerList.appendChild(commentDiv);
+	
+}
+
+function deleteApartment(){
+	console.log(apartmentId);
+	let id = apartmentId;
+	$.ajax({
+		url: 'rest/apartment/' + id,
+		contnentType: 'application/json',
+		type: 'DELETE',
+        success: function () {
+        	$('#confirmDeleteApartmentModal').modal('hide');
+        	$('#moreModal').modal('hide');
+        	getAllApartments();
+        	alert('Successfuly deleted apartment');
+        	
+        }
+	});
 	
 }
 
