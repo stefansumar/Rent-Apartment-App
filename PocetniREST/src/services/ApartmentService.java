@@ -1,15 +1,19 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import beans.Apartment;
 import dao.ApartmentDAO;
@@ -37,7 +41,9 @@ public class ApartmentService {
 		ApartmentDAO apartmentDAO = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
 		
 		for(Apartment apartment : apartmentDAO.getApartments().values()) {
-			all.add(apartment);
+			if(!apartment.isDeleted()) {
+				all.add(apartment);
+			}
 		}
 		
 		
@@ -52,14 +58,42 @@ public class ApartmentService {
 		System.out.println("Usao");
 		ArrayList<Apartment> all = new ArrayList<Apartment>();
 		ApartmentDAO apartmentDAO = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
-		System.out.println(apartmentDAO.getApartments().size());
 		for(Apartment apartment : apartmentDAO.getApartments().values()) {
-			if(apartment.isStatus()) {
-				all.add(apartment);
+			if(!apartment.isDeleted()) {
+				if(apartment.isStatus()) {
+					all.add(apartment);
+				}
 			}
 		}
 		
 		
 		return all;
 	}
+	
+	@DELETE
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response deleteApartment(@PathParam("id") Long id) {
+		ApartmentDAO apartmentDAO = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		HashMap<Long, Apartment> apartments = apartmentDAO.getApartments();
+		
+		try {
+			Apartment apartment = apartmentDAO.find(id);
+			if(apartment != null) {
+				apartment.setDeleted(true);
+				apartmentDAO.setApartments(apartments);
+				apartmentDAO.saveApartments(apartments);
+				ctx.setAttribute("apartmentDAO", apartmentDAO);
+				return Response.status(200).build();
+
+			} else {
+				return Response.status(400).build();
+			}
+		} catch (Exception e) {
+			return Response.status(500).build();
+		}
+		
+	}
+	
 }

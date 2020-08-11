@@ -2,6 +2,7 @@ let cardDiv;
 let apartmentId;
 let commentDiv;
 let finalRate = 0; 
+let userRole;
 
 $(document).ready(function() {
 	getAllApartments();
@@ -121,17 +122,22 @@ function createCard(apartment){
 }
 
 function callMoreModal(apartment){
+	console.log(userRole);
 	apartmentId = apartment.id;
 	$('#apartmentImage .col-md-5').html('<img class="imageSize" src="'+ apartment.image  + '">');
-	const editButton = document.createElement('button');
-	editButton.innerHTML = 'Edit';
-	editButton.className = 'btn btn-info mt-2';
-	$('#apartmentImage .col-md-5').append(editButton);
-	const deleteButton = document.createElement('button');
-	deleteButton.innerHTML = 'Delete';
-	deleteButton.className = 'btn btn-danger mt-2 ml-2';
-	deleteButton.onclick = function () { confirmDeleteApartment(); };
-	$('#apartmentImage .col-md-5').append(deleteButton);
+	
+	if(userRole !== 'GUEST'){
+		const editButton = document.createElement('button');
+		editButton.innerHTML = 'Edit';
+		editButton.className = 'btn btn-info mt-2';
+		$('#apartmentImage .col-md-5').append(editButton);
+		const deleteButton = document.createElement('button');
+		deleteButton.innerHTML = 'Delete';
+		deleteButton.className = 'btn btn-danger mt-2 ml-2';
+		deleteButton.onclick = function () { confirmDeleteApartment(apartmentId); };
+		$('#apartmentImage .col-md-5').append(deleteButton);
+	}
+	
 	$('#apartmentName').text(apartment.name);
 	$('#pricePerNight').text(apartment.pricePerNight + "$");
 	$('#type').html("<b>   Type:   </b> " + apartment.type);
@@ -182,7 +188,7 @@ function getAllApartments(){
 		contnentType: 'application/json',
         success: function (user) {
         	console.log(user);
-        	
+        	userRole = user.role;
         	if(user.role === "ADMIN"){
 	    		$.get({
 	    			url: 'rest/apartment/all',
@@ -234,7 +240,7 @@ function getAllApartments(){
     });
 }
 
-function confirmDeleteApartment (){
+function confirmDeleteApartment (apartmentId){
 	console.log(apartmentId);
 	$('#confirmDeleteApartmentModal').modal('show');
 }
@@ -356,6 +362,24 @@ function createCommentCard(comment){
 	commentDiv.appendChild(commentString);
 	commentDiv.appendChild(rate);
 	containerList.appendChild(commentDiv);
+	
+}
+
+function deleteApartment(){
+	console.log(apartmentId);
+	let id = apartmentId;
+	$.ajax({
+		url: 'rest/apartment/' + id,
+		contnentType: 'application/json',
+		type: 'DELETE',
+        success: function () {
+        	$('#confirmDeleteApartmentModal').modal('hide');
+        	$('#moreModal').modal('hide');
+        	getAllApartments();
+        	alert('Successfuly deleted apartment');
+        	
+        }
+	});
 	
 }
 

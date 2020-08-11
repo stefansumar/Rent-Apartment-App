@@ -18,6 +18,7 @@
 	"image" : "images/apartment1.jpg",
 	"pricePerNight" : "15",
 	"status" : "true",
+	"deleted" : "false",
 	"amenities" : [{
 		"id" : "1",
 		"name" : "WiFi",
@@ -50,6 +51,7 @@
 	"image" : "images/apartment2.jpg",
 	"pricePerNight" : "12",
 	"status" : "true",
+	"deleted" : "false",
 		"amenities" : [{
 		"id" : "3",
 		"name" : "Air Conditioning",
@@ -81,7 +83,8 @@
 	"hostUsername" : "petar.petrovic",
 	"image" : "images/apartment3.jpg",
 	"pricePerNight" : "9",
-	"status" : "true"
+	"status" : "true",
+	"deleted" : "false"
 },
 
 {
@@ -103,5 +106,29 @@
 	"hostUsername" : "mara.maric",
 	"image" : "images/apartment4.jpg",
 	"pricePerNight" : "20",
-	"status" : "true"
+	"status" : "true",
+	"deleted" : "false"
+},
+
+{
+	"id" : "5",
+	"type" : "Apartment",
+	"name" : "NS Apartments - A2",
+	"description" : "Large apartment near shopping mall Promenada and city beach Strand",
+	"roomCount" : "2",
+	"guestCount" : "4",
+	"location" : {
+		"geoWidth" : "45.241771",
+		"geoHeight" : "19.843308",
+		"address" : {
+			"street" : "Narodnog fronta 10",
+			"place" : "Novi Sad",
+			"postalCode" : "21000"
+		}
+	},
+	"hostUsername" : "mara.maric",
+	"image" : "images/apartment4.jpg",
+	"pricePerNight" : "20",
+	"status" : "true",
+	"deleted" : "false"
 }]

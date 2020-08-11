@@ -24,6 +24,7 @@ public class Apartment {
     private boolean status = true;
     private ArrayList<Amenity> amenities = new ArrayList<Amenity>();
     private ArrayList<Reservation> reservations = new ArrayList<Reservation>();
+    private boolean deleted = false;
     
     public Apartment() {}
 
@@ -31,7 +32,7 @@ public class Apartment {
 			Location location, ArrayList<LocalDate> datesForRent, ArrayList<LocalDate> datesAvailable,
 			String hostUsername, ArrayList<Comment> comments, String image, ArrayList<String> images,
 			String pricePerNight, String timeForCheckIn, String timeForCheckOut, boolean status,
-			ArrayList<Amenity> amenities, ArrayList<Reservation> reservations) {
+			ArrayList<Amenity> amenities, ArrayList<Reservation> reservations, boolean deleted) {
 		super();
 		this.id = id;
 		this.type = type;
@@ -52,6 +53,7 @@ public class Apartment {
 		this.status = status;
 		this.amenities = amenities;
 		this.reservations = reservations;
+		this.deleted = deleted;
 	}
 
 
@@ -207,6 +209,14 @@ public class Apartment {
 
 	public void setReservations(ArrayList<Reservation> reservations) {
 		this.reservations = reservations;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
   
 }
