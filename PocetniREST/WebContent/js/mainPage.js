@@ -357,10 +357,5 @@ function createCommentCard(comment){
 	commentDiv.appendChild(rate);
 	containerList.appendChild(commentDiv);
 	
-	
-	
-	
-	
-	
 }
 
