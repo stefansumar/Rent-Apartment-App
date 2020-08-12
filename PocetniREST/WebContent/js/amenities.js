@@ -8,6 +8,7 @@ function amenities(){
 	$('#editProfile').hide();
 	$('#changePassword').hide();
 	$('#profile').hide();
+	$('#newApartment').hide();
 	$('#amenityTable').show();
 	
     $.get({

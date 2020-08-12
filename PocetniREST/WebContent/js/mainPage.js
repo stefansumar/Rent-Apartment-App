@@ -177,6 +177,7 @@ function getAllApartments(){
 	$('#editProfile').hide();
 	$('#changePassword').hide();
 	$('#amenityTable').hide();
+	$('#newApartment').hide();
 	cardDiv = document.getElementById('cardDiv');
 	$('#cardDiv').html('');
 	$('#cardDiv').show();
