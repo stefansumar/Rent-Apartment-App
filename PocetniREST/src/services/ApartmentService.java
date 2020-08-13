@@ -53,7 +53,6 @@ public class ApartmentService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public ArrayList<Apartment> getAllApartments(){
-		
 		ArrayList<Apartment> all = new ArrayList<Apartment>();
 		ApartmentDAO apartmentDAO = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
 		
@@ -72,7 +71,6 @@ public class ApartmentService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public ArrayList<Apartment> getAllActiveApartments(){
-		System.out.println("Usao");
 		ArrayList<Apartment> all = new ArrayList<Apartment>();
 		ApartmentDAO apartmentDAO = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
 		for(Apartment apartment : apartmentDAO.getApartments().values()) {
@@ -85,6 +83,24 @@ public class ApartmentService {
 		
 		
 		return all;
+	}
+	
+	@GET
+	@Path("/{username}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response getAllActiveApartments(@PathParam("username") String username){
+		ArrayList<Apartment> all = new ArrayList<Apartment>();
+		ApartmentDAO apartmentDAO = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		for(Apartment apartment : apartmentDAO.getApartments().values()) {
+			if(apartment.getHostUsername().equals(username)) {
+				if(!apartment.isDeleted()) {
+					all.add(apartment);
+				}
+			}
+		}
+		
+		return Response.status(200).entity(all).build();
 	}
 	
 	@DELETE

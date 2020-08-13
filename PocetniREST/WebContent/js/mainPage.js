@@ -224,9 +224,9 @@ function getAllApartments(){
 	    		});
 	        } else if (user.role === "HOST"){
 	        	$('#addNewApartmentId').show();
-	        	// Dobaviti samo domacinove oglase
+	        	let username = user.username;
 	    		$.get({
-	    			url: 'rest/apartment/allActive',
+	    			url: 'rest/apartment/' + username,
 	    			contentType: 'application/json',
 	    			success: function(all) {
 	    				allApartments = all;
