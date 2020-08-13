@@ -148,7 +148,7 @@ public class ApartmentService {
 		UserDAO userDAO = (UserDAO) ctx.getAttribute("userDAO");
 		User user = userDAO.findUserByUsername(newApartment.getHostUsername());
 		
-		if(user.getRole().equals("HOST")) { // OVO MOZE SAMO HOST, ISPRAVI
+		if(!user.getRole().equals("HOST")) {
 			return Response.status(403).build();
 		}
 		
@@ -195,12 +195,8 @@ public class ApartmentService {
 		apartmentDAO.saveApartments(apartments);
 		ctx.setAttribute("apartmentDAO", apartmentDAO);
 		
-		
-		
-		
 		return Response.status(200).build();
 		
-	}
-		
+	}	
 	
 }

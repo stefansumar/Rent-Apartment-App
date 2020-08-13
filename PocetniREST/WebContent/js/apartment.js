@@ -240,7 +240,10 @@ function saveApartment(){
 		data: JSON.stringify(newApartment),
         type: 'POST',
         success : function () {
-        	console.log('usao');
+        	
+        	alert('Successfully added new apartment.');
+        	
+        	
         }
 	});
 }
