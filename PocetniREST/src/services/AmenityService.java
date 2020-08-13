@@ -45,14 +45,13 @@ public class AmenityService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllAmenities(@PathParam(value = "username") String username, @Context HttpServletRequest request){
-
 		ArrayList<Amenity> amenities = new ArrayList<Amenity>();
 		AmenityDAO amenityDAO = (AmenityDAO) ctx.getAttribute("amenityDAO");
 		UserDAO userDAO = (UserDAO) ctx.getAttribute("userDAO");
 		
 		User user = userDAO.findUserByUsername(username);
 		
-		if(!user.getRole().equals("ADMIN")) {
+		if(user.getRole().equals("GUEST")) {
 			return Response.status(403).build();
 		}
 		

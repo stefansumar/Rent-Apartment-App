@@ -191,12 +191,18 @@
 	    <div>
 	      <button class="btn btn-info" onclick="addLocation()">Add location</button>
 	      <button class="btn btn-info" onclick="chooseAmenities()">Add amenities</button>
+	      <button class="btn btn-info" onclick="chooseImage()">Add image</button>
 	    </div>
 	
 	    <!-- New Apartment Form -->
 	    <form id="newApartment">
-	      <input type="text" id="apartmentName" name="apartmentName" placeholder="Enter apartment name (Required)">
-	      <input type="text" id="pricePerNight" name="pricePerNight" placeholder="Enter price per night (Required)">
+	      <input type="text" id="apartmentName" name="apartmentName" placeholder="Enter apartment name (Required)"/>
+	      <select id="selectType">
+       		<option value="" disabled selected>Select type of apartment (Required)</option>
+      		<option>Full</option>
+      		<option>Room</option>
+	  	  </select>
+	      <input type="text" id="pricePerNight" name="pricePerNight" placeholder="Enter price per night (Required)" onkeypress="return isNumber(event)"/>
 	      <select id="selectNoRooms">
        		<option value="" disabled selected>Choose number of rooms (Required)</option>
       		<option>1</option>
@@ -223,18 +229,17 @@
       		<option>9</option>
       		<option>10</option>
 	  	  </select>
-	      <input type="date" id="startDate" name="startDate" placeholder="Enter start date (Required)">
-	      <input type="date" id="endDate" name="endDate" placeholder="Enter end date (Required)">
-	      <input type="time" id="startTime" name="startTime" placeholder="Enter check in time (Required)">
-	      <input type="time" id="endTime" name="endTime" placeholder="Enter check out time (Required)">
-	      
-	   	  <button class="btn btn-info mb-2 mt-2">Save Apartment</button>
+	      <input type="date" id="startDate" name="startDate" placeholder="Enter start date (Required)"/>
+	      <input type="date" id="endDate" name="endDate" placeholder="Enter end date (Required)"/>
+	      <input type="time" id="startTime" name="startTime" placeholder="Enter check in time (Required)"/>
+	      <input type="time" id="endTime" name="endTime" placeholder="Enter check out time (Required)"/>
+	      <input type="text" id="apartmentDescription" name="apartmentDescription" placeholder="Enter apartment description (Optional)"/>
+	    </form>
+	      <p id="newAptError"></p>
+	      <button class="btn btn-info mb-2 mt-2" onclick="saveApartment()">Save Apartment</button>
 	   	  
 	   	  <p></p>
 	   	  <p></p>
-
-	      
-	    </form>
 
 	</div>
 	
@@ -441,7 +446,7 @@
        </div>
        <div class="modal-footer">
          <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-         <button type="button" class="btn btn-info" onclick="">Choose</button>
+         <button type="button" class="btn btn-info" onclick="selectAmenities()">Save</button>
        </div>
      </div>
    </div>
@@ -457,11 +462,12 @@
        </div>
        <div class="modal-body">
        	<div class="formAndMap">
-			<input id="streetAdd" type="text" class="form-control" placeholder="Enter street and number">
-			<input id="placeAdd" type="text" class="form-control" placeholder="Enter place">
-			<input id="postalAdd" type="text" class="form-control" placeholder="Enter postal code">
+			<input id="streetAdd" type="text" class="form-control" placeholder="Enter street and number (Required)">
+			<input id="placeAdd" type="text" class="form-control" placeholder="Enter place (Required)">
+			<input id="postalAdd" type="text" class="form-control" placeholder="Enter postal code (Required)" onkeypress="return isNumber(event)">
 			<input id="gwAdd" disabled type="text" class="form-control" placeholder="Pin location on map (geo width)">
 			<input id="ghAdd" disabled type="text" class="form-control" placeholder="Pin location on map (geo height)">
+			<p id="locationError"></p>
 		</div>
 		<div id="map" class="formAndMap">
 		
@@ -469,7 +475,39 @@
        </div>
        <div class="modal-footer">
          <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-         <button type="button" class="btn btn-info" onclick="">Finish</button>
+         <button type="button" class="btn btn-info" onclick="saveLocation()">Save</button>
+       </div>
+     </div>
+   </div>
+ </div>
+ 
+  <!-- Choose Image Modal -->
+ <div class="modal fade" id="chooseImageModal" role="dialog">
+   <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+       <div class="modal-header">
+       	 <h4 class="modal-title">Choose Image</h4>
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
+       </div>
+       <div class="modal-body">
+			<form class="md-form">
+			  <div class="file-field">
+			    <div class="z-depth-1-half mb-4">
+			      <img id="aptImagePlaceholder" src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="img-fluid">
+			      <img id="newImage" class="img-fluid"></img>
+			    </div>
+			    <div class="d-flex justify-content-center">
+			      <div class="btn btn-mdb-color btn-rounded float-left">
+			        <span>Choose file</span>
+			        <input id="imagePath" type="file" onchange="choosePicture()">
+			      </div>
+			    </div>
+			  </div>
+			</form>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+         <button type="button" class="btn btn-info" onclick="selectAmenities()">Save</button>
        </div>
      </div>
    </div>
