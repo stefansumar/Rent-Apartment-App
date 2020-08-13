@@ -4,7 +4,7 @@ Glongitude = "";
 Glatitude = "";
 let loc;
 var ams = [];
-var formData;
+let imagePath;
 	
 $(document).ready(function() {
 	initMap();
@@ -65,19 +65,32 @@ function chooseImage(){
 }
 
 function choosePicture(){
+	$('#aptImagePlaceholder').hide();
 	
+}
+
+function savePicture(){
+	let file;
 	if(($('#imagePath'))[0].files.length > 0){
-		$('#aptImagePlaceholder').hide();
 		file = ($('#imagePath'))[0].files[0];
-		console.log(file);
 		
-		formData = new FormData();
+		var formData = new FormData();
 		formData.append("fileToUpload", file);
 		formData.append("name", file.name);
+		
+		$.ajax({
+			url: "rest/apartment/uploadImage",
+			type: 'post',
+			data: formData, 
+			processData: false,
+			contentType: false,
+			success: function(response) {
+				imagePath = 'images/' + ($('#imagePath'))[0].files[0].name;
+				$('#chooseImageModal').modal('hide');
+			}
+		});
+		
 	}
-	
-	$('#chooseImageModal').modal('hide');
-	
 }
 
 function initMap() {
@@ -182,6 +195,9 @@ function selectAmenities(){
 }
 
 function saveApartment(){
+	let img = imagePath;
+	console.log(img);
+	let hostUsername = currentUser.username;
 	let name = $('#apartmentName').val();
 	let type = $('#selectType').val();
 	let pricePerNight = $('#pricePerNight').val();
@@ -204,18 +220,33 @@ function saveApartment(){
 		$('#newAptError').text('Location is required.');
 		$('#newAptError').css({"color": "red", "font-size": "14px"});
 		$('#newAptError').show().delay(3000).fadeOut();
+		return;
 	}
-	
-	console.log(formData);
-	if(formData == null || formData == ''){
+
+	if(img == ''){
 		$('#newAptError').text('Picture is required');
 		$('#newAptError').css({"color": "red", "font-size": "14px"});
 		$('#newAptError').show().delay(3000).fadeOut();
+		return;
 	}
+	
+	let newApartment = new Apartment(name, type, pricePerNight, roomCount, guestCount, startDate, endDate, timeForCheckIn, timeForCheckOut, loc, hostUsername, ams, img, description);
+	console.log(newApartment);
+	
+	$.ajax({
+		type: 'post',
+		url: 'rest/apartment',
+		contentType: 'application/json',
+		data: JSON.stringify(newApartment),
+        type: 'POST',
+        success : function () {
+        	console.log('usao');
+        }
+	});
 }
 
 class Apartment {
-	constructor(name, type, pricePerNight, roomCount, guestCount, startDate, endDate, timeForCheckIn, timeForCheckOut, location, hostUsername, amenities, image){
+	constructor(name, type, pricePerNight, roomCount, guestCount, startDate, endDate, timeForCheckIn, timeForCheckOut, location, hostUsername, amenities, image, description){
 		this.name = name;
 		this.type = type;
 		this.pricePerNight = pricePerNight;
@@ -229,6 +260,7 @@ class Apartment {
 		this.amenities = amenities;
 		this.hostUsername = hostUsername;
 		this.image = image;	
+		this.description = description;
 	}
 }
 

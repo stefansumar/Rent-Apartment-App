@@ -18,6 +18,7 @@ public class ApartmentDTO {
 	private String timeForCheckIn;
 	private String timeForCheckOut;
 	private ArrayList<Long> amenities;
+	private String description;
 	
 	public ApartmentDTO() {
 		super();
@@ -25,7 +26,7 @@ public class ApartmentDTO {
 	
 	public ApartmentDTO(String name, String type, Float pricePerNight, int roomCount, int guestCount, String startDate,
 			String endDate, Location location, String hostUsername, String image, String timeForCheckIn,
-			String timeForCheckOut, ArrayList<Long> amenities) {
+			String timeForCheckOut, ArrayList<Long> amenities, String description) {
 		super();
 		this.name = name;
 		this.type = type;
@@ -40,6 +41,7 @@ public class ApartmentDTO {
 		this.timeForCheckIn = timeForCheckIn;
 		this.timeForCheckOut = timeForCheckOut;
 		this.amenities = amenities;
+		this.description = description;
 	}
 
 	public String getName() {
@@ -120,7 +122,13 @@ public class ApartmentDTO {
 	public void setAmenities(ArrayList<Long> amenities) {
 		this.amenities = amenities;
 	}
-	
-	
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	
 }
