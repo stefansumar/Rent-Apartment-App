@@ -12,6 +12,7 @@ function changePassword(){
         	$('#profile').hide();
         	$('#editProfile').hide(); 
         	$('#amenityTable').hide();
+        	$('#newApartment').hide();
         	$('#changePassword').show();	
         }
     });

@@ -1,1 +1,27 @@
-[]
+[{
+	"username" : "stefan.sumar",
+	"password" : "host",
+	"firstName" : "Stefan",
+	"lastName" : "Sumar",
+	"gender" : "Male",
+	"role" : "HOST",
+	"forRent" : [ 1, 2]
+}, {
+	"username" : "petar.petrovic",
+	"password" : "host",
+	"firstName" : "Petar",
+	"lastName" : "Petrovic",
+	"gender" : "Male",
+	"role" : "HOST",
+	"forRent" : [ 3 ]
+}, {
+	"username" : "mara.maric",
+	"password" : "host",
+	"firstName" : "Mara",
+	"lastName" : "Maric",
+	"gender" : "Female",
+	"role" : "HOST",
+	"forRent" : [ 3 ]
+}
+
+]

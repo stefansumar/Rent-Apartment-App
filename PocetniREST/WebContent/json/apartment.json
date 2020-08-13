@@ -108,27 +108,4 @@
 	"pricePerNight" : "20",
 	"status" : "true",
 	"deleted" : "false"
-},
-
-{
-	"id" : "5",
-	"type" : "Apartment",
-	"name" : "NS Apartments - A2",
-	"description" : "Large apartment near shopping mall Promenada and city beach Strand",
-	"roomCount" : "2",
-	"guestCount" : "4",
-	"location" : {
-		"geoWidth" : "45.241771",
-		"geoHeight" : "19.843308",
-		"address" : {
-			"street" : "Narodnog fronta 10",
-			"place" : "Novi Sad",
-			"postalCode" : "21000"
-		}
-	},
-	"hostUsername" : "mara.maric",
-	"image" : "images/apartment4.jpg",
-	"pricePerNight" : "20",
-	"status" : "true",
-	"deleted" : "false"
 }]

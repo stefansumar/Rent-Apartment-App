@@ -14,14 +14,18 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" type="text/css" href="css/mainPage.css">
 	<link rel="stylesheet" type="text/css" href="css/login.css">
-	
-	
+	<!-- For map -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/css/ol.css" type="text/css">
 	
 	<script src="js/mainPage.js"></script>
 	<script src="js/userProfile.js"></script>
 	<script src="js/editUserInfo.js"></script>
 	<script src="js/changePassword.js"></script>
 	<script src="js/amenities.js"></script>
+	
+	
+	<!-- Map -->
+	<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
 	
 	
 		
@@ -51,9 +55,15 @@
         </div>
       </li>
       
-    <li class="nav-item">
-        <a class="nav-link" href="#" id="apartmentId" onclick="getAllApartments()"> Apartments </a>
-     </li>  
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Apartments
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#" onclick="getAllApartments()">Show apartments</a>
+          <a id="addNewApartmentId" class="dropdown-item" href="#" onclick="addNewApartment()">Add new</a>
+        </div>
+      </li>
      
      <li class="nav-item">
         <a class="nav-link" href="#" id="reservationsId"> Reservations </a>
@@ -107,9 +117,9 @@
     <div id="editProfile" class="">
 	
 	    <!-- Icon -->
-	    <div class="">
-	      <img src="images/edit.png" class="avatar"></img>
-	      <h2>Edit profile</h2>
+	    <div>
+	      <img src="images/edit.png" class="avatar mt-10"></img>
+	      <h2 class="mt-20">Edit profile</h2>
 	    </div>
 	
 	    <!-- Edit Profile Form -->
@@ -171,6 +181,68 @@
 	    </form>
 	    
 	</div>
+	
+	<div id="newApartment" class="">
+	    <!-- Icon -->
+	    <div>
+	      <h2>New apartment</h2>
+	    </div>
+	    
+	    <div>
+	      <button class="btn btn-info" onclick="addLocation()">Add location</button>
+	      <button class="btn btn-info" onclick="chooseAmenities()">Add amenities</button>
+	      <button class="btn btn-info" onclick="chooseImage()">Add image</button>
+	    </div>
+	
+	    <!-- New Apartment Form -->
+	    <form id="newApartment">
+	      <input type="text" id="apartmentName" name="apartmentName" placeholder="Enter apartment name (Required)"/>
+	      <select id="selectType">
+       		<option value="" disabled selected>Select type of apartment (Required)</option>
+      		<option>Full</option>
+      		<option>Room</option>
+	  	  </select>
+	      <input type="text" id="pricePerNight" name="pricePerNight" placeholder="Enter price per night (Required)" onkeypress="return isNumber(event)"/>
+	      <select id="selectNoRooms">
+       		<option value="" disabled selected>Choose number of rooms (Required)</option>
+      		<option>1</option>
+      		<option>2</option>
+      		<option>3</option>
+      		<option>4</option>
+      		<option>5</option>
+      		<option>6</option>
+      		<option>7</option>
+      		<option>8</option>
+      		<option>9</option>
+      		<option>10</option>
+	  	  </select>
+	      <select id="selectNoGuests">
+       		<option value="" disabled selected>Choose number of guests (Required)</option>
+      		<option>1</option>
+      		<option>2</option>
+      		<option>3</option>
+      		<option>4</option>
+      		<option>5</option>
+      		<option>6</option>
+      		<option>7</option>
+      		<option>8</option>
+      		<option>9</option>
+      		<option>10</option>
+	  	  </select>
+	      <input type="date" id="startDate" name="startDate" placeholder="Enter start date (Required)"/>
+	      <input type="date" id="endDate" name="endDate" placeholder="Enter end date (Required)"/>
+	      <input type="time" id="startTime" name="startTime" placeholder="Enter check in time (Required)"/>
+	      <input type="time" id="endTime" name="endTime" placeholder="Enter check out time (Required)"/>
+	      <input type="text" id="apartmentDescription" name="apartmentDescription" placeholder="Enter apartment description (Optional)"/>
+	    </form>
+	      <p id="newAptError"></p>
+	      <button class="btn btn-info mb-2 mt-2" onclick="saveApartment()">Save Apartment</button>
+	   	  
+	   	  <p></p>
+	   	  <p></p>
+
+	</div>
+	
 
   </div>
 </div>
@@ -356,6 +428,86 @@
        </div>
        <div class="modal-footer">
          <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+       </div>
+     </div>
+   </div>
+ </div>
+ 
+ <!-- Choose Amenities Modal -->
+ <div class="modal fade" id="chooseAmenitiesModal" role="dialog">
+   <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+       <div class="modal-header">
+       	 <h4 class="modal-title">Choose Amenities</h4>
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
+       </div>
+       <div class="modal-body" id="chooseAmenitiesBody">
+
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+         <button type="button" class="btn btn-info" onclick="selectAmenities()">Save</button>
+       </div>
+     </div>
+   </div>
+ </div>
+ 
+  <!-- Add Location Modal -->
+ <div class="modal fade" id="addLocationModal" role="dialog">
+   <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+       <div class="modal-header">
+       	 <h4 class="modal-title">Add location</h4>
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
+       </div>
+       <div class="modal-body">
+       	<div class="formAndMap">
+			<input id="streetAdd" type="text" class="form-control" placeholder="Enter street and number (Required)">
+			<input id="placeAdd" type="text" class="form-control" placeholder="Enter place (Required)">
+			<input id="postalAdd" type="text" class="form-control" placeholder="Enter postal code (Required)" onkeypress="return isNumber(event)">
+			<input id="gwAdd" disabled type="text" class="form-control" placeholder="Pin location on map (geo width)">
+			<input id="ghAdd" disabled type="text" class="form-control" placeholder="Pin location on map (geo height)">
+			<p id="locationError"></p>
+		</div>
+		<div id="map" class="formAndMap">
+		
+		</div>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+         <button type="button" class="btn btn-info" onclick="saveLocation()">Save</button>
+       </div>
+     </div>
+   </div>
+ </div>
+ 
+  <!-- Choose Image Modal -->
+ <div class="modal fade" id="chooseImageModal" role="dialog">
+   <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+       <div class="modal-header">
+       	 <h4 class="modal-title">Choose Image</h4>
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
+       </div>
+       <div class="modal-body">
+			<form class="md-form">
+			  <div class="file-field">
+			    <div class="z-depth-1-half mb-4">
+			      <img id="aptImagePlaceholder" src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="img-fluid">
+			      <img id="newImage" class="img-fluid"></img>
+			    </div>
+			    <div class="d-flex justify-content-center">
+			      <div class="btn btn-mdb-color btn-rounded float-left">
+			        <span>Choose file</span>
+			        <input id="imagePath" type="file" onchange="choosePicture()">
+			      </div>
+			    </div>
+			  </div>
+			</form>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+         <button type="button" class="btn btn-info" onclick="savePicture()">Save</button>
        </div>
      </div>
    </div>
