@@ -9,7 +9,9 @@ function amenities(){
 	$('#changePassword').hide();
 	$('#profile').hide();
 	$('#newApartment').hide();
+    $('#usersTable').hide();
 	$('#amenityTable').show();
+
 	
     $.get({
         url: 'rest/user/getCurrentUser',
