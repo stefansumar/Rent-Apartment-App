@@ -3,6 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
 		<attributes>
+			<attribute name="module" value="true"/>
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
@@ -43,8 +44,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/persistence-api-1.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/validation-api-1.1.0.Final.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/aopalliance-repackaged-2.4.0-b31.jar"/>
-	<classpathentry kind="lib" path="C:/Users/2/Downloads/WebShop-master/WebShop-master/WebProjekat/WebContent/WEB-INF/lib/jersey-media-multipart-2.17.jar"/>
-	<classpathentry kind="lib" path="C:/Users/2/Downloads/WebShop-master/WebShop-master/WebProjekat/WebContent/WEB-INF/lib/jersey-media-multipart-2.28.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jersey-media-multipart-2.17.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jersey-media-multipart-2.28.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mimepull-1.9.11.jar"/>

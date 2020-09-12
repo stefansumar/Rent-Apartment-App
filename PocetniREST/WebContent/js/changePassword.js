@@ -11,7 +11,8 @@ function changePassword(){
         	$('#searchButton').hide();
         	$('#profile').hide();
         	$('#editProfile').hide(); 
-        	$('#amenityTable').hide();
+			$('#amenityTable').hide();
+			$('#usersTable').hide();
         	$('#newApartment').hide();
         	$('#changePassword').show();	
         }

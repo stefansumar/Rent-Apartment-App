@@ -11,7 +11,8 @@ function editProfile(){
         	$('#searchButton').hide();
         	$('#profile').hide();
         	$('#changePassword').hide();
-        	$('#amenityTable').hide();
+			$('#amenityTable').hide();
+			$('#usersTable').hide();
         	$('#newApartment').hide();
         	$('#editProfile').show();    
         	

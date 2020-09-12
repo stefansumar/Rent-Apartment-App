@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.annotation.PostConstruct;
@@ -16,7 +17,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import beans.Comment;
 import beans.User;
+import dao.CommentDAO;
 import dao.UserDAO;
 
 @Path("/user")
@@ -94,6 +97,23 @@ public class UserService {
 		User user = (User) request.getSession().getAttribute("loggedIn");
 		
 		return user;
+	}
+		
+	@GET
+	@Path("/getAllUsers")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ArrayList<User> getAllUsers(){
+		
+		ArrayList<User> all = new ArrayList<User>();
+		UserDAO userDAO = (UserDAO) ctx.getAttribute("userDAO");
+		
+		for(User user : userDAO.getUsers().values()) {
+			all.add(user);
+		}
+		
+		
+		return all;
 	}
 	
 	@PUT

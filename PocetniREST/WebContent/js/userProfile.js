@@ -10,7 +10,8 @@ function myProfile(){
         	$('#searchButton').hide();
         	$('#editProfile').hide();
         	$('#changePassword').hide();
-        	$('#amenityTable').hide();
+			$('#amenityTable').hide();
+			$('#usersTable').hide();
         	$('#newApartment').hide();
         	$('#profile').html("");
         	$('#profile').show();

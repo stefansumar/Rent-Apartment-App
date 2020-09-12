@@ -6,7 +6,7 @@ public class Reservation {
 	
 	private Long reservationId;
 	private Long apartmentId;
-	private LocalDate startDate;
+	private String startDate;
 	private int nightCount = 1;
 	private float price;
 	private String message;
@@ -17,7 +17,7 @@ public class Reservation {
 		super();
 	}
 
-	public Reservation(Long reservationId, Long apartmentId, LocalDate startDate, int nightCount, float price,
+	public Reservation(Long reservationId, Long apartmentId, String startDate, int nightCount, float price,
 			String message, String guestUsername, Status status) {
 		super();
 		this.reservationId = reservationId;
@@ -46,11 +46,11 @@ public class Reservation {
 		this.apartmentId = apartmentId;
 	}
 
-	public LocalDate getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(LocalDate startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 

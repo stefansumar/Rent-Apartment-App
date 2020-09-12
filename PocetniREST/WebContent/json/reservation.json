@@ -1,0 +1,20 @@
+[{
+	"reservationId" : "1",
+	"apartmentId" : "1",
+	"startDate" : "2020-11-13",
+	"nightCount" : "5",
+	"price" : "200",
+	"message" : "great",
+	"guestUsername" : "jelenag",
+	"status" : "ACCEPTED"
+}, {
+	"reservationId" : "2",
+	"apartmentId" : "1",
+	"startDate" : " 2020-10-13",
+	"nightCount" : "5",
+	"price" : "200",
+	"message" : "great",
+	"guestUsername" : "milosp",
+	"status" : "ACCEPTED"
+}
+]

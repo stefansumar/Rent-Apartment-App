@@ -177,6 +177,7 @@ function getAllApartments(){
 	$('#editProfile').hide();
 	$('#changePassword').hide();
 	$('#amenityTable').hide();
+	$('#usersTable').hide();
 	$('#newApartment').hide();
 	cardDiv = document.getElementById('cardDiv');
 	$('#cardDiv').html('');
@@ -215,6 +216,7 @@ function getAllApartments(){
 	    				allApartments = all;
 	    				console.log(all);
 	    				$('#amenitiesId').hide();
+	    				$('#usersId').hide();
 	    				for(let apartment of all){
 	    					createCard(apartment);
 	
@@ -411,7 +413,8 @@ function addNewApartment(){
         	$('#searchButton').hide();
         	$('#profile').hide();
         	$('#changePassword').hide();
-        	$('#amenityTable').hide();
+			$('#amenityTable').hide();
+			$('#usersTable').hide();
         	$('#editProfile').hide();    
         	$('#editProfile').hide();  
         	$('#newApartment').show();

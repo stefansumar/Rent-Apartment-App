@@ -23,7 +23,8 @@ function addNewApartment(){
         	$('#changePassword').hide();
         	$('#amenityTable').hide();
         	$('#editProfile').hide();    
-        	$('#editProfile').hide();  
+			$('#editProfile').hide();  
+			$('#usersTable').hide();
         	$('#newApartment').show();
 
         }
