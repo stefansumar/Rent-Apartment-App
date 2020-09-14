@@ -12,6 +12,7 @@ function users(){
 	$('#profile').hide();
 	$('#newApartment').hide();
 	$('#amenityTable').hide();
+	$('#reservationsCardDiv').hide();
     $('#usersTable').show();
     
     $.get({

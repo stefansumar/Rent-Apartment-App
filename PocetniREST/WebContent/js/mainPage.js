@@ -183,6 +183,7 @@ function getAllApartments(){
 	$('#cardDiv').html('');
 	$('#cardDiv').show();
 	$('#searchTextField').show();
+	$('#reservationsCardDiv').hide();
 	$('#searchButton').show();
 	
     $.get({
@@ -414,6 +415,7 @@ function addNewApartment(){
         	$('#profile').hide();
         	$('#changePassword').hide();
 			$('#amenityTable').hide();
+			$('#reservationsCardDiv').hide();
 			$('#usersTable').hide();
         	$('#editProfile').hide();    
         	$('#editProfile').hide();  

@@ -13,7 +13,8 @@ function changePassword(){
         	$('#editProfile').hide(); 
 			$('#amenityTable').hide();
 			$('#usersTable').hide();
-        	$('#newApartment').hide();
+			$('#newApartment').hide();
+			$('#reservationsCardDiv').hide();
         	$('#changePassword').show();	
         }
     });

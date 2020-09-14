@@ -103,6 +103,24 @@ public class ApartmentService {
 		return Response.status(200).entity(all).build();
 	}
 	
+	@GET
+	@Path("/one/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response getOneApartment(@PathParam("id") Long id){
+		Apartment one = null;
+		ApartmentDAO apartmentDAO = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		for(Apartment apartment : apartmentDAO.getApartments().values()) {
+			if(apartment.getId().equals(id)) {
+				if(!apartment.isDeleted()) {
+					one=apartment;
+				}
+			}
+		}
+		
+		return Response.status(200).entity(one).build();
+	}
+	
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
