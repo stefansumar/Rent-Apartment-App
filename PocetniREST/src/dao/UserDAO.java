@@ -197,11 +197,34 @@ public class UserDAO {
 		
 		for (User user: this.users.values()) {
 			if (user.getRole().equals("ADMIN")) {
-				admins.add( (Administrator)user );
+				Administrator admin = new Administrator();
+				admin.setUsername(user.getUsername());
+				admin.setPassword(user.getPassword());
+				admin.setFirstName(user.getFirstName());
+				admin.setLastName(user.getLastName());
+				admin.setGender(user.getGender());
+				admin.setRole(user.getRole());
+				admins.add(admin);
 			} else if(user.getRole().equals("HOST")){
-				hosts.add((Host)user);
+				Host host = new Host();
+				host.setUsername(user.getUsername());
+				host.setPassword(user.getPassword());
+				host.setFirstName(user.getFirstName());
+				host.setLastName(user.getLastName());
+				host.setGender(user.getGender());
+				host.setRole(user.getRole());
+				// Sacuvati i forRent
+				hosts.add(host);
 			} else if(user.getRole().equals("GUEST")){
-				guests.add((Guest)user);
+				Guest guest = new Guest();
+				guest.setUsername(user.getUsername());
+				guest.setPassword(user.getPassword());
+				guest.setFirstName(user.getFirstName());
+				guest.setLastName(user.getLastName());
+				guest.setGender(user.getGender());
+				guest.setRole(user.getRole());
+				// Sacuvaj i rented i reservations
+				guests.add(guest);
 			}
 		}
 		
