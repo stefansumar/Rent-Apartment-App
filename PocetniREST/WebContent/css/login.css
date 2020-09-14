@@ -114,6 +114,15 @@ h2 {
 	width : 104px;
 	right : -200px;
 }
+.forButton1{
+	background-color: rgba(212, 72, 72, 0.808);
+	color: white;
+	position : absolute;
+	height : 30px;
+	width : 104px;
+	right : -200px;
+}
+
 
 .forButtonSaveApartment{
 	position : absolute;

@@ -2,6 +2,7 @@
 let allReservations;
 let reservationsCardDiv;
 let apartment;
+let role1;
 
 function reservations(){
 	
@@ -23,6 +24,7 @@ function reservations(){
 			url: 'rest/reservation/all',
 			contentType: 'application/json',
 			success: function(all) {
+				$('#reservationsCardDiv').html(" ");
 				allReservations = all;
 				console.log(all);
 				
@@ -38,8 +40,13 @@ function reservations(){
 	});
 	
 }
-	function createCardReservation(reservation){
-		
+function createCardReservation(reservation){
+    $.get({
+        url: 'rest/user/getCurrentUser',
+		contnentType: 'application/json',
+        success: function (user) {
+        	console.log(user.username);
+        	role1 = user.role;
 		$.get({
 			url: 'rest/apartment/one/'+ reservation.apartmentId,
 			contentType: 'application/json',
@@ -59,13 +66,14 @@ function reservations(){
 				firstColumn.appendChild(image);
 				image.src = apartment.image;
 				
+				/*
 				const editButton = document.createElement('a');
 				//editButton.onclick = function () { amenityTemp = amenity; editAmenity(amenity); };
 				const editIcon = document.createElement('img');
 				editIcon.src = 'images/edit4.png';
 				editIcon.className = 'editDeleteButtons1';
 				editButton.append(editIcon);
-				
+				*/
 				
 				// Podaci o apartmanu
 				const secondColumn = document.createElement('div');
@@ -110,13 +118,9 @@ function reservations(){
 				messageText.className = 'col-sm-6';
 				messageText. innerHTML = reservation.message;
 				
-				const moreButton = document.createElement('button');
-				moreButton.className = 'btn btn-info forButton';
-				moreButton.innerHTML = 'More';
-				moreButton.onclick = function() { callMoreModal(apartment); };
 				placeRow.appendChild(message);
 				placeRow.appendChild(messageText);
-				//placeRow.appendChild(moreButton);
+	
 				
 				const roomGuestRow = document.createElement('dl');
 				roomGuestRow.className = 'row forMargin';
@@ -138,19 +142,14 @@ function reservations(){
 				startDateText.className = 'col-sm-6';
 				startDateText. innerHTML = reservation.startDate;
 				
-				const commentsButton = document.createElement('button');
-				commentsButton.className = 'btn btn-info forButton';
-				commentsButton.innerHTML = 'Comments';
-				commentsButton.onclick = function () { commentsModal(apartment); };
 				roomGuestRow.appendChild(noNights);
 				roomGuestRow.appendChild(noNightsText);
 				startDateRow.appendChild(startDate);
 				startDateRow.appendChild(startDateText);
-			//	roomGuestRow.appendChild(commentsButton);
 				
 				secondColumn.appendChild(header);
 				secondColumn.appendChild(price);
-				secondColumn.appendChild(editButton);
+				//secondColumn.appendChild(editButton);
 				secondColumn.appendChild(nameRow);
 				secondColumn.appendChild(guestUsernameRow);
 				secondColumn.appendChild(placeRow);
@@ -161,11 +160,41 @@ function reservations(){
 				row.appendChild(firstColumn);
 				row.appendChild(secondColumn);
 				
-				reservationsCardDiv.appendChild(card);
+				const quitButton = document.createElement('button');
+				quitButton.className = 'btn btn-info forButton';
+				quitButton.innerHTML = 'Quit';
+				//quitButton.onclick = function() { callMoreModal(apartment); };
 				
+				
+				const acceptButton = document.createElement('button');
+				acceptButton.className = 'btn btn-info forButton';
+				acceptButton.innerHTML = 'Accept';
+				//acceptButton.onclick = function() { callMoreModal(apartment); };
+				
+				const declineButton = document.createElement('button');
+				declineButton.className = 'btn forButton1';
+				declineButton.innerHTML = 'Decline';
+				//declineButton.onclick = function() { callMoreModal(apartment); };
+				
+				if(role1 == 'GUEST'){
+					if(reservation.status=="CREATED" || reservation.status=="ACCEPTED" )
+						
+						startDateRow.appendChild(quitButton);
+				}
+				if(role1 == 'HOST'){
+					if(reservation.status=="CREATED"){
+						roomGuestRow.appendChild(acceptButton);
+						startDateRow.appendChild(declineButton);
+					}else if(reservation.status=="ACCEPTED"){
+						startDateRow.appendChild(declineButton);
+					}
+				}
+				
+				reservationsCardDiv.appendChild(card);
 			}
 		});
 		
-	
+		}
+	});
 		
 	}
