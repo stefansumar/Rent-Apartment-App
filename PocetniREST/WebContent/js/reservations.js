@@ -7,7 +7,6 @@ let role1;
 function reservations(){
 	
 	$('#cardDiv').hide();
-	$('#searchTextField').hide();
 	$('#searchButton').hide();
 	$('#editProfile').hide();
 	$('#changePassword').hide();
@@ -15,6 +14,7 @@ function reservations(){
 	$('#newApartment').hide();
 	$('#amenityTable').hide();
     $('#usersTable').hide();
+    $('#searchDiv').hide();
     $('#reservationsCardDiv').show();
     
 	$(document).ready(function() {

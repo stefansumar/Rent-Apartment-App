@@ -80,12 +80,63 @@
      </li>
  	
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchTextField">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchButton">Search</button>
-    </form>
+    <div class="form-inline my-2 my-lg-0">
+      <button class="btn btn-outline-success my-2 my-sm-0" id="searchButton" onclick="showSearchDiv()">Search</button>
+    </div>
   </div>
 </nav>
+
+<!-- Search form -->
+<div class="container mt-4 mb-2 fadeInDown" id="searchDiv">
+	<div class="card">
+ 	<section id="searchMenu">
+		<div class="container">
+		<form>
+			<div class="form-row">
+				<div class="col-md-4">
+					<label for="dateSearch"><b>Arrival/Departure date</b></label>
+					<div class="input-group">
+						<input id="startDateSearch" type="date" class="form-control" placeholder="Arrival date" >
+						<input id="endDateSearch" type="date" class="form-control" placeholder="Departure date">						
+					</div>
+				</div>
+				<div class="col-md-4">
+					<label for="placeSearch"><b>Place</b></label>
+					<input id="placeSearch" type="text" class="form-control" placeholder="Place">
+				</div>
+				<div class="col-md-4">
+					<label for="countrySearch"><b>Country</b></label>
+					<input id="countrySearch" type="text" class="form-control" placeholder="Country">
+				</div>
+				<div class="col-md-4">
+					<label for="priceSearch"><b>Price $</b></label>
+					<div class="input-group">
+						<input id="minPriceSearch" type="number" class="form-control" placeholder="Min. price" min=0>
+						<input id="maxPriceSearch" type="number" class="form-control" placeholder="Max. price">						
+					</div>
+				</div>
+				<div class="col-md-4">
+					<label for="roomsSearch"><b>No. rooms</b></label>
+					<div class="input-group">
+						<input id="minRoomsSearch" type="number" class="form-control" placeholder="Min. no. rooms" min=1>
+						<input id="maxRoomsSearch" type="number" class="form-control" placeholder="Max. no. rooms">						
+					</div>
+				</div>
+				<div class="col-md-4">
+					<label for="countrySearch"><b>No. guests</b></label>
+					<input id="countrySearch" type="number" class="form-control" placeholder="Number of guests" min=1>
+				</div>
+			</div>
+			
+		</form>
+		<p id="errorSearch" style = "margin-top: 5px; margin-left: 7px; color: red; font-size: 16px;"></p>
+			<button id ="search" type="button" class="btn btn-success mt-2 mb-2" style = "float: right;">Search</button>
+			<button id ="cancelSearch" type="button" class="btn btn-info mt-2 mb-2 mr-2" style = "float: right;" onclick="hideSearchDiv()">Cancel</button>
+		<hr>
+		</div>
+	</section>
+	</div>
+</div>
 	
 <!-- Cards  -->
 <div class="container mt-3 apartmentCard" id="cardDiv">

@@ -6,7 +6,6 @@ let role;
 function users(){
 	$('#usersTableBody').html('');
 	$('#cardDiv').hide();
-	$('#searchTextField').hide();
 	$('#searchButton').hide();
 	$('#editProfile').hide();
 	$('#changePassword').hide();
@@ -15,6 +14,7 @@ function users(){
 	$('#amenityTable').hide();
 	$('#editApartment').hide();
 	$('#reservationsCardDiv').hide();
+	$('#searchDiv').hide();
     $('#usersTable').show();
     
     $.get({

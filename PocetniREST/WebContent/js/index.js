@@ -112,6 +112,7 @@ function createCard(apartment){
 }
 
 $(document).ready(function() {
+	$('#searchDiv').hide();
 	cardDiv = document.getElementById('cardDiv');
 	console.log(cardDiv);
 	$.get({
@@ -239,4 +240,12 @@ function createCommentCard(comment){
 	commentDiv.appendChild(rate);
 	containerList.appendChild(commentDiv);
 	
+}
+
+function showSearchDiv(){
+	$('#searchDiv').show();
+}
+
+function hideSearchDiv(){
+	$('#searchDiv').hide();
 }
