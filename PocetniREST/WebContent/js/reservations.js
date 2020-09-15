@@ -80,7 +80,7 @@ function createCardReservation(reservation){
 				secondColumn.className = 'col-md-5';
 				const header = document.createElement('h3');
 				header.className = 'mt-2 ml-4 designText';
-				header.innerHTML = 'Reservation ' + reservation.reservationId + ' - ' + reservation.status + ' ';
+				header.innerHTML = 'Reservation - ' + reservation.status + ' ';
 				
 				const price = document.createElement('h3');
 				price.className = 'mt-2 price';
