@@ -10,6 +10,7 @@ function amenities(){
 	$('#profile').hide();
 	$('#newApartment').hide();
     $('#usersTable').hide();
+    $('#editApartment').hide();
 	$('#amenityTable').show();
 
 	

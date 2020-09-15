@@ -13,6 +13,7 @@ function myProfile(){
 			$('#amenityTable').hide();
 			$('#usersTable').hide();
         	$('#newApartment').hide();
+        	$('#editApartment').hide();
         	$('#profile').html("");
         	$('#profile').show();
         	$('#profile').append("<img src=\"images/avatar.png\" class=\"avatar\"></img>");

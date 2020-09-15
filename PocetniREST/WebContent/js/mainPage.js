@@ -3,6 +3,7 @@ let apartmentId;
 let commentDiv;
 let finalRate = 0; 
 let userRole;
+let apartmentForEdit;
 
 $(document).ready(function() {
 	getAllApartments();
@@ -122,6 +123,7 @@ function createCard(apartment){
 }
 
 function callMoreModal(apartment){
+	apartmentForEdit = apartment;
 	console.log(userRole);
 	apartmentId = apartment.id;
 	$('#apartmentImage .col-md-5').html('<img class="imageSize" src="'+ apartment.image  + '">');
@@ -130,6 +132,7 @@ function callMoreModal(apartment){
 		const editButton = document.createElement('button');
 		editButton.innerHTML = 'Edit';
 		editButton.className = 'btn btn-info mt-2';
+		editButton.onclick = function () { callEditApartmentModal(apartmentForEdit); };
 		$('#apartmentImage .col-md-5').append(editButton);
 		const deleteButton = document.createElement('button');
 		deleteButton.innerHTML = 'Delete';
@@ -138,8 +141,8 @@ function callMoreModal(apartment){
 		$('#apartmentImage .col-md-5').append(deleteButton);
 	}
 	
-	$('#apartmentName').text(apartment.name);
-	$('#pricePerNight').text(apartment.pricePerNight + "$");
+	$('#apartmentNameText').text(apartment.name);
+	$('#pricePerNightText').text(apartment.pricePerNight + "$");
 	$('#type').html("<b>   Type:   </b> " + apartment.type);
 	$('#street').html("<b>   Street:   </b> " + apartment.location.address.street);
 	$('#place').html("<b>   Place:   </b> " + apartment.location.address.place);
@@ -179,6 +182,7 @@ function getAllApartments(){
 	$('#amenityTable').hide();
 	$('#usersTable').hide();
 	$('#newApartment').hide();
+	$('#editApartment').hide();
 	cardDiv = document.getElementById('cardDiv');
 	$('#cardDiv').html('');
 	$('#cardDiv').show();
@@ -417,6 +421,7 @@ function addNewApartment(){
 			$('#usersTable').hide();
         	$('#editProfile').hide();    
         	$('#editProfile').hide();  
+        	$('#editApartment').hide();
         	$('#newApartment').show();
 
         }
@@ -672,6 +677,23 @@ class Location {
 		this.geoHeight = geoHeight;
 		this.address = address;
 	}
+}
+
+function callEditApartmentModal(apartment){
+	console.log(apartment);
+	$('#moreModal').modal('hide');
+	$('#profile').hide();
+	$('#editProfile').hide();
+	$('#changePassword').hide();
+	$('#amenityTable').hide();
+	$('#usersTable').hide();
+	$('#newApartment').hide();
+	cardDiv = document.getElementById('cardDiv');
+	$('#cardDiv').html('');
+	$('#cardDiv').hide();
+	$('#searchTextField').hide();
+	$('#searchButton').hide();
+	$('#editApartment').show();
 }
 
 

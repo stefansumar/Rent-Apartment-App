@@ -14,6 +14,7 @@ function editProfile(){
 			$('#amenityTable').hide();
 			$('#usersTable').hide();
         	$('#newApartment').hide();
+        	$('#editApartment').hide();
         	$('#editProfile').show();    
         	
         	let firstName = user.firstName;
