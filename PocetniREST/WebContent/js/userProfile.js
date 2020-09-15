@@ -11,6 +11,7 @@ function myProfile(){
         	$('#editProfile').hide();
         	$('#changePassword').hide();
 			$('#amenityTable').hide();
+			$('#reservationsCardDiv').hide();
 			$('#usersTable').hide();
         	$('#newApartment').hide();
         	$('#editApartment').hide();

@@ -9,8 +9,8 @@ function amenities(){
 	$('#changePassword').hide();
 	$('#profile').hide();
 	$('#newApartment').hide();
-    $('#usersTable').hide();
-    $('#editApartment').hide();
+	$('#usersTable').hide();
+	$('#reservationsCardDiv').hide();
 	$('#amenityTable').show();
 
 	

@@ -26,6 +26,7 @@ function addNewApartment(){
 			$('#editProfile').hide();  
 			$('#usersTable').hide();
 			$('#editApartment').hide();
+			$('#reservationsCardDiv').hide();
         	$('#newApartment').show();
 
         }
