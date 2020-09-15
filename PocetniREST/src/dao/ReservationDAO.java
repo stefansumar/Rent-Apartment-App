@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 import beans.Reservation;
+import beans.User;
 
 public class ReservationDAO {
 	public HashMap<Long, Reservation> reservations;
@@ -101,5 +102,14 @@ public class ReservationDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public Reservation findReservationById(Long reservationId) {
+		for(Reservation reservation : reservations.values()) {
+			if(reservation.getReservationId().equals(reservationId)){
+				return reservation;
+			}
+		}
+		return null;
 	}
 }

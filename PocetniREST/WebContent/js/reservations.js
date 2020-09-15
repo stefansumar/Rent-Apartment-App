@@ -45,7 +45,7 @@ function createCardReservation(reservation){
         url: 'rest/user/getCurrentUser',
 		contnentType: 'application/json',
         success: function (user) {
-        	console.log(user.username);
+        	let user1=user;
         	role1 = user.role;
 		$.get({
 			url: 'rest/apartment/one/'+ reservation.apartmentId,
@@ -163,23 +163,27 @@ function createCardReservation(reservation){
 				const quitButton = document.createElement('button');
 				quitButton.className = 'btn btn-info forButton';
 				quitButton.innerHTML = 'Quit';
-				//quitButton.onclick = function() { callMoreModal(apartment); };
+				quitButton.onclick = function() { changeStatusReservation(reservation, 'CANCELED'); };
 				
 				
 				const acceptButton = document.createElement('button');
 				acceptButton.className = 'btn btn-info forButton';
 				acceptButton.innerHTML = 'Accept';
-				//acceptButton.onclick = function() { callMoreModal(apartment); };
+				acceptButton.onclick = function() { changeStatusReservation(reservation, 'ACCEPTED'); };
 				
 				const declineButton = document.createElement('button');
 				declineButton.className = 'btn forButton1';
 				declineButton.innerHTML = 'Decline';
-				//declineButton.onclick = function() { callMoreModal(apartment); };
+				declineButton.onclick = function() { changeStatusReservation(reservation, 'DECLINED'); };
 				
+				if(role1== 'ADMIN'){
+					reservationsCardDiv.appendChild(card);
+				}
 				if(role1 == 'GUEST'){
 					if(reservation.status=="CREATED" || reservation.status=="ACCEPTED" )
-						
 						startDateRow.appendChild(quitButton);
+					if(reservation.guestUsername==user1.username)
+						reservationsCardDiv.appendChild(card);
 				}
 				if(role1 == 'HOST'){
 					if(reservation.status=="CREATED"){
@@ -188,9 +192,11 @@ function createCardReservation(reservation){
 					}else if(reservation.status=="ACCEPTED"){
 						startDateRow.appendChild(declineButton);
 					}
+					if(apartment.hostUsername==user1.username)
+						reservationsCardDiv.appendChild(card);
 				}
 				
-				reservationsCardDiv.appendChild(card);
+			
 			}
 		});
 		
@@ -198,3 +204,17 @@ function createCardReservation(reservation){
 	});
 		
 	}
+function changeStatusReservation(reservation, newStatus){
+
+	$.ajax({
+        url: 'rest/reservation/' + reservation.reservationId + '/' + newStatus,
+		contnentType: 'application/json',
+		type: 'PUT',
+        success: function () {
+			$('#successMessage').text('You have successfully changed status of reservation.');
+			$('#successMessage').css({"color": "#7FFF00", "font-size": "16px"});
+			$("#successMessage").show().delay(3000).fadeOut();
+			 reservations(); 
+        }
+	});
+}
