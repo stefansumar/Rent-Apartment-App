@@ -3,6 +3,7 @@ let apartmentId;
 let commentDiv;
 let finalRate = 0; 
 let userRole;
+let apartmentForEdit;
 
 $(document).ready(function() {
 	getAllApartments();
@@ -122,6 +123,7 @@ function createCard(apartment){
 }
 
 function callMoreModal(apartment){
+	apartmentForEdit = apartment;
 	console.log(userRole);
 	apartmentId = apartment.id;
 	$('#apartmentImage .col-md-5').html('<img class="imageSize" src="'+ apartment.image  + '">');
@@ -130,6 +132,7 @@ function callMoreModal(apartment){
 		const editButton = document.createElement('button');
 		editButton.innerHTML = 'Edit';
 		editButton.className = 'btn btn-info mt-2';
+		editButton.onclick = function () { callEditApartmentModal(apartmentForEdit); };
 		$('#apartmentImage .col-md-5').append(editButton);
 		const deleteButton = document.createElement('button');
 		deleteButton.innerHTML = 'Delete';
@@ -138,8 +141,8 @@ function callMoreModal(apartment){
 		$('#apartmentImage .col-md-5').append(deleteButton);
 	}
 	
-	$('#apartmentName').text(apartment.name);
-	$('#pricePerNight').text(apartment.pricePerNight + "$");
+	$('#apartmentNameText').text(apartment.name);
+	$('#pricePerNightText').text(apartment.pricePerNight + "$");
 	$('#type').html("<b>   Type:   </b> " + apartment.type);
 	$('#street').html("<b>   Street:   </b> " + apartment.location.address.street);
 	$('#place').html("<b>   Place:   </b> " + apartment.location.address.place);
@@ -179,6 +182,7 @@ function getAllApartments(){
 	$('#amenityTable').hide();
 	$('#usersTable').hide();
 	$('#newApartment').hide();
+	$('#editApartment').hide();
 	cardDiv = document.getElementById('cardDiv');
 	$('#cardDiv').html('');
 	$('#cardDiv').show();
@@ -419,6 +423,7 @@ function addNewApartment(){
 			$('#usersTable').hide();
         	$('#editProfile').hide();    
         	$('#editProfile').hide();  
+        	$('#editApartment').hide();
         	$('#newApartment').show();
 
         }
@@ -674,6 +679,120 @@ class Location {
 		this.geoHeight = geoHeight;
 		this.address = address;
 	}
+}
+
+class ApartmentEdit {
+	constructor(name, type, pricePerNight, roomCount, guestCount, startDate, endDate, timeForCheckIn, timeForCheckOut, location, hostUsername, image, description){
+		this.name = name;
+		this.type = type;
+		this.pricePerNight = pricePerNight;
+		this.roomCount = roomCount;
+		this.guestCount = guestCount;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.timeForCheckIn = timeForCheckIn;
+		this.timeForCheckOut = timeForCheckOut;
+		this.location = location;
+		this.hostUsername = hostUsername;
+		this.image = image;	
+		this.description = description;
+	}
+}
+
+function callEditApartmentModal(apartment){
+	console.log(apartment);
+	$('#moreModal').modal('hide');
+	$('#profile').hide();
+	$('#editProfile').hide();
+	$('#changePassword').hide();
+	$('#amenityTable').hide();
+	$('#usersTable').hide();
+	$('#newApartment').hide();
+	cardDiv = document.getElementById('cardDiv');
+	$('#cardDiv').html('');
+	$('#cardDiv').hide();
+	$('#searchTextField').hide();
+	$('#searchButton').hide();
+	$('#editApartment').show();
+	
+	document.getElementById('apartmentNameEdit').value = apartment.name;
+	document.getElementById('selectTypeEdit').value = apartment.type;
+	document.getElementById('pricePerNightEdit').value = apartment.pricePerNight;
+	document.getElementById('selectNoRoomsEdit').value = apartment.roomCount;
+	document.getElementById('selectNoGuestsEdit').value = apartment.guestCount;
+	//document.getElementById('startDateEdit').value = apartment.name;
+	//document.getElementById('endDateEdit').value = apartment.name;
+	document.getElementById('startTimeEdit').value = apartment.timeForCheckIn;
+	document.getElementById('endTimeEdit').value = apartment.timeForCheckOut;
+	document.getElementById('apartmentDescriptionEdit').value = apartment.description;
+	
+	
+}
+
+function updateApartment(){
+	let id = apartmentForEdit.id;
+	let eStreet = apartmentForEdit.location.address.street;
+	let ePlace = apartmentForEdit.location.address.place;
+	let ePostalCode = apartmentForEdit.location.address.postalCode;
+	let eGw = apartmentForEdit.location.geoWidth;
+	let eGh = apartmentForEdit.location.geoHeight;
+	let eName = $('#apartmentNameEdit').val();
+	let eType = $('#selectTypeEdit').val();
+	let ePrice = $('#pricePerNightEdit').val();
+	let eNoGuests = $('#selectNoGuestsEdit').val();
+	let eNoRooms = $('#selectNoRoomsEdit').val();
+	let eStartDate = $('#startDateEdit').val();
+	let eEndDate = $('#endDateEdit').val();
+	let eCheckIn = $('#startTimeEdit').val();
+	let eCheckOut = $('#endTimeEdit').val();
+	let eDescription = $('#apartmentDescriptionEdit').val();
+	let eImage = apartmentForEdit.image;
+	
+	if($('#streetAdd').val() != ''){
+		eStreet = $('#streetAdd').val();
+	}
+	
+	if($('#placeAdd').val() != ''){
+		ePlace = $('#placeAdd').val();
+	}
+	
+	if($('#postalAdd').val() != ''){
+		ePostalCode = $('#postalAdd').val();
+	}
+	
+	if($('#gwAdd').val() != ''){
+		eGw = $('#gwAdd').val();
+	}
+	
+	if($('#ghAdd').val() != ''){
+		eGh = $('#ghAdd').val();
+	}
+	
+	if(imagePath != null){
+		eImage = imagePath;
+	}
+	
+	let eAddress = new Address(eStreet, ePlace, ePostalCode);
+	
+	let eLocation = new Location(eGw, eGh, eAddress);
+	
+	let apartment = new ApartmentEdit(eName, eType, ePrice, eNoRooms, eNoGuests, eStartDate, eEndDate, eCheckIn, eCheckOut, eLocation, apartmentForEdit.hostUsername, eImage, eDescription);
+	
+	console.log(apartment);
+	
+	$.ajax({
+		url: 'rest/apartment/' + id ,
+		contentType: 'application/json',
+		type: 'PUT',
+		data: JSON.stringify(apartment),
+        success: function () {
+        	getAllApartments();
+        	alert('Apartment is edited successfully.');
+        }
+		
+	});
+	
+	
 }
 
 

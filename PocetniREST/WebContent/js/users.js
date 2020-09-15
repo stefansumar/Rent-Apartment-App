@@ -4,6 +4,7 @@ let user;
 let apartments;
 let role;
 function users(){
+	$('#usersTableBody').html('');
 	$('#cardDiv').hide();
 	$('#searchTextField').hide();
 	$('#searchButton').hide();
@@ -12,6 +13,7 @@ function users(){
 	$('#profile').hide();
 	$('#newApartment').hide();
 	$('#amenityTable').hide();
+	$('#editApartment').hide();
 	$('#reservationsCardDiv').hide();
     $('#usersTable').show();
     
@@ -47,7 +49,6 @@ function users(){
         	        		userList=userList1;
         	        	}
         			let number = 0;
-        			$('#usersTableBody').html('');
         			for(let user of userList){
         				number = number + 1;
         				const tr = document.createElement('tr');

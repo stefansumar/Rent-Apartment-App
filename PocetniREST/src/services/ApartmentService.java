@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.annotation.PostConstruct;
@@ -16,6 +17,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -232,5 +234,41 @@ public class ApartmentService {
 		return Response.status(200).build();
 		
 	}	
+	
+	@PUT
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response editApartment(@PathParam("id") Long id, @Context HttpServletRequest request, ApartmentDTO apartment) {
+		User loggedIn = (User) request.getSession().getAttribute("loggedIn");
+		
+		if(loggedIn.getRole().equals("GUEST")) {
+			return Response.status(403).entity("You don't have permission to update an apartment.").build();
+		}
+
+		ApartmentDAO apartmentDAO = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		HashMap<Long, Apartment> apartments = apartmentDAO.getApartments();
+		Apartment eApartment = apartments.get(id);
+		
+		if(eApartment != null) {
+			eApartment.setName(apartment.getName());
+			eApartment.setType(apartment.getType());
+			eApartment.setPricePerNight(apartment.getPricePerNight().toString());
+			eApartment.setRoomCount(apartment.getRoomCount());
+			eApartment.setGuestCount(apartment.getGuestCount());
+			eApartment.setLocation(apartment.getLocation());
+			eApartment.setImage(apartment.getImage());
+			eApartment.setDescription(apartment.getDescription());
+			apartments.put(id, eApartment);
+			apartmentDAO.setApartments(apartments);
+			apartmentDAO.saveApartments(apartments);
+			ctx.setAttribute("apartmentDAO", apartmentDAO);
+			return Response.status(200).build();
+		} else {
+			return Response.status(400).entity("Apartment is not found.").build();
+		}
+		
+	}
+	
 	
 }
