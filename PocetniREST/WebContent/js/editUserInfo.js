@@ -13,7 +13,8 @@ function editProfile(){
         	$('#changePassword').hide();
 			$('#amenityTable').hide();
 			$('#usersTable').hide();
-        	$('#newApartment').hide();
+			$('#newApartment').hide();
+			$('#reservationsCardDiv').hide();
         	$('#editProfile').show();    
         	
         	let firstName = user.firstName;
