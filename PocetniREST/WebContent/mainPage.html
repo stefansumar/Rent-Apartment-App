@@ -234,7 +234,7 @@
 	      <input type="text" id="apartmentName" name="apartmentName" placeholder="Enter apartment name (Required)"/>
 	      <select id="selectType">
        		<option value="" disabled selected>Select type of apartment (Required)</option>
-      		<option>Full</option>
+      		<option>Apartment</option>
       		<option>Room</option>
 	  	  </select>
 	      <input type="text" id="pricePerNight" name="pricePerNight" placeholder="Enter price per night (Required)" onkeypress="return isNumber(event)"/>
@@ -296,11 +296,11 @@
 	      <input type="text" id="apartmentNameEdit" name="apartmentNameEdit" placeholder="Enter apartment name (Required)"/>
 	      <select id="selectTypeEdit">
        		<option value="" disabled selected>Select type of apartment (Required)</option>
-      		<option>Full</option>
+      		<option>Apartment</option>
       		<option>Room</option>
 	  	  </select>
 	      <input type="text" id="pricePerNightEdit" name="pricePerNightEdit" placeholder="Enter price per night (Required)" onkeypress="return isNumber(event)"/>
-	      <select id="selectNoRooms">
+	      <select id="selectNoRoomsEdit">
        		<option value="" disabled selected>Choose number of rooms (Required)</option>
       		<option>1</option>
       		<option>2</option>
@@ -326,14 +326,14 @@
       		<option>9</option>
       		<option>10</option>
 	  	  </select>
-	      <input type="date" id="startDateEdit" name="startDateEdit" placeholder="Enter start date (Required)"/>
-	      <input type="date" id="endDateEdit" name="endDateEdit" placeholder="Enter end date (Required)"/>
-	      <input type="time" id="startTimeEdit" name="startTimeEdit" placeholder="Enter check in time (Required)"/>
-	      <input type="time" id="endTimeEdit" name="endTimeEdit" placeholder="Enter check out time (Required)"/>
+	      <input type="date" disabled  id="startDateEdit" name="startDateEdit" placeholder="Enter start date (Required)"/>
+	      <input type="date" disabled id="endDateEdit" name="endDateEdit" placeholder="Enter end date (Required)"/>
+	      <input type="time" disabled id="startTimeEdit" name="startTimeEdit" placeholder="Enter check in time (Required)"/>
+	      <input type="time" disabled id="endTimeEdit" name="endTimeEdit" placeholder="Enter check out time (Required)"/>
 	      <input type="text" id="apartmentDescriptionEdit" name="apartmentDescriptionEdit" placeholder="Enter apartment description (Optional)"/>
 	    </form>
 	      <p id="newAptError"></p>
-	      <button class="btn btn-info mb-2 mt-2" onclick="saveApartment()">Save Apartment</button>
+	      <button class="btn btn-info mb-2 mt-2" onclick="updateApartment()">Save Apartment</button>
 	   	  
 	   	  <p></p>
 	   	  <p></p>
