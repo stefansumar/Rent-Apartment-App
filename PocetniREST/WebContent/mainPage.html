@@ -389,7 +389,51 @@
     </div>
   </div>
 </div>
-
+<!-- Modal reservation -->
+ <div class="modal fade" id="reservationModal" role="dialog">
+   <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+       <div class="modal-header">
+       	 <h4 class="modal-title">Make reservation</h4>
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
+       </div>
+       <div class="modal-body">
+	 
+	    <!-- New Reservation Form -->
+	    <form id="newReservation">
+	      <input type="date" id="startDate1" name="startDate" placeholder="Enter start date (Required)"/>
+	      <select id="selectNoNights">
+       		<option value="" disabled selected>Choose number of nights (Required)</option>
+      		<option>1</option>
+      		<option>2</option>
+      		<option>3</option>
+      		<option>4</option>
+      		<option>5</option>
+      		<option>6</option>
+      		<option>7</option>
+      		<option>8</option>
+      		<option>9</option>
+      		<option>10</option>
+      		<option>11</option>
+      		<option>12</option>
+      		<option>13</option>
+      		<option>14</option>
+      		<option>15</option>
+	  	  </select>
+	     
+	      <input type="text" id="message" name="message" placeholder="Message for host (Required)"/>
+	       <p id="newResError"></p>
+	    </form>
+	     
+       </div>
+       <div class="modal-footer">
+       
+         <button type="button" class="btn btn-info" onclick="saveReservation()">Confirm reservation</button>
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Quit</button>
+       </div>
+     </div>
+   </div>
+ </div>
  <!-- Modal -->
  <div class="modal fade" id="moreModal" role="dialog">
    <div class="modal-dialog modal-lg">
