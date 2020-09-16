@@ -135,13 +135,68 @@ function createCard(apartment,role){
 }
 
 function reservationModal(apartment){
+
+	/*$(document).ready(function(){
+		$("#datepicker").datepicker({
+			beforeShowDay: function(date){
+				var day = date.getDay();
+				if(day==0){
+					return[false];
+				}
+				else
+					return [true];
+			}
+		});
+	   });*/
+	var array = ["2020-09-20","2020-09-21"]
+
+	$(document).ready(function(){
+		$("#datepicker").datepicker({
+			dateFormat: 'dd-mm-yy',
+		    maxDate:new Date(2020, 8, 28), 
+		    minDate:new Date(2020, 7, 28),
+	    beforeShowDay: function(date){
+	        var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+	        return [ array.indexOf(string) == -1 ]
+	    }
+		
+		});
+	   });
+
+	/*$( "#datepicker" ).datepicker({
+		  maxDate: new Date(2020, 9, 29)
+		});
+*/
+	/*var array = ["2020-09-20","2020-09-21"]
+
+	$('datepicker').datepicker({
+	    beforeShowDay: function(date){
+	        var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+	        return [ array.indexOf(string) == -1 ]
+	    }
+	});*/
+	/*
+	$(document).ready(function(){
+		$("#startDate1").datepicker({
+			beforeShowDay: function(date){
+				var day = date.getDay();
+				if(day==0){
+					return[false];
+				}
+				else
+					return [true];
+			}
+		});
+	   });*/
 	
 	apartmentId1 = apartment.id;
 	pricePerNight= apartment.pricePerNight;
 	document.getElementById('message').value = '';
 	document.getElementById('startDate1').value = '';
 	document.getElementById('selectNoNights').value = '';
-
+	
+  
+	
 	$('#reservationModal').modal('show');
 
 }

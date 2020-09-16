@@ -14,6 +14,9 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" type="text/css" href="css/mainPage.css">
 	<link rel="stylesheet" type="text/css" href="css/login.css">
+	<link rel="stylesheet" type="text/css" href="jquery-ui.min.css">
+	
+	
 	<!-- For map -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/css/ol.css" type="text/css">
 	
@@ -25,10 +28,11 @@
 	<script src="js/users.js"></script>
 	<script src="js/reservations.js"></script>
 	
+     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 	
 	<!-- Map -->
 	<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
-	
 	
 		
 </head>
@@ -402,6 +406,8 @@
 	    <!-- New Reservation Form -->
 	    <form id="newReservation">
 	      <input type="date" id="startDate1" name="startDate" placeholder="Enter start date (Required)"/>
+	        	      <input id="datepicker" type="text">
+	        
 	      <select id="selectNoNights">
        		<option value="" disabled selected>Choose number of nights (Required)</option>
       		<option>1</option>
