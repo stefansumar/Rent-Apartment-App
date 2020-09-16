@@ -75,7 +75,6 @@ public class ApartmentDAO {
 			e.printStackTrace();
 		}
 		
-		System.out.println(apartmentList.size());
 		for(Apartment ap : apartmentList){
 			
 			apartments.put(ap.getId(), ap);
@@ -83,7 +82,6 @@ public class ApartmentDAO {
 	}
 	
 	public void saveApartments(HashMap<Long, Apartment> apartments){
-		System.out.println("Usao u save apartments");
 		try {
 			ObjectMapper objectMapper = new ObjectMapper();
 			objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
