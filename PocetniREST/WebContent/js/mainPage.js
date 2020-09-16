@@ -113,7 +113,10 @@ function createCard(apartment,role){
 	reservationButton.innerHTML = 'Make reservation';
 	reservationButton.onclick = function () { reservationModal(apartment); };
 	
-	if(role == 'GUEST'){
+	
+	
+	if(role === "GUEST"){
+	
 		typeRow.appendChild(reservationButton);
 	}
 	
@@ -173,20 +176,33 @@ function reservationModal(apartment){
 	document.getElementById('datepicker').value = '';
 	document.getElementById('selectNoNights').value = '';
 	
+	var end = "";
+	var y = "";
+	var m = "";
+	var d = "";
+	
+	 end = apartment.endDate.split("-");
+	 y = end[0];
+	 m = end[1];
+	 d = end[2];
+	
 	$('#datepicker').datepicker({
-		dateFormat: 'dd-mm-yy',
-	    maxDate:new Date(2020, 10, 28), 
+		dateFormat: 'dd-mm-yy',		
+	    maxDate:new Date(apartment.endDate), 
 	    minDate:new Date(),
-    beforeShowDay: function(date){
-        var string = jQuery.datepicker.formatDate('yy-mm-dd', date);   
-        console.log(string);
-       // return [ array.indexOf(string) == -1 ]
-        return [$.inArray(string, array) == -1];
-        
-    }
+   beforeShowDay: function(date){
+       var string = jQuery.datepicker.formatDate('yy-mm-dd', date);   
+       return [$.inArray(string, array) == -1];
+       
+   }
 	});
 	
+	var maximumDate = d+"-"+m+"-"+y;
+	$("#datepicker" ).datepicker( "option", "maxDate", maximumDate);
+	console.log(y, m, d);
+	
 	$('#reservationModal').modal('show');	
+
 
 }
 
