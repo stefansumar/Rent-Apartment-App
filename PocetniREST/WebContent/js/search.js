@@ -1,5 +1,5 @@
 let currentApartments;
-
+let userRole1;
 function search(){
 	let startDateSearch = $('#startDateSearch').val();
 	let endDateSearch = $('#endDateSearch').val();
@@ -13,7 +13,15 @@ function search(){
 	var searchDTO = new SearchApartmentDTO(startDateSearch, endDateSearch, placeSearch, minPriceSearch, maxPriceSearch,
 			minRoomsSearch, maxRoomsSearch, noGuestsSearch);
 	console.log(searchDTO);
-	
+	$.get({
+        url: 'rest/user/getCurrentUser',
+		contnentType: 'application/json',
+        success: function (user) {
+        	console.log(user);
+        	username1 = user.username;
+        	userRole1 = user.role;
+        }
+        });
 	$.post({
 		url: 'rest/apartment/search',
 		contentType: 'application/json',
@@ -136,6 +144,18 @@ function createCard(apartment){
 	commentsButton.className = 'btn btn-info forButton';
 	commentsButton.innerHTML = 'Comments';
 	commentsButton.onclick = function () { commentsModal(apartment); };
+	
+	const reservationButton = document.createElement('button');
+	reservationButton.className = 'btn forButton2';
+	reservationButton.innerHTML = 'Make reservation';
+	reservationButton.onclick = function () { reservationModal(apartment); };
+	
+	
+	
+	if(userRole === "GUEST"){
+
+		typeRow.appendChild(reservationButton);
+	}
 	roomGuestRow.appendChild(roomCount);
 	roomGuestRow.appendChild(roomCountText);
 	roomGuestRow.appendChild(guestCount);
@@ -155,6 +175,108 @@ function createCard(apartment){
 	cardDiv.appendChild(card);
 	
 }
+function reservationModal(apartment){
+
+	 array = [];
+	array.length = 0;
+	console.log(apartment.reservations);
+	for(let reservation of apartment.reservations){      
+		if(reservation.status == "ACCEPTED"){
+	    var a=1;
+		var dt=new Date(reservation.startDate);
+		array.push(reservation.startDate);
+		while(a<reservation.nightCount){
+			var date;
+			dt.setDate(dt.getDate()+1);
+			a=a+1;
+		    console.log(dt.toString());
+
+		   date=convertDate(dt.toString());
+		    array.push(date);
+		
+		    
+		}	
+		
+	}
+	}
+   //console.log(array);
+
+
+
+
+	
+	apartmentId1 = apartment.id;
+	pricePerNight= apartment.pricePerNight;
+	document.getElementById('message').value = '';
+	document.getElementById('datepicker').value = '';
+	document.getElementById('selectNoNights').value = '';
+	
+	var end = "";
+	var y = "";
+	var m = "";
+	var d = "";
+	
+	 end = apartment.endDate.split("-");
+	 y = end[0];
+	 m = end[1];
+	 d = end[2];
+	
+	$('#datepicker').datepicker({
+		dateFormat: 'dd-mm-yy',		
+	    maxDate:new Date(apartment.endDate), 
+	    minDate:new Date(),
+   beforeShowDay: function(date){
+       var string = jQuery.datepicker.formatDate('yy-mm-dd', date);   
+       return [$.inArray(string, array) == -1];
+       
+   }
+	});
+	
+	var maximumDate = d+"-"+m+"-"+y;
+	$("#datepicker" ).datepicker( "option", "maxDate", maximumDate);
+	console.log(y, m, d);
+	
+	$('#reservationModal').modal('show');	
+
+}
+
+function convertDate(d){
+	 var dArr1 = [];
+	  dArr1 = d.split(" ");
+	 
+	  if(dArr1[1] == "Jan")
+		  dArr1[1] = 1;
+	  else if(dArr1[1] == "Feb")
+		  dArr1[1] = 2;
+	  else if(dArr1[1] == "Mar")
+		  dArr1[1] = 3;  
+	  else if(dArr1[1] == "Apr")
+		  dArr1[1] = 4;
+	  else if(dArr1[1] == "May")
+		  dArr1[1] = 5;
+	  else if(dArr1[1] == "Jun")
+		  dArr1[1] = 6;
+	  else if(dArr1[1] == "Jul")
+		  dArr1[1] = 7;
+	  else if(dArr1[1] == "Aug")
+		  dArr1[1] = 8;
+	  else if(dArr1[1] == "Sep")
+		  dArr1[1] = 9;
+	  else if(dArr1[1] == "Oct")
+		  dArr1[1] = 10;
+	  else if(dArr1[1] == "Nov")
+		  dArr1[1] = 11;
+	  else if(dArr1[1] == "Dec")
+		  dArr1[1] = 12;
+	  
+	  if(dArr1[1]<10){
+	  var date = dArr1[3]+ "-0" +dArr1[1]+ "-" +dArr1[2]; 
+	}
+	  else 
+		  var date = dArr1[3]+ "-" +dArr1[1]+ "-" +dArr1[2]; 
+	  return date;
+}
+
 
 function sortByPriceAscending(){
 	
