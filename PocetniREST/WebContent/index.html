@@ -17,6 +17,7 @@
 	
 	<script src="js/login.js"></script>	
 	<script src="js/index.js"></script>	
+	<script src="js/search.js"></script>	
 	
 	
 </head>
@@ -59,12 +60,8 @@
 					</div>
 				</div>
 				<div class="col-md-4">
-					<label for="placeSearch"><b>Place</b></label>
+					<label for="placeSearchL"><b>Place</b></label>
 					<input id="placeSearch" type="text" class="form-control" placeholder="Place">
-				</div>
-				<div class="col-md-4">
-					<label for="countrySearch"><b>Country</b></label>
-					<input id="countrySearch" type="text" class="form-control" placeholder="Country">
 				</div>
 				<div class="col-md-4">
 					<label for="priceSearch"><b>Price $</b></label>
@@ -81,14 +78,15 @@
 					</div>
 				</div>
 				<div class="col-md-4">
-					<label for="countrySearch"><b>No. guests</b></label>
-					<input id="countrySearch" type="number" class="form-control" placeholder="Number of guests" min=1>
+					<label for="noGuestsSearchL"><b>No. guests</b></label>
+					<input id="noGuestsSearch" type="number" class="form-control" placeholder="Number of guests" min=1>
 				</div>
 			</div>
 			
 		</form>
 		<p id="errorSearch" style = "margin-top: 5px; margin-left: 7px; color: red; font-size: 16px;"></p>
-			<button id ="search" type="button" class="btn btn-success mt-2 mb-2" style = "float: right;">Search</button>
+			<button id ="search" type="button" class="btn btn-success mt-2 mb-2" style = "float: right;" onclick="search()">Search</button>
+			<button id ="clearFilters" type="button" class="btn btn-info mt-2 mb-2 mr-2" style = "float: right;" onclick="clearFilters()">Clear Filters</button>
 			<button id ="cancelSearch" type="button" class="btn btn-info mt-2 mb-2 mr-2" style = "float: right;" onclick="hideSearchDiv()">Cancel</button>
 		<hr>
 		</div>

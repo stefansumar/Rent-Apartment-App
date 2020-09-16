@@ -114,7 +114,6 @@ function createCard(apartment){
 $(document).ready(function() {
 	$('#searchDiv').hide();
 	cardDiv = document.getElementById('cardDiv');
-	console.log(cardDiv);
 	$.get({
 		url: 'rest/apartment/allActive',
 		contentType: 'application/json',
@@ -248,4 +247,12 @@ function showSearchDiv(){
 
 function hideSearchDiv(){
 	$('#searchDiv').hide();
+	document.getElementById('startDateSearch').value = '';
+	document.getElementById('endDateSearch').value = '';
+	document.getElementById('placeSearch').value = '';
+	document.getElementById('minPriceSearch').value = '';
+	document.getElementById('maxPriceSearch').value = '';
+	document.getElementById('minRoomsSearch').value = '';
+	document.getElementById('maxRoomsSearch').value = '';
+	document.getElementById('noGuestsSearch').value = '';
 }
