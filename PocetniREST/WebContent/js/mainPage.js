@@ -6,6 +6,7 @@ let finalRate = 0;
 let userRole;
 let pricePerNight; 
 let username1;
+let array=[];
 
 $(document).ready(function() {
 	getAllApartments();
@@ -136,21 +137,32 @@ function createCard(apartment,role){
 
 function reservationModal(apartment){
 
-	
-	var array = ["2020-09-20","2020-09-21"]
+	 array = [];
+	array.length = 0;
+	console.log(apartment.reservations);
+	for(let reservation of apartment.reservations){      
+		if(reservation.status == "ACCEPTED"){
+	    var a=1;
+		var dt=new Date(reservation.startDate);
+		array.push(reservation.startDate);
+		while(a<reservation.nightCount){
+			var date;
+			dt.setDate(dt.getDate()+1);
+			a=a+1;
+		    console.log(dt.toString());
 
-	$(document).ready(function(){
-		$("#datepicker").datepicker({
-			dateFormat: 'dd-mm-yy',
-		    maxDate:new Date(2020, 8, 28), 
-		    minDate:new Date(),
-	    beforeShowDay: function(date){
-	        var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-	        return [ array.indexOf(string) == -1 ]
-	    }
+		   date=convertDate(dt.toString());
+		    array.push(date);
 		
-		});
-	   });
+		    
+		}	
+		
+	}
+	}
+    console.log(array);
+
+
+
 
 	
 	apartmentId1 = apartment.id;
@@ -159,11 +171,60 @@ function reservationModal(apartment){
 	document.getElementById('datepicker').value = '';
 	document.getElementById('selectNoNights').value = '';
 	
-  
+	$('#datepicker').datepicker({
+		dateFormat: 'dd-mm-yy',
+	    maxDate:new Date(2020, 10, 28), 
+	    minDate:new Date(),
+    beforeShowDay: function(date){
+        var string = jQuery.datepicker.formatDate('yy-mm-dd', date);   
+        console.log(string);
+       // return [ array.indexOf(string) == -1 ]
+        return [$.inArray(string, array) == -1];
+        
+    }
+	});
 	
-	$('#reservationModal').modal('show');
+	$('#reservationModal').modal('show');	
 
 }
+
+function convertDate(d){
+	 var dArr1 = [];
+	  dArr1 = d.split(" ");
+	 
+	  if(dArr1[1] == "Jan")
+		  dArr1[1] = 1;
+	  else if(dArr1[1] == "Feb")
+		  dArr1[1] = 2;
+	  else if(dArr1[1] == "Mar")
+		  dArr1[1] = 3;  
+	  else if(dArr1[1] == "Apr")
+		  dArr1[1] = 4;
+	  else if(dArr1[1] == "May")
+		  dArr1[1] = 5;
+	  else if(dArr1[1] == "Jun")
+		  dArr1[1] = 6;
+	  else if(dArr1[1] == "Jul")
+		  dArr1[1] = 7;
+	  else if(dArr1[1] == "Aug")
+		  dArr1[1] = 8;
+	  else if(dArr1[1] == "Sep")
+		  dArr1[1] = 9;
+	  else if(dArr1[1] == "Oct")
+		  dArr1[1] = 10;
+	  else if(dArr1[1] == "Nov")
+		  dArr1[1] = 11;
+	  else if(dArr1[1] == "Dec")
+		  dArr1[1] = 12;
+	  
+	  if(dArr1[1]<10){
+	  var date = dArr1[3]+ "-0" +dArr1[1]+ "-" +dArr1[2]; 
+	}
+	  else 
+		  var date = dArr1[3]+ "-" +dArr1[1]+ "-" +dArr1[2]; 
+	  return date;
+}
+
 function callMoreModal(apartment){
 	console.log(userRole);
 	apartmentId = apartment.id;

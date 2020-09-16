@@ -98,6 +98,7 @@ public class ReservationService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addReservation(@Context HttpServletRequest request, ReservationDTO newReservation) {
 		
+		ApartmentDAO apartmentDAO = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
 		UserDAO userDAO = (UserDAO) ctx.getAttribute("userDAO");
 		User user = userDAO.findUserByUsername(newReservation.getGuestUsername());
 		
@@ -109,8 +110,13 @@ public class ReservationService {
 	
 		
 		HashMap<Long, Reservation> reservations = reservationDAO.getReservations();
+		HashMap<Long, Apartment> apartments = apartmentDAO.getApartments();
+
 		
 		Reservation reservation = new Reservation();
+		Apartment apartment = new Apartment();
+		ArrayList<Reservation> apRes = new ArrayList<Reservation>();
+
 		
 		
 		Long id = 0L;
@@ -132,6 +138,17 @@ public class ReservationService {
 		reservations.put(id, reservation);
 		reservationDAO.setReservations(reservations);
 		reservationDAO.saveReservations(reservations);
+		
+		apartment = apartmentDAO.find(reservation.getapartmentId());
+		apartments.remove(reservation.getapartmentId());
+		apRes=apartment.getReservations();
+		apRes.add(reservation);
+		apartment.setReservations(apRes);
+		
+		apartments.put(reservation.getapartmentId(),apartment);
+		apartmentDAO.setApartments(apartments);
+		apartmentDAO.saveApartments(apartments);
+		
 		ctx.setAttribute("reservationDAO", reservationDAO);
 		
 		return Response.status(200).build();
