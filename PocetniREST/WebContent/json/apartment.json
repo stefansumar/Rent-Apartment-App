@@ -34,7 +34,7 @@
 	"reservations" :[{
 	"reservationId" : "1",
 	"apartmentId" : "1",
-	"startDate" :  "2020-10-13",
+	"startDate" :  "2020-11-13",
 	"nightCount" : "5",
 	"price" : "200",
 	"message" : "great",
@@ -53,7 +53,7 @@
 {
 	"reservationId" : "3",
 	"apartmentId" : "1",
-	"startDate" : " 2020-9-13",
+	"startDate" : "2020-09-23",
 	"nightCount" : "5",
 	"price" : "220",
 	"message" : "super",
@@ -95,6 +95,16 @@
 		"id" : "4",
 		"name" : "Free parking",
 		"deleted" : "false"
+	}],
+	"reservations" : [{
+		"reservationId" : "4",
+		"apartmentId" : "2",
+		"startDate" : "2020-09-17",
+		"nightCount" : "4",
+		"price" : "220",
+		"message" : "super",
+		"guestUsername" : "jelenag",
+		"status" : "ACCEPTED"
 	}]
 },
 

@@ -16,6 +16,7 @@ function users(){
 	$('#reservationsCardDiv').hide();
 	$('#searchDiv').hide();
     $('#usersTable').show();
+    userList=[];
     
     $.get({
         url: 'rest/user/getCurrentUser',
@@ -36,18 +37,72 @@ function users(){
         	        		        		for(let apartment of apartments){      	        		        
         	        		        			for(let reservation of apartment.reservations){      	        		        				
         	        		        				if(reservation.guestUsername==user.username){
-        	        		        								
-        	        		        					 userList.push(user);
+        	        		        							if(!userList.includes(user))	
+        	        		        					           userList.push(user);
         	        		        				}
         	        		        			}
         	        		        		}
         	        		        	}
+        	        		        	let number = 0;
+        	                			$('#usersTableBody').html('');
+        	                			for(let user of userList){
+        	                				number = number + 1;
+        	                				const tr = document.createElement('tr');
+        	                				tr.className = 'rowHeight';
+        	                				const th = document.createElement('th');
+        	                				th.scope = 'row';
+        	                				th.className = 'rowHeight';
+        	                				th.innerHTML = number;
+        	                				tr.append(th);
+        	                				
+        	                				const tdName = document.createElement('td');
+        	                				tdName.className = 'rowHeight';
+        	                				tdName.innerHTML = user.firstName;
+        	                				tr.append(tdName);
+        	                				
+        	                				const tdSurname = document.createElement('td');
+        	                				tdSurname.className = 'rowHeight';
+        	                				tdSurname.innerHTML = user.lastName;
+        	                				tr.append(tdSurname);
+        	                				
+        	                				const tdUserName = document.createElement('td');
+        	                				tdUserName.className = 'rowHeight';
+        	                				tdUserName.innerHTML = user.username;
+        	                				tr.append(tdUserName);
+        	                				
+        	                				const tdGender = document.createElement('td');
+        	                				tdGender.className = 'rowHeight';
+        	                				tdGender.innerHTML = user.gender;
+        	                				tr.append(tdGender);
+        	                				
+        	                				const tdRole = document.createElement('td');
+        	                				tdRole.className = 'rowHeight';
+        	                				tdRole.innerHTML = user.role;
+        	                				tr.append(tdRole);
+        	                			
+        	                				
+        	                				const tdBlock = document.createElement('td');
+        	                				tdBlock.className = 'rowHeight';
+        	                				const blockButton = document.createElement('a');
+        	                				blockButton.onclick = function () { userTemp = user; blockUser(user); };
+        	                				const blockIcon = document.createElement('img');
+        	                				blockIcon.src = 'images/block3.png';
+        	                				blockIcon.className = 'editDeleteButtons';
+        	                				blockButton.append(blockIcon);
+        	                				tdBlock.append(blockButton);
+        	                				if(role == "ADMIN")
+        	                				tr.append(tdBlock);
+        	                				
+        	                				const tbody = $('#usersTableBody');
+        	                				tbody.append(tr);
+        	        		        	
         	        		    	}
+        	        		        }
         	             	});
         	        		 
         	        	}else if (role == "ADMIN"){
         	        		userList=userList1;
-        	        	}
+        	        	
         			let number = 0;
         			for(let user of userList){
         				number = number + 1;
@@ -101,6 +156,7 @@ function users(){
         				tbody.append(tr);
         			}
         		}
+        	        	}
         	});
         }
         });
