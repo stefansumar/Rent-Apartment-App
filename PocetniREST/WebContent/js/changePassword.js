@@ -7,7 +7,6 @@ function changePassword(){
         success: function (user) {
         	currentUser = user;
         	$('#cardDiv').hide();
-        	$('#searchTextField').hide();
         	$('#searchButton').hide();
         	$('#profile').hide();
         	$('#editProfile').hide(); 
@@ -15,6 +14,7 @@ function changePassword(){
 			$('#usersTable').hide();
 			$('#newApartment').hide();
 			$('#reservationsCardDiv').hide();
+			$('#searchDiv').hide();
         	$('#changePassword').show();	
         }
     });

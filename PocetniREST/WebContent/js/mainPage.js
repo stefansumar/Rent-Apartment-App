@@ -183,10 +183,10 @@ function getAllApartments(){
 	$('#usersTable').hide();
 	$('#newApartment').hide();
 	$('#editApartment').hide();
+	$('#searchDiv').hide();
 	cardDiv = document.getElementById('cardDiv');
 	$('#cardDiv').html('');
 	$('#cardDiv').show();
-	$('#searchTextField').show();
 	$('#reservationsCardDiv').hide();
 	$('#searchButton').show();
 	
@@ -711,7 +711,7 @@ function callEditApartmentModal(apartment){
 	cardDiv = document.getElementById('cardDiv');
 	$('#cardDiv').html('');
 	$('#cardDiv').hide();
-	$('#searchTextField').hide();
+	$('#searchDiv').hide();
 	$('#searchButton').hide();
 	$('#editApartment').show();
 	
@@ -793,6 +793,14 @@ function updateApartment(){
 	});
 	
 	
+}
+
+function showSearchDiv(){
+	$('#searchDiv').show();
+}
+
+function hideSearchDiv(){
+	$('#searchDiv').hide();
 }
 
 
