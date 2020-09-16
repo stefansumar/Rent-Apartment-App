@@ -182,7 +182,9 @@ public class ApartmentService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addApartment(@Context HttpServletRequest request, ApartmentDTO newApartment) {
-		
+		System.out.println("SD: " + newApartment.getStartDate());
+		System.out.println("ED: " + newApartment.getEndDate());
+
 		UserDAO userDAO = (UserDAO) ctx.getAttribute("userDAO");
 		User user = userDAO.findUserByUsername(newApartment.getHostUsername());
 		
@@ -213,6 +215,8 @@ public class ApartmentService {
 		apartment.setImage(newApartment.getImage());
 		apartment.setHostUsername(newApartment.getHostUsername());
 		apartment.setDescription(newApartment.getDescription());
+		apartment.setStartDate(newApartment.getStartDate());
+		apartment.setEndDate(newApartment.getEndDate());
 		
 		Address address = new Address(newApartment.getLocation().getAddress().getStreet(), newApartment.getLocation().getAddress().getPlace(), newApartment.getLocation().getAddress().getPostalCode());
 		Location location = new Location(newApartment.getLocation().getGeoWidth(), newApartment.getLocation().getGeoHeight(), address);
@@ -300,7 +304,6 @@ public class ApartmentService {
 		// Search by date
 		ArrayList<Apartment> byDates = new ArrayList<>();
 		if(!searchDTO.getStartDate().equals("") && !searchDTO.getEndDate().equals("")) {
-			System.out.println("Usao u datume");
 			LocalDate startDate = LocalDate.parse(searchDTO.getStartDate());
 			LocalDate endDate = LocalDate.parse(searchDTO.getEndDate());
 			for(Apartment a : apartments.values()) {
@@ -319,7 +322,6 @@ public class ApartmentService {
 		// Search by location
 		ArrayList<Apartment> byLocation = new ArrayList<>();
 		if(!(searchDTO.getPlace().equals(""))) {
-			System.out.println("Usao u place");
 			for(Apartment a : apartments.values()) {
 				if(a.getLocation().getAddress().getPlace().equals(searchDTO.getPlace())) {
 					byLocation.add(a);
@@ -333,7 +335,6 @@ public class ApartmentService {
 		// Search by price
 		ArrayList<Apartment> byPrice = new ArrayList<Apartment>();
 		if(!searchDTO.getMinPrice().equals("") && !searchDTO.getMaxPrice().equals("")) {
-			System.out.println("Usao u cenu");
 			Float minPrice = Float.parseFloat(searchDTO.getMinPrice());
 			Float maxPrice = Float.parseFloat(searchDTO.getMaxPrice());
 			for(Apartment a : byLocation) {
@@ -350,7 +351,6 @@ public class ApartmentService {
 		// Search by rooms
 		ArrayList<Apartment> byRooms = new ArrayList<Apartment>();
 		if(!searchDTO.getMinRooms().equals("") && !searchDTO.getMaxRooms().equals("")) {
-			System.out.println("Usao u sobe");
 			Integer minRooms = Integer.parseInt(searchDTO.getMinRooms());
 			Integer maxRooms = Integer.parseInt(searchDTO.getMaxRooms());
 			for(Apartment a : byPrice) {
@@ -366,7 +366,6 @@ public class ApartmentService {
 		// Search by number of guests
 		ArrayList<Apartment> byGuests = new ArrayList<Apartment>();
 		if(!searchDTO.getNoGuests().equals("")) {
-			System.out.println("Usao u goste");
 			Integer noGuests = Integer.parseInt(searchDTO.getNoGuests());
 			for(Apartment a : byRooms) {
 				if(a.getGuestCount() == noGuests) {

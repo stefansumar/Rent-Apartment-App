@@ -1,3 +1,5 @@
+let currentApartments;
+
 function search(){
 	let startDateSearch = $('#startDateSearch').val();
 	let endDateSearch = $('#endDateSearch').val();
@@ -17,6 +19,7 @@ function search(){
 		contentType: 'application/json',
 		data: JSON.stringify(searchDTO),
         success: function (searched) {
+        	currentApartments = searched;
         	document.getElementById('cardDiv').innerHTML = '';
         	console.log(searched);
         	for(let ap of searched){
@@ -151,4 +154,38 @@ function createCard(apartment){
 	
 	cardDiv.appendChild(card);
 	
+}
+
+function sortByPriceAscending(){
+	
+	if(currentApartments == null){
+		alert('Click search first.');
+		return;
+	}
+	
+	currentApartments.sort(function(a, b) {
+	    return a.pricePerNight - b.pricePerNight;
+	});
+	
+	document.getElementById('cardDiv').innerHTML = '';
+	for(let ap of currentApartments){
+		createCard(ap);
+	}
+	
+}
+
+function sortByPriceDescending(){
+	if(currentApartments == null){
+		alert('Click search first.');
+		return;
+	}
+	
+	currentApartments.sort(function(a, b) {
+	    return -(a.pricePerNight - b.pricePerNight);
+	});
+	
+	document.getElementById('cardDiv').innerHTML = '';
+	for(let ap of currentApartments){
+		createCard(ap);
+	}
 }
