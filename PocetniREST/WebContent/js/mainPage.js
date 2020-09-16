@@ -136,25 +136,14 @@ function createCard(apartment,role){
 
 function reservationModal(apartment){
 
-	/*$(document).ready(function(){
-		$("#datepicker").datepicker({
-			beforeShowDay: function(date){
-				var day = date.getDay();
-				if(day==0){
-					return[false];
-				}
-				else
-					return [true];
-			}
-		});
-	   });*/
+	
 	var array = ["2020-09-20","2020-09-21"]
 
 	$(document).ready(function(){
 		$("#datepicker").datepicker({
 			dateFormat: 'dd-mm-yy',
 		    maxDate:new Date(2020, 8, 28), 
-		    minDate:new Date(2020, 7, 28),
+		    minDate:new Date(),
 	    beforeShowDay: function(date){
 	        var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
 	        return [ array.indexOf(string) == -1 ]
@@ -163,36 +152,11 @@ function reservationModal(apartment){
 		});
 	   });
 
-	/*$( "#datepicker" ).datepicker({
-		  maxDate: new Date(2020, 9, 29)
-		});
-*/
-	/*var array = ["2020-09-20","2020-09-21"]
-
-	$('datepicker').datepicker({
-	    beforeShowDay: function(date){
-	        var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-	        return [ array.indexOf(string) == -1 ]
-	    }
-	});*/
-	/*
-	$(document).ready(function(){
-		$("#startDate1").datepicker({
-			beforeShowDay: function(date){
-				var day = date.getDay();
-				if(day==0){
-					return[false];
-				}
-				else
-					return [true];
-			}
-		});
-	   });*/
 	
 	apartmentId1 = apartment.id;
 	pricePerNight= apartment.pricePerNight;
 	document.getElementById('message').value = '';
-	document.getElementById('startDate1').value = '';
+	document.getElementById('datepicker').value = '';
 	document.getElementById('selectNoNights').value = '';
 	
   
@@ -725,9 +689,12 @@ function saveReservation(){
 	let guestUsername = username1;
 	let nightCount = $('#selectNoNights').val();
 	let price =  pricePerNight*nightCount;
-	let startDate = $('#startDate1').val();
+	let startDate1 = $('#datepicker').val();
 	let message = $('#message').val();
 	let status = 'CREATED';
+	let startDate;
+	  dArr = startDate1.split("-");  // ex input "17-09-2020"
+	  startDate= dArr[2]+ "-" +dArr[1]+ "-" +dArr[0]; 
 	
 	console.log(nightCount,startDate,message );
 	if(nightCount === '' || startDate === '' || message === ''){

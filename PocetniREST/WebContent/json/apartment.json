@@ -51,7 +51,7 @@
 {
 	"reservationId" : "3",
 	"apartmentId" : "1",
-	"startDate" : " 2020-9-13",
+	"startDate" : " 2020-09-13",
 	"nightCount" : "5",
 	"price" : "220",
 	"message" : "super",
