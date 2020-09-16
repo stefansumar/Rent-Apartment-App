@@ -71,8 +71,14 @@ public class ReservationService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response changeStatus(@PathParam(value = "reservationId") Long reservationId, @PathParam(value = "newStatus") Status newStatus) {
 		ReservationDAO reservationDAO = (ReservationDAO) ctx.getAttribute("reservationDAO");
-		Reservation reservation = reservationDAO.findReservationById(reservationId);
+		ApartmentDAO apartmentDAO = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
 		
+		Reservation reservation = reservationDAO.findReservationById(reservationId);
+		Apartment apartment = new Apartment();
+		ArrayList<Reservation> apRes = new ArrayList<Reservation>();
+		HashMap<Long, Apartment> apartments = apartmentDAO.getApartments();
+
+
 	
 		try {
 			HashMap<Long, Reservation> reservations = reservationDAO.getReservations();
@@ -82,6 +88,21 @@ public class ReservationService {
 			reservationDAO.setReservations(reservations);
 			ctx.setAttribute("reservationDAO", reservationDAO);
 			reservationDAO.saveReservations(reservations);
+			
+			
+			apartment = apartmentDAO.find(reservation.getapartmentId());
+			apRes=apartment.getReservations();
+			for(Reservation res : apRes) {
+				if(res.getReservationId()==reservation.getReservationId()) {
+					res.setStatus(newStatus);
+				}
+			}
+			apartment.setReservations(apRes);
+			apartments.put(reservation.getapartmentId(),apartment);
+			apartmentDAO.setApartments(apartments);
+			apartmentDAO.saveApartments(apartments);
+			
+			
 			
 			return Response.status(200).build();
 		
