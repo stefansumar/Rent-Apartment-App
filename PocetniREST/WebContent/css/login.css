@@ -204,6 +204,11 @@ h2 {
 	height : 44px;
 }
 
+#asc1, #asc2, #desc1, #desc2 {
+	height : 25px;
+	margin-left : -10px;
+}
+
 /* STRUCTURE */
 
 .wrapper {
