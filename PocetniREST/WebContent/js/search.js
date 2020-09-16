@@ -13,15 +13,7 @@ function search(){
 	var searchDTO = new SearchApartmentDTO(startDateSearch, endDateSearch, placeSearch, minPriceSearch, maxPriceSearch,
 			minRoomsSearch, maxRoomsSearch, noGuestsSearch);
 	console.log(searchDTO);
-	$.get({
-        url: 'rest/user/getCurrentUser',
-		contnentType: 'application/json',
-        success: function (user) {
-        	console.log(user);
-        	username1 = user.username;
-        	userRole1 = user.role;
-        }
-        });
+	
 	$.post({
 		url: 'rest/apartment/search',
 		contentType: 'application/json',
@@ -64,6 +56,15 @@ function clearFilters(){
 }
 
 function createCard(apartment){
+	$.get({
+        url: 'rest/user/getCurrentUser',
+		contnentType: 'application/json',
+        success: function (user) {
+        	if(user != null){
+        		console.log(user.role);
+        	    userRole1 = user.role;
+        	}
+      
 	const card = document.createElement('div');
 	card.className = 'card mt-4 mb-2';
 	const row = document.createElement('div');
@@ -152,7 +153,7 @@ function createCard(apartment){
 	
 	
 	
-	if(userRole === "GUEST"){
+	if(userRole1 === "GUEST"){
 
 		typeRow.appendChild(reservationButton);
 	}
@@ -173,6 +174,8 @@ function createCard(apartment){
 	row.appendChild(secondColumn);
 	
 	cardDiv.appendChild(card);
+        }
+    });
 	
 }
 function reservationModal(apartment){
