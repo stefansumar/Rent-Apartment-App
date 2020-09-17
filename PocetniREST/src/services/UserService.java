@@ -43,9 +43,13 @@ public class UserService {
 	public User login(User user, @Context HttpServletRequest request) {
 		UserDAO users = (UserDAO) ctx.getAttribute("userDAO");
 		User u = users.findUser(user.getUsername(), user.getPassword());
-
+		
 		if(u == null) {
 			return null;
+		}
+		
+		if(u.isBlocked()) {
+			return u;
 		}
 		
 		ctx.setAttribute("userDAO", users);
@@ -174,6 +178,41 @@ public class UserService {
 		
 		return Response.status(400).build();
 	}
+	
+	@PUT
+	@Path("/block/{username}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response blockUser(@PathParam("username") String username) {
+		UserDAO userDAO = (UserDAO) ctx.getAttribute("userDAO");
+		HashMap<String, User> users = userDAO.getUsers();
+		User user = userDAO.findUserByUsername(username);
+		user.setBlocked(true);
+		
+		users.put(user.getUsername(), user);
+		userDAO.setUsers(users);
+		ctx.setAttribute("userDAO", userDAO);
+		userDAO.saveUsers();
+		return Response.status(200).build();
+	}
+	
+	@PUT
+	@Path("/unblock/{username}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response unblockUser(@PathParam("username") String username) {
+		UserDAO userDAO = (UserDAO) ctx.getAttribute("userDAO");
+		HashMap<String, User> users = userDAO.getUsers();
+		User user = userDAO.findUserByUsername(username);
+		user.setBlocked(false);
+		
+		users.put(user.getUsername(), user);
+		userDAO.setUsers(users);
+		ctx.setAttribute("userDAO", userDAO);
+		userDAO.saveUsers();
+		return Response.status(200).build();
+	}
+	
 	
 		
 }
