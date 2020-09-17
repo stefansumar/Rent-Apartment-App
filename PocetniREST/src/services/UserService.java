@@ -21,6 +21,7 @@ import javax.ws.rs.core.Response;
 import beans.User;
 import dao.CommentDAO;
 import dao.UserDAO;
+import dto.SearchUserDTO;
 
 @Path("/user")
 public class UserService {
@@ -175,5 +176,63 @@ public class UserService {
 		return Response.status(400).build();
 	}
 	
+	@POST
+	@Path("/search")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response search(SearchUserDTO searchUserDTO) {
+	
+		UserDAO userDAO = (UserDAO) ctx.getAttribute("userDAO");
+		HashMap<String, User> users = new HashMap<String, User>();
+		
+		
+
+			users = userDAO.getUsers();
+		
+			ArrayList<User> byRole = new ArrayList<>();
+
+		if(!searchUserDTO.getSelectRole().equals("") ) {
+			for(User u : users.values()) {				
+				if(u.getRole().equals(searchUserDTO.getSelectRole())) {			
+					byRole.add(u);
+				}
+			}
+		} else {
+			for(User u : users.values()) {
+				byRole.add(u);
+			}
+		}
+		
+	
+		ArrayList<User> byGender = new ArrayList<>();
+		
+		if(!(searchUserDTO.getSelectGender().equals(""))) {
+			for(User u : byRole) {
+				if(u.getGender().equals(searchUserDTO.getSelectGender())) {
+					byGender.add(u);
+				}
+			}
+			
+		} else {
+			byGender = byRole;
+		}
+		
+		ArrayList<User> byUsername = new ArrayList<>();
+		
+		if(!(searchUserDTO.getUsernameUserSearch().equals(""))) {
+			for(User u : byGender) {
+				if(u.getUsername().equals(searchUserDTO.getUsernameUserSearch())) {
+					byUsername.add(u);
+				}
+			}
+			
+		} else {
+			byUsername = byGender;
+		}
+
+		
+		return Response.status(200).entity(byUsername).build();
+		
+	}
 		
 }

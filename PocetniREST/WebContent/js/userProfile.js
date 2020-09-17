@@ -17,6 +17,8 @@ function myProfile(){
         	$('#editApartment').hide();
 			$('#searchDiv').hide();
 			$('#searchResDiv').hide();
+			$('#searchUserDiv').hide();
+			$('#searchButtonUser').hide();
         	$('#profile').html("");
         	$('#profile').show();
         	$('#profile').append("<img src=\"images/avatar.png\" class=\"avatar\"></img>");

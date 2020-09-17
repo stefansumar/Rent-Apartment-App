@@ -306,6 +306,8 @@ function getAllApartments(){
 	$('#editApartment').hide();
 	$('#searchDiv').hide();
 	$('#searchResDiv').hide();
+	$('#searchUserDiv').hide();
+	$('#searchButtonUser').hide();
 	cardDiv = document.getElementById('cardDiv');
 	$('#cardDiv').html('');
 	$('#cardDiv').show();
@@ -912,6 +914,8 @@ function callEditApartmentModal(apartment){
 	$('#cardDiv').hide();
 	$('#searchDiv').hide();
 	$('#searchResDiv').hide();
+	$('#searchUserDiv').hide();
+	$('#searchButtonUser').hide();
 	$('#searchButton').hide();
 	$('#searchButtonRes').hide();
 	$('#editApartment').show();

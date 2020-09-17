@@ -17,6 +17,8 @@ function editProfile(){
 			$('#reservationsCardDiv').hide();
 			$('#searchDiv').hide();
 			$('#searchResDiv').hide();
+			$('#searchUserDiv').hide();
+			$('#searchButtonUser').hide();
         	$('#editProfile').show();    
         	
         	let firstName = user.firstName;

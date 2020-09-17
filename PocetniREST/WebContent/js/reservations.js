@@ -22,6 +22,8 @@ function reservations(){
     $('#usersTable').hide();
 	$('#searchDiv').hide();
 	$('#searchResDiv').hide();
+	$('#searchUserDiv').hide();
+	$('#searchButtonUser').hide();
     $('#reservationsCardDiv').show();
     
 	$(document).ready(function() {

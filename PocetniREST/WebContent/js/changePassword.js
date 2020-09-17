@@ -18,6 +18,8 @@ function changePassword(){
 			$('#reservationsCardDiv').hide();
 			$('#searchDiv').hide();
 			$('#searchResDiv').hide();
+			$('#searchUserDiv').hide();
+			$('#searchButtonUser').hide();
         	$('#changePassword').show();	
         }
     });
