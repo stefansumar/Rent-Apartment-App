@@ -305,10 +305,14 @@ function getAllApartments(){
 	$('#newApartment').hide();
 	$('#editApartment').hide();
 	$('#searchDiv').hide();
+	$('#searchResDiv').hide();
+	$('#searchUserDiv').hide();
+	$('#searchButtonUser').hide();
 	cardDiv = document.getElementById('cardDiv');
 	$('#cardDiv').html('');
 	$('#cardDiv').show();
 	$('#reservationsCardDiv').hide();
+	$('#searchButtonRes').hide();
 	$('#searchButton').show();
 	
     $.get({
@@ -562,7 +566,8 @@ function addNewApartment(){
         	currentUser = user;
         	$('#cardDiv').hide();
         	$('#searchTextField').hide();
-        	$('#searchButton').hide();
+			$('#searchButton').hide();
+			$('#searchButtonRes').hide();
         	$('#profile').hide();
         	$('#changePassword').hide();
 			$('#amenityTable').hide();
@@ -908,7 +913,11 @@ function callEditApartmentModal(apartment){
 	$('#cardDiv').html('');
 	$('#cardDiv').hide();
 	$('#searchDiv').hide();
+	$('#searchResDiv').hide();
+	$('#searchUserDiv').hide();
+	$('#searchButtonUser').hide();
 	$('#searchButton').hide();
+	$('#searchButtonRes').hide();
 	$('#editApartment').show();
 	
 	document.getElementById('apartmentNameEdit').value = apartment.name;
@@ -998,5 +1007,7 @@ function showSearchDiv(){
 function hideSearchDiv(){
 	$('#searchDiv').hide();
 }
+
+
 
 

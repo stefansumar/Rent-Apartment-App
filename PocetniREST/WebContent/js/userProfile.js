@@ -6,7 +6,8 @@ function myProfile(){
         success: function (user) {
         	console.log(user);
         	$('#cardDiv').hide();
-        	$('#searchButton').hide();
+			$('#searchButton').hide();
+			$('#searchButtonRes').hide();
         	$('#editProfile').hide();
         	$('#changePassword').hide();
 			$('#amenityTable').hide();
@@ -14,7 +15,10 @@ function myProfile(){
 			$('#usersTable').hide();
         	$('#newApartment').hide();
         	$('#editApartment').hide();
-        	$('#searchDiv').hide();
+			$('#searchDiv').hide();
+			$('#searchResDiv').hide();
+			$('#searchUserDiv').hide();
+			$('#searchButtonUser').hide();
         	$('#profile').html("");
         	$('#profile').show();
         	$('#profile').append("<img src=\"images/avatar.png\" class=\"avatar\"></img>");

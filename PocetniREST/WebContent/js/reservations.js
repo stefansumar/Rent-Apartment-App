@@ -6,17 +6,24 @@ let role1;
 let apartmentId2;
 let commenter;
 let commenterUsername;
+let reservationList;
+let currentReservations;
+let user1;
 
 function reservations(){
 	$('#cardDiv').hide();
 	$('#searchButton').hide();
+	$('#searchButtonRes').show();
 	$('#editProfile').hide();
 	$('#changePassword').hide();
 	$('#profile').hide();
 	$('#newApartment').hide();
 	$('#amenityTable').hide();
     $('#usersTable').hide();
-    $('#searchDiv').hide();
+	$('#searchDiv').hide();
+	$('#searchResDiv').hide();
+	$('#searchUserDiv').hide();
+	$('#searchButtonUser').hide();
     $('#reservationsCardDiv').show();
     
 	$(document).ready(function() {
@@ -28,6 +35,7 @@ function reservations(){
 			success: function(all) {
 				$('#reservationsCardDiv').html(" ");
 				allReservations = all;
+				currentReservations = allReservations;
 				console.log(all);
 				
 				for(let reservation of all){
@@ -47,7 +55,7 @@ function createCardReservation(reservation){
         url: 'rest/user/getCurrentUser',
 		contnentType: 'application/json',
         success: function (user) {
-        	let user1=user;
+        	 user1=user;
         	commenter=user.firstName + " " + user.lastName;
         	commenterUsername=user.username;
         	role1 = user.role;
@@ -189,6 +197,7 @@ function createCardReservation(reservation){
 				
 				if(role1== 'ADMIN'){
 					reservationsCardDiv.appendChild(card);
+					
 				}
 				if(role1 == 'GUEST'){
 					if(reservation.status=="CREATED" || reservation.status=="ACCEPTED" )
@@ -287,4 +296,126 @@ class Commentt {
 	}
 
 }
+function sortByPriceAscendingRes(){
+	
+	currentReservations = allReservations;
+	currentReservations.sort(function(a, b) {
+	    return a.price - b.price;
+	});
+	
+	document.getElementById('reservationsCardDiv').innerHTML = '';
+	
+	for(let reservation of currentReservations){
+		
+		if(role1== 'ADMIN'){
+			createCardReservation(reservation);
+			
+		}
+		if(role1 == 'GUEST'){
 
+			if(reservation.guestUsername==user1.username)
+				createCardReservation(reservation);
+			
+		}
+		if(role1 == 'HOST'){
+	
+			if(apartment.hostUsername==user1.username)
+				createCardReservation(reservation);
+		}
+		
+		
+	
+	}
+	
+}
+function sortByPriceDescendingRes(){
+
+	currentReservations.sort(function(a, b) {
+	    return -(a.price - b.price);
+	});
+	
+	document.getElementById('reservationsCardDiv').innerHTML = '';
+	
+	for(let reservation of currentReservations){
+		
+		if(role1== 'ADMIN'){
+			createCardReservation(reservation);
+			
+		}
+		if(role1 == 'GUEST'){
+
+			if(reservation.guestUsername==user1.username)
+				createCardReservation(reservation);
+			
+		}
+		if(role1 == 'HOST'){
+	
+			if(apartment.hostUsername==user1.username)
+				createCardReservation(reservation);
+		}
+		
+		
+	
+	}
+}
+function showSearchResDiv(){
+
+	$('#searchResDiv').show();
+	if(role1 == 'GUEST'){
+		$('#usernameSearch').hide();
+		$('#searchRes').hide();
+		$('#clearFiltersRes').hide();
+		
+		
+	}
+	
+}
+
+function hideSearchResDiv(){
+	$('#searchResDiv').hide();
+}
+
+function searchR(){
+	
+	let usernameSearch = $('#usernameSearch').val();
+	console.log(usernameSearch);
+	
+	document.getElementById('reservationsCardDiv').innerHTML = '';
+	
+	for(let reservation of currentReservations){
+			
+			if(role1== 'ADMIN'){
+				if(reservation.guestUsername == usernameSearch){
+				    createCardReservation(reservation);		 
+				}else 
+					removeItemOnce(currentReservations,reservation);
+			}
+			if(role1 == 'HOST'){
+		
+				if(apartment.hostUsername==user1.username)
+				{
+					if(reservation.guestUsername == usernameSearch){
+					    createCardReservation(reservation);
+					 
+					}else 
+						removeItemOnce(currentReservations,reservation);
+			}
+			
+			
+		
+			}
+			}
+	console.log(currentReservations);
+}
+
+function removeItemOnce(arr, value) {
+	 var index = arr.indexOf(value);
+	  if (index > -1) {
+	    arr.splice(index, 1);
+	  }
+	  return arr;
+}
+
+function clearFiltersR(){
+	reservations();
+}

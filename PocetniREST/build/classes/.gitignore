@@ -1,4 +1,9 @@
 /beans/
 /dao/
+<<<<<<< HEAD
+/dto/
+/services/
+=======
 /services/
 /dto/
+>>>>>>> 33a9df7bdaba157a6a187d28fdd4deff75d59d12

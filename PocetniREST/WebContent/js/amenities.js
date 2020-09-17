@@ -4,6 +4,7 @@ let amenityTemp;
 function amenities(){
 	$('#cardDiv').hide();
 	$('#searchButton').hide();
+	$('#searchButtonRes').hide();
 	$('#editProfile').hide();
 	$('#changePassword').hide();
 	$('#profile').hide();
@@ -11,6 +12,9 @@ function amenities(){
 	$('#usersTable').hide();
 	$('#reservationsCardDiv').hide();
 	$('#searchDiv').hide();
+	$('#searchResDiv').hide();
+	$('#searchUserDiv').hide();
+	$('#searchButtonUser').hide();
 	$('#amenityTable').show();
 
 	

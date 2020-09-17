@@ -87,6 +87,9 @@
     </ul>
     <div class="form-inline my-2 my-lg-0">
       <button class="btn btn-outline-success my-2 my-sm-0" id="searchButton" onclick="showSearchDiv()">Search</button>
+      <button class="btn btn-outline-success my-2 my-sm-0" id="searchButtonRes" onclick="showSearchResDiv()">Search</button>
+      <button class="btn btn-outline-success my-2 my-sm-0" id="searchButtonUser" onclick="showSearchUserDiv()">Search</button>
+      
     </div>
   </div>
 </nav>
@@ -137,6 +140,91 @@
 			<button id ="clearFilters" type="button" class="btn btn-info mt-2 mb-2 mr-2" style = "float: right;" onclick="clearFilters()">Clear Filters</button>
 			<button id ="cancelSearch" type="button" class="btn btn-info mt-2 mb-2 mr-2" style = "float: right;" onclick="hideSearchDiv()">Cancel</button>
 		<hr>
+		</div>
+	</section>
+	</div>
+</div>
+<!-- Search User form -->
+<div class="container mt-4 mb-2 fadeInDown" id="searchUserDiv">
+	<div class="card">
+ 	<section id="searchUserMenu">
+		<div class="container">
+		<form>
+			<div class="form-row">
+				<div class="col-md-4">
+					<label for="roleSearch"><b>Role</b></label>
+					<div class="input-group">
+						 <select id="selectRole">
+       		<option value="" disabled selected>Choose role</option>
+      		<option>ADMIN</option>
+      		<option>GUEST</option>
+      		<option>HOST</option>
+     
+	  	  </select>
+								
+					</div>
+				</div>
+				<div class="col-md-4">
+					<label for="genderSearch"><b>Gender</b></label>
+					 <select id="selectGender">
+       		<option value="" disabled selected>Choose gender</option>
+      		<option>Male</option>
+      		<option>Female</option>
+	  			  </select>
+								
+				</div>
+				<div class="col-md-4">
+					<label for="priceSearch"><b>Username</b></label>
+					<div class="input-group">
+		<input id="usernameUserSearch" type="text" class="form-control"  placeholder="Username">
+			
+					</div>
+				</div>
+				<div class="col-md-4">
+					
+					<div class="input-group">
+												
+					</div>
+				</div>
+				<div class="col-md-4">
+					
+				</div>
+			</div>
+			
+		</form>
+		<p id="errorSearch" style = "margin-top: 5px; margin-left: 7px; color: red; font-size: 16px;"></p>
+			<button id ="searchUser" type="button" class="btn btn-success mt-2 mb-2" style = "float: right;" onclick="searchU()">Search</button>
+			<button id ="clearFiltersUser" type="button" class="btn btn-info mt-2 mb-2 mr-2" style = "float: right;" onclick="clearFiltersU()">Clear Filters</button>
+			<button id ="cancelSearchUser" type="button" class="btn btn-info mt-2 mb-2 mr-2" style = "float: right;" onclick="hideSearchDivU()">Cancel</button>
+		<hr>
+		</div>
+	</section>
+	</div>
+</div>
+<!-- Search Res form -->
+<div class="container mt-4 mb-2 fadeInDown" id="searchResDiv">
+	<div class="card">
+ 	<section id="searchResMenu">
+		<div class="container">
+		<form>
+			<div class="form-row">
+				<div class="col-md-4">
+					<input id="usernameSearch" type="text" class="form-control" style="margin-top: 20px;" placeholder="Username">
+				</div>
+			
+		</form>
+		<p id="errorSearch" style = "margin-top: 5px; margin-left: 7px; color: red; font-size: 16px;"></p>
+			<button id ="priceDescending" type="button" class="btn btn-warning mt-2 mb-2" style = "float: left; width: 80px; height: 50px; " onclick="sortByPriceDescendingRes()"><img id="asc1" src="images/descend.png"/>Price</button>
+			<button id ="priceAscending" type="button" class="btn btn-warning mt-2 mb-2 ml-2" style = "float: left;  width: 80px; height: 50px; " onclick="sortByPriceAscendingRes()"><img id="asc1" src="images/ascend.png"/>Price</button>
+			<div class="form-row">
+		    <div class="col-md-14 mt-2" >
+		 
+            <button id ="searchRes" type="button" class="btn btn-success mt-2 mb-2" style = "float: right; margin-left: 10px; margin-top: 20px;" onclick="searchR()">Search</button>
+			<button id ="clearFiltersRes" type="button" class="btn btn-info mt-2 mb-2 mr-2" style = "float: right;  margin-left: 10px;" onclick="clearFiltersR()">Clear Filters</button>
+			<button id ="cancelSearchRes" type="button" class="btn btn-info mt-2 mb-2 mr-2" style = "float: right;  margin-left: 150px;" onclick="hideSearchResDiv()">Cancel</button>
+				
+						</div>
+			<hr>
 		</div>
 	</section>
 	</div>

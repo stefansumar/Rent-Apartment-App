@@ -18,7 +18,8 @@ function addNewApartment(){
         	currentUser = user;
         	$('#cardDiv').hide();
         	$('#searchTextField').hide();
-        	$('#searchButton').hide();
+			$('#searchButton').hide();
+			$('#searchButtonRes').hide();
         	$('#profile').hide();
         	$('#changePassword').hide();
         	$('#amenityTable').hide();
