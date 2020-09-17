@@ -46,6 +46,14 @@ $(document).ready(function() {
 			success: function(user)
 			{
 				console.log(user);
+				
+				if(user.blocked == true){
+					$('#error').text('You are blocked. Please contact administrators.');
+					$('#error').css({"color": "red", "font-size": "12px"});
+					$('#error').show().delay(3000).fadeOut();
+					return;
+				} 
+				
 				if(user!= null)
 				{
 					sessionStorage.setItem("ulogovan", JSON.stringify(user));

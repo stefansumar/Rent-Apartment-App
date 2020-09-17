@@ -11,6 +11,7 @@ public class User implements Serializable {
 	private String lastName;
 	private String gender;
 	private String role;
+	private boolean blocked = false;
 	
 	public User() {}
 
@@ -70,5 +71,15 @@ public class User implements Serializable {
 	public void setRole(String role) {
 		this.role = role;
 	}
+
+	public boolean isBlocked() {
+		return blocked;
+	}
+
+	public void setBlocked(boolean blocked) {
+		this.blocked = blocked;
+	}
+	
+	
 	
 }
