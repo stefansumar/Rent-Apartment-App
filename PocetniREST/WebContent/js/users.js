@@ -7,6 +7,7 @@ function users(){
 	$('#usersTableBody').html('');
 	$('#cardDiv').hide();
 	$('#searchButton').hide();
+	$('#searchButtonRes').hide();
 	$('#editProfile').hide();
 	$('#changePassword').hide();
 	$('#profile').hide();
@@ -15,6 +16,7 @@ function users(){
 	$('#editApartment').hide();
 	$('#reservationsCardDiv').hide();
 	$('#searchDiv').hide();
+	$('#searchResDiv').hide();
     $('#usersTable').show();
     userList=[];
     
