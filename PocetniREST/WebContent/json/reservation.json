@@ -6,15 +6,35 @@
 	"price" : "200",
 	"message" : "great",
 	"guestUsername" : "jelenag",
-	"status" : "ACCEPTED"
+	"status" : "CREATED"
 }, {
 	"reservationId" : "2",
 	"apartmentId" : "1",
-	"startDate" : " 2020-10-13",
+	"startDate" : "2020-10-13",
 	"nightCount" : "5",
 	"price" : "200",
 	"message" : "great",
 	"guestUsername" : "milosp",
+	"status" : "CREATED"
+},
+ {
+	"reservationId" : "3",
+	"apartmentId" : "1",
+	"startDate" : "2020-09-23",
+	"nightCount" : "5",
+	"price" : "220",
+	"message" : "super",
+	"guestUsername" : "jelenag",
+	"status" : "ACCEPTED"
+},
+ {
+	"reservationId" : "4",
+	"apartmentId" : "2",
+	"startDate" : "2020-09-17",
+	"nightCount" : "4",
+	"price" : "220",
+	"message" : "super",
+	"guestUsername" : "jelenag",
 	"status" : "ACCEPTED"
 }
 ]

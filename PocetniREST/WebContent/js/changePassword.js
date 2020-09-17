@@ -7,13 +7,14 @@ function changePassword(){
         success: function (user) {
         	currentUser = user;
         	$('#cardDiv').hide();
-        	$('#searchTextField').hide();
         	$('#searchButton').hide();
         	$('#profile').hide();
         	$('#editProfile').hide(); 
 			$('#amenityTable').hide();
 			$('#usersTable').hide();
-        	$('#newApartment').hide();
+			$('#newApartment').hide();
+			$('#reservationsCardDiv').hide();
+			$('#searchDiv').hide();
         	$('#changePassword').show();	
         }
     });

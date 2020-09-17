@@ -15,7 +15,7 @@ public class Apartment {
 	private ArrayList<LocalDate> datesForRent = new ArrayList<LocalDate>();
     private ArrayList<LocalDate> datesAvailable = new ArrayList<LocalDate>();
     private String hostUsername;
-    private ArrayList<Comment> comments = new ArrayList<Comment>();
+    private ArrayList<Commentt> comments = new ArrayList<Commentt>();
     private String image;
     private ArrayList<String> images = new ArrayList<String>();
     private String pricePerNight;
@@ -25,14 +25,17 @@ public class Apartment {
     private ArrayList<Amenity> amenities = new ArrayList<Amenity>();
     private ArrayList<Reservation> reservations = new ArrayList<Reservation>();
     private boolean deleted = false;
+    private String startDate;
+    private String endDate;
     
     public Apartment() {}
 
 	public Apartment(Long id, String type, String name, String description, int roomCount, int guestCount,
 			Location location, ArrayList<LocalDate> datesForRent, ArrayList<LocalDate> datesAvailable,
-			String hostUsername, ArrayList<Comment> comments, String image, ArrayList<String> images,
+			String hostUsername, ArrayList<Commentt> comments, String image, ArrayList<String> images,
 			String pricePerNight, String timeForCheckIn, String timeForCheckOut, boolean status,
-			ArrayList<Amenity> amenities, ArrayList<Reservation> reservations, boolean deleted) {
+			ArrayList<Amenity> amenities, ArrayList<Reservation> reservations, boolean deleted, String startDate,
+			String endDate) {
 		super();
 		this.id = id;
 		this.type = type;
@@ -54,9 +57,9 @@ public class Apartment {
 		this.amenities = amenities;
 		this.reservations = reservations;
 		this.deleted = deleted;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -139,11 +142,11 @@ public class Apartment {
 		this.hostUsername = hostUsername;
 	}
 
-	public ArrayList<Comment> getComments() {
+	public ArrayList<Commentt> getComments() {
 		return comments;
 	}
 
-	public void setComments(ArrayList<Comment> comments) {
+	public void setComments(ArrayList<Commentt> comments) {
 		this.comments = comments;
 	}
 
@@ -218,5 +221,23 @@ public class Apartment {
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	
+	
   
 }

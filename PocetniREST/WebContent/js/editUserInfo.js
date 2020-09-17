@@ -7,13 +7,14 @@ function editProfile(){
         success: function (user) {
         	currentUser = user;
         	$('#cardDiv').hide();
-        	$('#searchTextField').hide();
         	$('#searchButton').hide();
         	$('#profile').hide();
         	$('#changePassword').hide();
 			$('#amenityTable').hide();
 			$('#usersTable').hide();
-        	$('#newApartment').hide();
+			$('#newApartment').hide();
+			$('#reservationsCardDiv').hide();
+			$('#searchDiv').hide();
         	$('#editProfile').show();    
         	
         	let firstName = user.firstName;

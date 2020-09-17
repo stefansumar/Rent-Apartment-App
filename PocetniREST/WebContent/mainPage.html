@@ -14,6 +14,9 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" type="text/css" href="css/mainPage.css">
 	<link rel="stylesheet" type="text/css" href="css/login.css">
+	<link rel="stylesheet" type="text/css" href="jquery-ui.min.css">
+	
+	
 	<!-- For map -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/css/ol.css" type="text/css">
 	
@@ -23,11 +26,14 @@
 	<script src="js/changePassword.js"></script>
 	<script src="js/amenities.js"></script>
 	<script src="js/users.js"></script>
+	<script src="js/reservations.js"></script>
+	<script src="js/search.js"></script>
 	
+     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 	
 	<!-- Map -->
 	<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
-	
 	
 		
 </head>
@@ -67,7 +73,7 @@
       </li>
      
      <li class="nav-item">
-        <a class="nav-link" href="#" id="reservationsId"> Reservations </a>
+        <a class="nav-link" href="#" id="reservationsId" onclick="reservations()"> Reservations </a>
      </li>
      
      <li class="nav-item">
@@ -79,16 +85,72 @@
      </li>
  	
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchTextField">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchButton">Search</button>
-    </form>
+    <div class="form-inline my-2 my-lg-0">
+      <button class="btn btn-outline-success my-2 my-sm-0" id="searchButton" onclick="showSearchDiv()">Search</button>
+    </div>
   </div>
 </nav>
+
+<!-- Search form -->
+<div class="container mt-4 mb-2 fadeInDown" id="searchDiv">
+	<div class="card">
+ 	<section id="searchMenu">
+		<div class="container">
+		<form>
+			<div class="form-row">
+				<div class="col-md-4">
+					<label for="dateSearch"><b>Arrival/Departure date</b></label>
+					<div class="input-group">
+						<input id="startDateSearch" type="date" class="form-control" placeholder="Arrival date" >
+						<input id="endDateSearch" type="date" class="form-control" placeholder="Departure date">						
+					</div>
+				</div>
+				<div class="col-md-4">
+					<label for="placeSearchL"><b>Place</b></label>
+					<input id="placeSearch" type="text" class="form-control" placeholder="Place">
+				</div>
+				<div class="col-md-4">
+					<label for="priceSearch"><b>Price $</b></label>
+					<div class="input-group">
+						<input id="minPriceSearch" type="number" class="form-control" placeholder="Min. price" min=0>
+						<input id="maxPriceSearch" type="number" class="form-control" placeholder="Max. price">						
+					</div>
+				</div>
+				<div class="col-md-4">
+					<label for="roomsSearch"><b>No. rooms</b></label>
+					<div class="input-group">
+						<input id="minRoomsSearch" type="number" class="form-control" placeholder="Min. no. rooms" min=1>
+						<input id="maxRoomsSearch" type="number" class="form-control" placeholder="Max. no. rooms">						
+					</div>
+				</div>
+				<div class="col-md-4">
+					<label for="noGuestsSearchL"><b>No. guests</b></label>
+					<input id="noGuestsSearch" type="number" class="form-control" placeholder="Number of guests" min=1>
+				</div>
+			</div>
+			
+		</form>
+		<p id="errorSearch" style = "margin-top: 5px; margin-left: 7px; color: red; font-size: 16px;"></p>
+			<button id ="priceDescending" type="button" class="btn btn-warning mt-2 mb-2" style = "float: left;" onclick="sortByPriceDescending()"><img id="asc1" src="images/descend.png"/>Price</button>
+			<button id ="priceAscending" type="button" class="btn btn-warning mt-2 mb-2 ml-2" style = "float: left;" onclick="sortByPriceAscending()"><img id="asc1" src="images/ascend.png"/>Price</button>
+			<button id ="search" type="button" class="btn btn-success mt-2 mb-2" style = "float: right;" onclick="search()">Search</button>
+			<button id ="clearFilters" type="button" class="btn btn-info mt-2 mb-2 mr-2" style = "float: right;" onclick="clearFilters()">Clear Filters</button>
+			<button id ="cancelSearch" type="button" class="btn btn-info mt-2 mb-2 mr-2" style = "float: right;" onclick="hideSearchDiv()">Cancel</button>
+		<hr>
+		</div>
+	</section>
+	</div>
+</div>
 	
 <!-- Cards  -->
 <div class="container mt-3 apartmentCard" id="cardDiv">
 
+</div>
+
+<!-- Reservations Cards  -->
+<div class="container mt-3 apartmentCard" id="reservationsCardDiv">
+<p id='successMessage'></p>
+	      <p id='errorMessage'></p>
 </div>
 
 <!-- Users Table -->
@@ -234,7 +296,7 @@
 	      <input type="text" id="apartmentName" name="apartmentName" placeholder="Enter apartment name (Required)"/>
 	      <select id="selectType">
        		<option value="" disabled selected>Select type of apartment (Required)</option>
-      		<option>Full</option>
+      		<option>Apartment</option>
       		<option>Room</option>
 	  	  </select>
 	      <input type="text" id="pricePerNight" name="pricePerNight" placeholder="Enter price per night (Required)" onkeypress="return isNumber(event)"/>
@@ -278,6 +340,67 @@
 
 	</div>
 	
+	<!-- Edit apartment form -->
+ 	<div id="editApartment" class="">
+	    <!-- Icon -->
+	    <div>
+	      <h2>Edit apartment</h2>
+	    </div>
+	    
+	    <div>
+	      <button class="btn btn-info" onclick="addLocation()">Add location</button>
+	      <button class="btn btn-info" onclick="chooseAmenities()">Add amenities</button>
+	      <button class="btn btn-info" onclick="chooseImage()">Add image</button>
+	    </div>
+	
+	    <!-- Edit Apartment Form -->
+	    <form id="editApartment">
+	      <input type="text" id="apartmentNameEdit" name="apartmentNameEdit" placeholder="Enter apartment name (Required)"/>
+	      <select id="selectTypeEdit">
+       		<option value="" disabled selected>Select type of apartment (Required)</option>
+      		<option>Apartment</option>
+      		<option>Room</option>
+	  	  </select>
+	      <input type="text" id="pricePerNightEdit" name="pricePerNightEdit" placeholder="Enter price per night (Required)" onkeypress="return isNumber(event)"/>
+	      <select id="selectNoRoomsEdit">
+       		<option value="" disabled selected>Choose number of rooms (Required)</option>
+      		<option>1</option>
+      		<option>2</option>
+      		<option>3</option>
+      		<option>4</option>
+      		<option>5</option>
+      		<option>6</option>
+      		<option>7</option>
+      		<option>8</option>
+      		<option>9</option>
+      		<option>10</option>
+	  	  </select>
+	      <select id="selectNoGuestsEdit">
+       		<option value="" disabled selected>Choose number of guests (Required)</option>
+      		<option>1</option>
+      		<option>2</option>
+      		<option>3</option>
+      		<option>4</option>
+      		<option>5</option>
+      		<option>6</option>
+      		<option>7</option>
+      		<option>8</option>
+      		<option>9</option>
+      		<option>10</option>
+	  	  </select>
+	      <input type="date" disabled  id="startDateEdit" name="startDateEdit" placeholder="Enter start date (Required)"/>
+	      <input type="date" disabled id="endDateEdit" name="endDateEdit" placeholder="Enter end date (Required)"/>
+	      <input type="time" disabled id="startTimeEdit" name="startTimeEdit" placeholder="Enter check in time (Required)"/>
+	      <input type="time" disabled id="endTimeEdit" name="endTimeEdit" placeholder="Enter check out time (Required)"/>
+	      <input type="text" id="apartmentDescriptionEdit" name="apartmentDescriptionEdit" placeholder="Enter apartment description (Optional)"/>
+	    </form>
+	      <p id="newAptError"></p>
+	      <button class="btn btn-info mb-2 mt-2" onclick="updateApartment()">Save Apartment</button>
+	   	  
+	   	  <p></p>
+	   	  <p></p>
+
+	</div>
 
   </div>
 </div>
@@ -382,7 +505,92 @@
     </div>
   </div>
 </div>
-
+<!-- Modal reservation -->
+ <div class="modal fade" id="reservationModal" role="dialog">
+   <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+       <div class="modal-header">
+       	 <h4 class="modal-title">Make reservation</h4>
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
+       </div>
+       <div class="modal-body">
+	 
+	    <!-- New Reservation Form -->
+	    <form id="newReservation">
+		 <input id="datepicker" type="text" placeholder="Pick the start date (Required)">
+	        
+	      <select id="selectNoNights">
+       		<option value="" disabled selected>Choose number of nights (Required)</option>
+      		<option>1</option>
+      		<option>2</option>
+      		<option>3</option>
+      		<option>4</option>
+      		<option>5</option>
+      		<option>6</option>
+      		<option>7</option>
+      		<option>8</option>
+      		<option>9</option>
+      		<option>10</option>
+      		<option>11</option>
+      		<option>12</option>
+      		<option>13</option>
+      		<option>14</option>
+      		<option>15</option>
+	  	  </select>
+	     
+	      <input type="text" id="message" name="message" placeholder="Message for host (Required)"/>
+	       <p id="newResError"></p>
+	    </form>
+	     
+       </div>
+       <div class="modal-footer">
+       
+         <button type="button" class="btn btn-info" onclick="saveReservation()">Confirm reservation</button>
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Quit</button>
+       </div>
+     </div>
+   </div>
+ </div>
+ <!-- Modal add comment -->
+ <div class="modal fade" id="addCommentModal" role="dialog">
+   <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+       <div class="modal-header">
+       	 <h4 class="modal-title">Rate the apartment</h4>
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
+       </div>
+       <div class="modal-body">
+	 
+	    <!--  Form -->
+	    <form id="newComment">
+     
+	      <select id="selectGrade">
+       		<option value="" disabled selected>Rate apartment from 1 to 10 (Required)</option>
+      		<option>1</option>
+      		<option>2</option>
+      		<option>3</option>
+      		<option>4</option>
+      		<option>5</option>
+      		<option>6</option>
+      		<option>7</option>
+      		<option>8</option>
+      		<option>9</option>
+      		<option>10</option>
+	  	  </select>
+	     
+	      <input type="text" id="comment" name="comment" placeholder="Leave a comment (Required)"/>
+	       <p id="addCommError"></p>
+	    </form>
+	     
+       </div>
+       <div class="modal-footer">
+       
+         <button type="button" class="btn btn-info" onclick="saveComment()">Add comment</button>
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Quit</button>
+       </div>
+     </div>
+   </div>
+ </div>
  <!-- Modal -->
  <div class="modal fade" id="moreModal" role="dialog">
    <div class="modal-dialog modal-lg">
@@ -398,8 +606,8 @@
 	                <div class="col-md-5">
 	                </div>
 	                <div class="col-md-7"> 
-	                    <h3 id="apartmentName" class="designText"></h3>
-	                    <h3 id="pricePerNight" class="priceModal"></h3>
+	                    <h3 id="apartmentNameText" class="designText"></h3>
+	                    <h3 id="pricePerNightText" class="priceModal"></h3>
 	                    <hr>
 	                    <pre id="type" class="fontForPre"></pre>
 	                    <pre id="street" class="fontForPre"></pre>
@@ -484,6 +692,7 @@
        </div>
        <div class="modal-footer">
          <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+         <p id='successMessage'></p>
        </div>
      </div>
    </div>

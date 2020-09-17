@@ -1,8 +1,14 @@
 let cardDiv;
 let apartmentId;
+let apartmentId1;
 let commentDiv;
 let finalRate = 0; 
 let userRole;
+let pricePerNight; 
+let username1;
+let array=[];
+let apartmentForEdit;
+let role2;
 
 $(document).ready(function() {
 	getAllApartments();
@@ -20,7 +26,7 @@ function signOut(){
 	
 }
 
-function createCard(apartment){
+function createCard(apartment,role){
 	const card = document.createElement('div');
 	card.className = 'card mt-4 mb-2';
 	const row = document.createElement('div');
@@ -101,6 +107,19 @@ function createCard(apartment){
 	commentsButton.className = 'btn btn-info forButton';
 	commentsButton.innerHTML = 'Comments';
 	commentsButton.onclick = function () { commentsModal(apartment); };
+	
+	const reservationButton = document.createElement('button');
+	reservationButton.className = 'btn forButton2';
+	reservationButton.innerHTML = 'Make reservation';
+	reservationButton.onclick = function () { reservationModal(apartment); };
+	
+	
+	
+	if(role === "GUEST"){
+	
+		typeRow.appendChild(reservationButton);
+	}
+	
 	roomGuestRow.appendChild(roomCount);
 	roomGuestRow.appendChild(roomCountText);
 	roomGuestRow.appendChild(guestCount);
@@ -121,7 +140,111 @@ function createCard(apartment){
 	
 }
 
+function reservationModal(apartment){
+
+	 array = [];
+	array.length = 0;
+	console.log(apartment.reservations);
+	for(let reservation of apartment.reservations){      
+		if(reservation.status == "ACCEPTED"){
+	    var a=1;
+		var dt=new Date(reservation.startDate);
+		array.push(reservation.startDate);
+		while(a<reservation.nightCount){
+			var date;
+			dt.setDate(dt.getDate()+1);
+			a=a+1;
+		    console.log(dt.toString());
+
+		   date=convertDate(dt.toString());
+		    array.push(date);
+		
+		    
+		}	
+		
+	}
+	}
+    console.log(array);
+
+
+
+
+	
+	apartmentId1 = apartment.id;
+	pricePerNight= apartment.pricePerNight;
+	document.getElementById('message').value = '';
+	document.getElementById('datepicker').value = '';
+	document.getElementById('selectNoNights').value = '';
+	
+	var end = "";
+	var y = "";
+	var m = "";
+	var d = "";
+	
+	 end = apartment.endDate.split("-");
+	 y = end[0];
+	 m = end[1];
+	 d = end[2];
+	
+	$('#datepicker').datepicker({
+		dateFormat: 'dd-mm-yy',		
+	    maxDate:new Date(apartment.endDate), 
+	    minDate:new Date(),
+   beforeShowDay: function(date){
+       var string = jQuery.datepicker.formatDate('yy-mm-dd', date);   
+       return [$.inArray(string, array) == -1];
+       
+   }
+	});
+	
+	var maximumDate = d+"-"+m+"-"+y;
+	$("#datepicker" ).datepicker( "option", "maxDate", maximumDate);
+	console.log(y, m, d);
+	
+	$('#reservationModal').modal('show');	
+
+
+}
+
+function convertDate(d){
+	 var dArr1 = [];
+	  dArr1 = d.split(" ");
+	 
+	  if(dArr1[1] == "Jan")
+		  dArr1[1] = 1;
+	  else if(dArr1[1] == "Feb")
+		  dArr1[1] = 2;
+	  else if(dArr1[1] == "Mar")
+		  dArr1[1] = 3;  
+	  else if(dArr1[1] == "Apr")
+		  dArr1[1] = 4;
+	  else if(dArr1[1] == "May")
+		  dArr1[1] = 5;
+	  else if(dArr1[1] == "Jun")
+		  dArr1[1] = 6;
+	  else if(dArr1[1] == "Jul")
+		  dArr1[1] = 7;
+	  else if(dArr1[1] == "Aug")
+		  dArr1[1] = 8;
+	  else if(dArr1[1] == "Sep")
+		  dArr1[1] = 9;
+	  else if(dArr1[1] == "Oct")
+		  dArr1[1] = 10;
+	  else if(dArr1[1] == "Nov")
+		  dArr1[1] = 11;
+	  else if(dArr1[1] == "Dec")
+		  dArr1[1] = 12;
+	  
+	  if(dArr1[1]<10){
+	  var date = dArr1[3]+ "-0" +dArr1[1]+ "-" +dArr1[2]; 
+	}
+	  else 
+		  var date = dArr1[3]+ "-" +dArr1[1]+ "-" +dArr1[2]; 
+	  return date;
+}
+
 function callMoreModal(apartment){
+	apartmentForEdit = apartment;
 	console.log(userRole);
 	apartmentId = apartment.id;
 	$('#apartmentImage .col-md-5').html('<img class="imageSize" src="'+ apartment.image  + '">');
@@ -130,6 +253,7 @@ function callMoreModal(apartment){
 		const editButton = document.createElement('button');
 		editButton.innerHTML = 'Edit';
 		editButton.className = 'btn btn-info mt-2';
+		editButton.onclick = function () { callEditApartmentModal(apartmentForEdit); };
 		$('#apartmentImage .col-md-5').append(editButton);
 		const deleteButton = document.createElement('button');
 		deleteButton.innerHTML = 'Delete';
@@ -138,8 +262,8 @@ function callMoreModal(apartment){
 		$('#apartmentImage .col-md-5').append(deleteButton);
 	}
 	
-	$('#apartmentName').text(apartment.name);
-	$('#pricePerNight').text(apartment.pricePerNight + "$");
+	$('#apartmentNameText').text(apartment.name);
+	$('#pricePerNightText').text(apartment.pricePerNight + "$");
 	$('#type').html("<b>   Type:   </b> " + apartment.type);
 	$('#street').html("<b>   Street:   </b> " + apartment.location.address.street);
 	$('#place').html("<b>   Place:   </b> " + apartment.location.address.place);
@@ -179,10 +303,12 @@ function getAllApartments(){
 	$('#amenityTable').hide();
 	$('#usersTable').hide();
 	$('#newApartment').hide();
+	$('#editApartment').hide();
+	$('#searchDiv').hide();
 	cardDiv = document.getElementById('cardDiv');
 	$('#cardDiv').html('');
 	$('#cardDiv').show();
-	$('#searchTextField').show();
+	$('#reservationsCardDiv').hide();
 	$('#searchButton').show();
 	
     $.get({
@@ -190,6 +316,7 @@ function getAllApartments(){
 		contnentType: 'application/json',
         success: function (user) {
         	console.log(user);
+        	username1 = user.username;
         	userRole = user.role;
         	if(user.role === "ADMIN"){
         		$('#addNewApartmentId').hide();
@@ -201,7 +328,7 @@ function getAllApartments(){
 	    				console.log(all);
 	    				
 	    				for(let apartment of all){
-	    					createCard(apartment);
+	    					createCard(apartment,user.role);
 	
 	    				}
 	    				
@@ -218,7 +345,7 @@ function getAllApartments(){
 	    				$('#amenitiesId').hide();
 	    				$('#usersId').hide();
 	    				for(let apartment of all){
-	    					createCard(apartment);
+	    					createCard(apartment,user.role);
 	
 	    				}
 	    				
@@ -235,7 +362,7 @@ function getAllApartments(){
 	    				console.log(all);
 	    				$('#amenitiesId').hide();
 	    				for(let apartment of all){
-	    					createCard(apartment);
+	    					createCard(apartment,user.role);
 	    				}
 	    				
 	    			}
@@ -262,8 +389,9 @@ function commentsModal(apartment){
 		contnentType: 'application/json',
         success: function (user) {
         	console.log(user);
+        	role2=user.role;
         	
-        	if(user.role === "ADMIN"){
+        	if(user.role === "ADMIN" || user.role === "HOST"){
 	    		$.get({
 	    			url: 'rest/comment/all',
 	    			contentType: 'application/json',
@@ -363,13 +491,37 @@ function createCommentCard(comment){
 	let rate = document.createElement('p');
 	rate.className = 'mt-1';
 	rate.innerHTML = '<b>Rate: </b>' + comment.rate;
-
+	
+	const confirmeComButton = document.createElement('button');
+	confirmeComButton.className = 'btn btn-info forButton3';
+	confirmeComButton.innerHTML = 'Confirme';
+	confirmeComButton.onclick = function () { confirmeComment(comment); };
+	
 	commentDiv.appendChild(userHeader);
 	commentDiv.appendChild(line1);
 	commentDiv.appendChild(commentString);
 	commentDiv.appendChild(rate);
+	
+	if(role2=== "HOST" && comment.visible === false){
+		commentDiv.appendChild(confirmeComButton);
+	}
+	
 	containerList.appendChild(commentDiv);
 	
+}
+function confirmeComment(comment){
+	$.ajax({
+        url: 'rest/comment/' + comment.id ,
+		contnentType: 'application/json',
+		type: 'PUT',
+        success: function () {
+			$('#successMessage').text('You have successfully set comment on visible.');
+			$('#successMessage').css({"color": "#7FFF00", "font-size": "16px"});
+			$("#successMessage").show().delay(3000).fadeOut();
+			$('#commentsModal').modal('hide');
+			getAllApartments(); 
+        }
+	});
 }
 
 function deleteApartment(){
@@ -414,9 +566,11 @@ function addNewApartment(){
         	$('#profile').hide();
         	$('#changePassword').hide();
 			$('#amenityTable').hide();
+			$('#reservationsCardDiv').hide();
 			$('#usersTable').hide();
         	$('#editProfile').hide();    
         	$('#editProfile').hide();  
+        	$('#editApartment').hide();
         	$('#newApartment').show();
 
         }
@@ -638,6 +792,44 @@ function saveApartment(){
         }
 	});
 }
+function saveReservation(){
+	
+	let guestUsername = username1;
+	let nightCount = $('#selectNoNights').val();
+	let price =  pricePerNight*nightCount;
+	let startDate1 = $('#datepicker').val();
+	let message = $('#message').val();
+	let status = 'CREATED';
+	let startDate;
+	  dArr = startDate1.split("-");  // ex input "17-09-2020"
+	  startDate= dArr[2]+ "-" +dArr[1]+ "-" +dArr[0]; 
+	
+	console.log(nightCount,startDate,message );
+	if(nightCount === '' || startDate === '' || message === ''){
+		$('#newResError').text('All fields are required!');
+		$('#newResError').css({"color": "red", "font-size": "20px"});
+		$('#newResError').show().delay(3000).fadeOut();
+		return;
+	}
+	
+	
+	let newReservation = new Reservation(apartmentId1, startDate,nightCount, price, message, guestUsername, status);
+	console.log(newReservation);
+	
+	$.ajax({
+		type: 'post',
+		url: 'rest/reservation',
+		contentType: 'application/json',
+		data: JSON.stringify(newReservation),
+        type: 'POST',
+        success : function () {
+        	getAllApartments();
+        	$('#reservationModal').modal('hide');
+        	
+        	alert('Reservation has been sent.');
+        }
+	});
+}
 
 class Apartment {
 	constructor(name, type, pricePerNight, roomCount, guestCount, startDate, endDate, timeForCheckIn, timeForCheckOut, location, hostUsername, amenities, image, description){
@@ -657,6 +849,17 @@ class Apartment {
 		this.description = description;
 	}
 }
+class Reservation {
+	constructor(apartmentId,startDate, nightCount, price,  message, guestUsername,status){
+		this.apartmentId = apartmentId;
+		this.startDate = startDate;
+		this.nightCount = nightCount;
+		this.price = price;
+		this.message = message;
+		this.guestUsername = guestUsername;
+		this.status = status;
+	}
+}
 
 class Address {
 	constructor(street, place, postalCode){
@@ -672,6 +875,128 @@ class Location {
 		this.geoHeight = geoHeight;
 		this.address = address;
 	}
+}
+
+class ApartmentEdit {
+	constructor(name, type, pricePerNight, roomCount, guestCount, startDate, endDate, timeForCheckIn, timeForCheckOut, location, hostUsername, image, description){
+		this.name = name;
+		this.type = type;
+		this.pricePerNight = pricePerNight;
+		this.roomCount = roomCount;
+		this.guestCount = guestCount;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.timeForCheckIn = timeForCheckIn;
+		this.timeForCheckOut = timeForCheckOut;
+		this.location = location;
+		this.hostUsername = hostUsername;
+		this.image = image;	
+		this.description = description;
+	}
+}
+
+function callEditApartmentModal(apartment){
+	console.log(apartment);
+	$('#moreModal').modal('hide');
+	$('#profile').hide();
+	$('#editProfile').hide();
+	$('#changePassword').hide();
+	$('#amenityTable').hide();
+	$('#usersTable').hide();
+	$('#newApartment').hide();
+	cardDiv = document.getElementById('cardDiv');
+	$('#cardDiv').html('');
+	$('#cardDiv').hide();
+	$('#searchDiv').hide();
+	$('#searchButton').hide();
+	$('#editApartment').show();
+	
+	document.getElementById('apartmentNameEdit').value = apartment.name;
+	document.getElementById('selectTypeEdit').value = apartment.type;
+	document.getElementById('pricePerNightEdit').value = apartment.pricePerNight;
+	document.getElementById('selectNoRoomsEdit').value = apartment.roomCount;
+	document.getElementById('selectNoGuestsEdit').value = apartment.guestCount;
+	//document.getElementById('startDateEdit').value = apartment.name;
+	//document.getElementById('endDateEdit').value = apartment.name;
+	document.getElementById('startTimeEdit').value = apartment.timeForCheckIn;
+	document.getElementById('endTimeEdit').value = apartment.timeForCheckOut;
+	document.getElementById('apartmentDescriptionEdit').value = apartment.description;
+	
+	
+}
+
+function updateApartment(){
+	let id = apartmentForEdit.id;
+	let eStreet = apartmentForEdit.location.address.street;
+	let ePlace = apartmentForEdit.location.address.place;
+	let ePostalCode = apartmentForEdit.location.address.postalCode;
+	let eGw = apartmentForEdit.location.geoWidth;
+	let eGh = apartmentForEdit.location.geoHeight;
+	let eName = $('#apartmentNameEdit').val();
+	let eType = $('#selectTypeEdit').val();
+	let ePrice = $('#pricePerNightEdit').val();
+	let eNoGuests = $('#selectNoGuestsEdit').val();
+	let eNoRooms = $('#selectNoRoomsEdit').val();
+	let eStartDate = $('#startDateEdit').val();
+	let eEndDate = $('#endDateEdit').val();
+	let eCheckIn = $('#startTimeEdit').val();
+	let eCheckOut = $('#endTimeEdit').val();
+	let eDescription = $('#apartmentDescriptionEdit').val();
+	let eImage = apartmentForEdit.image;
+	
+	if($('#streetAdd').val() != ''){
+		eStreet = $('#streetAdd').val();
+	}
+	
+	if($('#placeAdd').val() != ''){
+		ePlace = $('#placeAdd').val();
+	}
+	
+	if($('#postalAdd').val() != ''){
+		ePostalCode = $('#postalAdd').val();
+	}
+	
+	if($('#gwAdd').val() != ''){
+		eGw = $('#gwAdd').val();
+	}
+	
+	if($('#ghAdd').val() != ''){
+		eGh = $('#ghAdd').val();
+	}
+	
+	if(imagePath != null){
+		eImage = imagePath;
+	}
+	
+	let eAddress = new Address(eStreet, ePlace, ePostalCode);
+	
+	let eLocation = new Location(eGw, eGh, eAddress);
+	
+	let apartment = new ApartmentEdit(eName, eType, ePrice, eNoRooms, eNoGuests, eStartDate, eEndDate, eCheckIn, eCheckOut, eLocation, apartmentForEdit.hostUsername, eImage, eDescription);
+	
+	console.log(apartment);
+	
+	$.ajax({
+		url: 'rest/apartment/' + id ,
+		contentType: 'application/json',
+		type: 'PUT',
+		data: JSON.stringify(apartment),
+        success: function () {
+        	getAllApartments();
+        	alert('Apartment is edited successfully.');
+        }
+		
+	});
+	
+	
+}
+
+function showSearchDiv(){
+	$('#searchDiv').show();
+}
+
+function hideSearchDiv(){
+	$('#searchDiv').hide();
 }
 
 

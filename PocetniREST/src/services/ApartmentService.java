@@ -5,8 +5,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.annotation.PostConstruct;
@@ -16,6 +18,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -34,6 +37,7 @@ import dao.AmenityDAO;
 import dao.ApartmentDAO;
 import dao.UserDAO;
 import dto.ApartmentDTO;
+import dto.SearchApartmentDTO;
 
 @Path("/apartment")
 public class ApartmentService {
@@ -103,6 +107,24 @@ public class ApartmentService {
 		return Response.status(200).entity(all).build();
 	}
 	
+	@GET
+	@Path("/one/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response getOneApartment(@PathParam("id") Long id){
+		Apartment one = null;
+		ApartmentDAO apartmentDAO = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		for(Apartment apartment : apartmentDAO.getApartments().values()) {
+			if(apartment.getId().equals(id)) {
+				if(!apartment.isDeleted()) {
+					one=apartment;
+				}
+			}
+		}
+		
+		return Response.status(200).entity(one).build();
+	}
+	
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -160,7 +182,9 @@ public class ApartmentService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addApartment(@Context HttpServletRequest request, ApartmentDTO newApartment) {
-		
+		System.out.println("SD: " + newApartment.getStartDate());
+		System.out.println("ED: " + newApartment.getEndDate());
+
 		UserDAO userDAO = (UserDAO) ctx.getAttribute("userDAO");
 		User user = userDAO.findUserByUsername(newApartment.getHostUsername());
 		
@@ -191,6 +215,8 @@ public class ApartmentService {
 		apartment.setImage(newApartment.getImage());
 		apartment.setHostUsername(newApartment.getHostUsername());
 		apartment.setDescription(newApartment.getDescription());
+		apartment.setStartDate(newApartment.getStartDate());
+		apartment.setEndDate(newApartment.getEndDate());
 		
 		Address address = new Address(newApartment.getLocation().getAddress().getStreet(), newApartment.getLocation().getAddress().getPlace(), newApartment.getLocation().getAddress().getPostalCode());
 		Location location = new Location(newApartment.getLocation().getGeoWidth(), newApartment.getLocation().getGeoHeight(), address);
@@ -214,5 +240,146 @@ public class ApartmentService {
 		return Response.status(200).build();
 		
 	}	
+	
+	@PUT
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response editApartment(@PathParam("id") Long id, @Context HttpServletRequest request, ApartmentDTO apartment) {
+		User loggedIn = (User) request.getSession().getAttribute("loggedIn");
+		
+		if(loggedIn.getRole().equals("GUEST")) {
+			return Response.status(403).entity("You don't have permission to update an apartment.").build();
+		}
+
+		ApartmentDAO apartmentDAO = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		HashMap<Long, Apartment> apartments = apartmentDAO.getApartments();
+		Apartment eApartment = apartments.get(id);
+		
+		if(eApartment != null) {
+			eApartment.setName(apartment.getName());
+			eApartment.setType(apartment.getType());
+			eApartment.setPricePerNight(apartment.getPricePerNight().toString());
+			eApartment.setRoomCount(apartment.getRoomCount());
+			eApartment.setGuestCount(apartment.getGuestCount());
+			eApartment.setLocation(apartment.getLocation());
+			eApartment.setImage(apartment.getImage());
+			eApartment.setDescription(apartment.getDescription());
+			apartments.put(id, eApartment);
+			apartmentDAO.setApartments(apartments);
+			apartmentDAO.saveApartments(apartments);
+			ctx.setAttribute("apartmentDAO", apartmentDAO);
+			return Response.status(200).build();
+		} else {
+			return Response.status(400).entity("Apartment is not found.").build();
+		}
+		
+	}
+	
+	@POST
+	@Path("/search")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response search(@Context HttpServletRequest request, SearchApartmentDTO searchDTO) {
+		User loggedIn = (User) request.getSession().getAttribute("loggedIn");
+		ApartmentDAO apartmentDAO = (ApartmentDAO) ctx.getAttribute("apartmentDAO");
+		HashMap<Long, Apartment> apartments = new HashMap<Long, Apartment>();
+		
+		if(loggedIn == null || loggedIn.getRole().equals("GUEST")) {
+			for(Apartment a : apartmentDAO.getApartments().values()) {
+				if(!a.isDeleted()) {
+					apartments.put(a.getId(), a);
+				}
+			}
+		} else if (loggedIn.getRole().equals("ADMIN")) {
+			apartments = apartmentDAO.getApartments();
+		} else if (loggedIn.getRole().equals("HOST")) {
+			for(Apartment a : apartmentDAO.getApartments().values()) {
+				if(a.getHostUsername().equals(loggedIn.getUsername())) {
+					apartments.put(a.getId(), a);
+				}
+			}
+		} 
+	
+		// Search by date
+		ArrayList<Apartment> byDates = new ArrayList<>();
+		if(!searchDTO.getStartDate().equals("") && !searchDTO.getEndDate().equals("")) {
+			LocalDate startDate = LocalDate.parse(searchDTO.getStartDate());
+			LocalDate endDate = LocalDate.parse(searchDTO.getEndDate());
+			for(Apartment a : apartments.values()) {
+				LocalDate aStartDate = LocalDate.parse(a.getStartDate());
+				LocalDate aEndDate = LocalDate.parse(a.getEndDate());
+				if((aStartDate.isBefore(startDate) || aStartDate.equals(startDate)) && (aEndDate.isAfter(endDate) || aEndDate.equals(endDate))) {
+					byDates.add(a);
+				}
+			}
+		} else {
+			for(Apartment a : apartments.values()) {
+				byDates.add(a);
+			}
+		}
+		
+		// Search by location
+		ArrayList<Apartment> byLocation = new ArrayList<>();
+		if(!(searchDTO.getPlace().equals(""))) {
+			for(Apartment a : apartments.values()) {
+				if(a.getLocation().getAddress().getPlace().equals(searchDTO.getPlace())) {
+					byLocation.add(a);
+				}
+			}
+			
+		} else {
+			byLocation = byDates;
+		}
+		
+		// Search by price
+		ArrayList<Apartment> byPrice = new ArrayList<Apartment>();
+		if(!searchDTO.getMinPrice().equals("") && !searchDTO.getMaxPrice().equals("")) {
+			Float minPrice = Float.parseFloat(searchDTO.getMinPrice());
+			Float maxPrice = Float.parseFloat(searchDTO.getMaxPrice());
+			for(Apartment a : byLocation) {
+				if(Float.parseFloat(a.getPricePerNight()) >= minPrice && Float.parseFloat(a.getPricePerNight()) <= maxPrice) {
+					byPrice.add(a);
+				}
+			}
+			
+		} else {
+			byPrice = byLocation;
+			
+		}
+		
+		// Search by rooms
+		ArrayList<Apartment> byRooms = new ArrayList<Apartment>();
+		if(!searchDTO.getMinRooms().equals("") && !searchDTO.getMaxRooms().equals("")) {
+			Integer minRooms = Integer.parseInt(searchDTO.getMinRooms());
+			Integer maxRooms = Integer.parseInt(searchDTO.getMaxRooms());
+			for(Apartment a : byPrice) {
+				if(a.getRoomCount() >= minRooms && a.getRoomCount() <= maxRooms) {
+					byRooms.add(a);
+				}
+			}
+			
+		} else {
+			byRooms = byPrice;
+		}
+		
+		// Search by number of guests
+		ArrayList<Apartment> byGuests = new ArrayList<Apartment>();
+		if(!searchDTO.getNoGuests().equals("")) {
+			Integer noGuests = Integer.parseInt(searchDTO.getNoGuests());
+			for(Apartment a : byRooms) {
+				if(a.getGuestCount() == noGuests) {
+					byGuests.add(a);
+				}
+			}
+		} else {
+			byGuests = byRooms;
+		}
+		
+		
+		return Response.status(200).entity(byGuests).build();
+		
+	}
+	
 	
 }

@@ -114,6 +114,29 @@ h2 {
 	width : 104px;
 	right : -200px;
 }
+.forButton1{
+	background-color: rgba(212, 72, 72, 0.808);
+	color: white;
+	position : absolute;
+	height : 30px;
+	width : 104px;
+	right : -200px;
+}
+.forButton2{
+	background-color: rgba(211, 208, 208, 0.644);
+	position : absolute;
+	height : 30px;
+	width : 180px;
+	right : -200px;
+}
+.forButton3{
+	position : absolute;
+	height : 30px;
+	width : 104px;
+	right : -200px;
+    margin-top : -40px;
+}
+
 
 .forButtonSaveApartment{
 	position : absolute;
@@ -181,8 +204,23 @@ h2 {
 	width : 38px;
 }
 
+.editDeleteButtons1{
+	background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    margin-left: 8px;
+	height : 20px;
+	width : 20px;
+}
+
 .rowHeight {
 	height : 44px;
+}
+
+#asc1, #asc2, #desc1, #desc2 {
+	height : 25px;
+	margin-left : -10px;
 }
 
 /* STRUCTURE */
