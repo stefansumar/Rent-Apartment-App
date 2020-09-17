@@ -204,6 +204,7 @@ public class UserDAO {
 				admin.setLastName(user.getLastName());
 				admin.setGender(user.getGender());
 				admin.setRole(user.getRole());
+				admin.setBlocked(user.isBlocked());
 				admins.add(admin);
 			} else if(user.getRole().equals("HOST")){
 				Host host = new Host();
@@ -213,6 +214,7 @@ public class UserDAO {
 				host.setLastName(user.getLastName());
 				host.setGender(user.getGender());
 				host.setRole(user.getRole());
+				host.setBlocked(user.isBlocked());
 				// Sacuvati i forRent
 				hosts.add(host);
 			} else if(user.getRole().equals("GUEST")){
@@ -223,6 +225,7 @@ public class UserDAO {
 				guest.setLastName(user.getLastName());
 				guest.setGender(user.getGender());
 				guest.setRole(user.getRole());
+				guest.setBlocked(user.isBlocked());
 				// Sacuvaj i rented i reservations
 				guests.add(guest);
 			}

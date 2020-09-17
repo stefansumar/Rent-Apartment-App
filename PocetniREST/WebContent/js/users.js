@@ -4,6 +4,7 @@ let user;
 let apartments;
 let username5;
 let role;
+let userForBlock;
 function users(){
 	$('#usersTableBody').html('');
 	$('#cardDiv').hide();
@@ -170,9 +171,24 @@ function users(){
 
 function blockUser(user){
 	let id = user.id;
+	if(user.role == "ADMIN"){
+		alert("You can't block administrator.");
+		return;
+	}
+	userForBlock = user.username;
 	$('#confirmBlockUserModal').modal('show');
 }
 function confirmBlock(){
+	username = userForBlock;
+	$.ajax({
+		url: 'rest/user/block/' + username,
+		contentType: 'application/json',
+		type: 'PUT',
+		success: function(){
+			alert('User is blocked successfully');
+			users();
+		}
+	});
 	$('#confirmBlockUserModal').modal('hide');
 
 }
@@ -297,4 +313,5 @@ class SearchUserDTO {
 		this.usernameUserSearch = usernameUserSearch;
 	}
 }
+
 
