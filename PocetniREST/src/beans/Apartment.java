@@ -15,7 +15,7 @@ public class Apartment {
 	private ArrayList<LocalDate> datesForRent = new ArrayList<LocalDate>();
     private ArrayList<LocalDate> datesAvailable = new ArrayList<LocalDate>();
     private String hostUsername;
-    private ArrayList<Comment> comments = new ArrayList<Comment>();
+    private ArrayList<Commentt> comments = new ArrayList<Commentt>();
     private String image;
     private ArrayList<String> images = new ArrayList<String>();
     private String pricePerNight;
@@ -32,7 +32,7 @@ public class Apartment {
 
 	public Apartment(Long id, String type, String name, String description, int roomCount, int guestCount,
 			Location location, ArrayList<LocalDate> datesForRent, ArrayList<LocalDate> datesAvailable,
-			String hostUsername, ArrayList<Comment> comments, String image, ArrayList<String> images,
+			String hostUsername, ArrayList<Commentt> comments, String image, ArrayList<String> images,
 			String pricePerNight, String timeForCheckIn, String timeForCheckOut, boolean status,
 			ArrayList<Amenity> amenities, ArrayList<Reservation> reservations, boolean deleted, String startDate,
 			String endDate) {
@@ -142,11 +142,11 @@ public class Apartment {
 		this.hostUsername = hostUsername;
 	}
 
-	public ArrayList<Comment> getComments() {
+	public ArrayList<Commentt> getComments() {
 		return comments;
 	}
 
-	public void setComments(ArrayList<Comment> comments) {
+	public void setComments(ArrayList<Commentt> comments) {
 		this.comments = comments;
 	}
 

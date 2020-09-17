@@ -7,30 +7,33 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.xml.stream.events.Comment;
+
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import beans.Comment;
+import beans.Commentt;
+import beans.Reservation;
 
 
 public class CommentDAO {
-	public HashMap<Long, Comment> comments;
+	public HashMap<Long, Commentt> comments;
 	public String contextPath;
 	
 	public CommentDAO(String contextPath) {
 		super();
 		this.contextPath = contextPath;
-		this.comments = new HashMap<Long, Comment>();
+		this.comments = new HashMap<Long, Commentt>();
 		loadComments();
 	}
 
-	public HashMap<Long, Comment> getComments() {
+	public HashMap<Long, Commentt> getComments() {
 		return comments;
 	}
 
-	public void setComments(HashMap<Long, Comment> comments) {
+	public void setComments(HashMap<Long, Commentt> comments) {
 		this.comments = comments;
 	}
 
@@ -50,7 +53,7 @@ public class CommentDAO {
 		File file = new File(this.contextPath + "/json/comment.json");
 		String line = "";
 		String comment = "";
-		ArrayList<Comment> commentList = new ArrayList<Comment>();
+		ArrayList<Commentt> commentList = new ArrayList<Commentt>();
 		try(BufferedReader br = new BufferedReader(new FileReader(file))){
 			while ((line = br.readLine()) != null) {
 				comment += line;
@@ -60,12 +63,12 @@ public class CommentDAO {
 		}
 		
 		try {
-			commentList = objectMapper.readValue(comment, new TypeReference<ArrayList<Comment>>() {});
+			commentList = objectMapper.readValue(comment, new TypeReference<ArrayList<Commentt>>() {});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		for(Comment c : commentList){
+		for(Commentt c : commentList){
 			comments.put(c.getId(), c);
 		}
 	}
@@ -84,6 +87,15 @@ public class CommentDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public Commentt findCommentById(Long commentId) {
+		for(Commentt comment : comments.values()) {
+			if(comment.getId().equals(commentId)){
+				return comment;
+			}
+		}
+		return null;
 	}
 	
 }

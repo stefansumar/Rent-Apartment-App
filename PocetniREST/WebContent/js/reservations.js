@@ -3,9 +3,11 @@ let allReservations;
 let reservationsCardDiv;
 let apartment;
 let role1;
+let apartmentId2;
+let commenter;
+let commenterUsername;
 
 function reservations(){
-	
 	$('#cardDiv').hide();
 	$('#searchButton').hide();
 	$('#editProfile').hide();
@@ -46,6 +48,8 @@ function createCardReservation(reservation){
 		contnentType: 'application/json',
         success: function (user) {
         	let user1=user;
+        	commenter=user.firstName + " " + user.lastName;
+        	commenterUsername=user.username;
         	role1 = user.role;
 		$.get({
 			url: 'rest/apartment/one/'+ reservation.apartmentId,
@@ -176,6 +180,13 @@ function createCardReservation(reservation){
 				declineButton.innerHTML = 'Decline';
 				declineButton.onclick = function() { changeStatusReservation(reservation, 'DECLINED'); };
 				
+				const commentButton = document.createElement('button');
+				commentButton.className = 'btn forButton2';
+				commentButton.innerHTML = 'Add comment';
+				commentButton.onclick = function() { addCommentModal(reservation); };
+				
+				
+				
 				if(role1== 'ADMIN'){
 					reservationsCardDiv.appendChild(card);
 				}
@@ -184,6 +195,9 @@ function createCardReservation(reservation){
 						startDateRow.appendChild(quitButton);
 					if(reservation.guestUsername==user1.username)
 						reservationsCardDiv.appendChild(card);
+					if(reservation.status == "DECLINED" || reservation.status == "FINISHED"){
+					    nameRow.appendChild(commentButton);
+					}
 				}
 				if(role1 == 'HOST'){
 					if(reservation.status=="CREATED"){
@@ -204,6 +218,50 @@ function createCardReservation(reservation){
 	});
 		
 	}
+function addCommentModal(reservation){
+	
+	apartmentId2=reservation.apartmentId;
+	document.getElementById('comment').value = '';
+	document.getElementById('selectGrade').value = '';
+	
+	
+	$('#addCommentModal').modal('show');	
+
+
+}
+function saveComment(){
+
+	let newComment1 = $('#comment').val();
+	let newGrade = $('#selectGrade').val();
+	let visible = "false";
+
+	if(newComment1 === '' || newGrade === '' ){
+		$('#addCommError').text('All fields are required!');
+		$('#addCommError').css({"color": "red", "font-size": "20px"});
+		$('#addCommError').show().delay(3000).fadeOut();
+		return;
+	}
+	
+	
+	let newCom = new Commentt(commenter,commenterUsername, apartmentId2, newComment1,newGrade,  visible);
+	
+	console.log(newCom);
+	
+	$.ajax({
+		type: 'post',
+		url: 'rest/comment',
+		contentType: 'application/json',
+		data: JSON.stringify(newCom),
+        type: 'POST',
+        success : function () {
+        	reservations();
+        	$('#addCommentModal').modal('hide');
+        	
+        	alert('Comment has been sent.');
+        }
+	});
+}
+
 function changeStatusReservation(reservation, newStatus){
 
 	$.ajax({
@@ -218,3 +276,15 @@ function changeStatusReservation(reservation, newStatus){
         }
 	});
 }
+class Commentt {
+	constructor( commenter, guestUsername,  apartmentId, comment,rate, visible){
+		this.commenter = commenter;
+		this.guestUsername = guestUsername;
+		this.apartmentId = apartmentId;
+		this.comment = comment;
+		this.rate = rate;
+		this.visible = visible;
+	}
+
+}
+

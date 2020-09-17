@@ -17,7 +17,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import beans.Comment;
+
 import beans.User;
 import dao.CommentDAO;
 import dao.UserDAO;
