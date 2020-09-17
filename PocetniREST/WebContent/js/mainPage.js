@@ -8,7 +8,7 @@ let pricePerNight;
 let username1;
 let array=[];
 let apartmentForEdit;
-
+let role2;
 
 $(document).ready(function() {
 	getAllApartments();
@@ -389,8 +389,9 @@ function commentsModal(apartment){
 		contnentType: 'application/json',
         success: function (user) {
         	console.log(user);
+        	role2=user.role;
         	
-        	if(user.role === "ADMIN"){
+        	if(user.role === "ADMIN" || user.role === "HOST"){
 	    		$.get({
 	    			url: 'rest/comment/all',
 	    			contentType: 'application/json',
@@ -490,13 +491,37 @@ function createCommentCard(comment){
 	let rate = document.createElement('p');
 	rate.className = 'mt-1';
 	rate.innerHTML = '<b>Rate: </b>' + comment.rate;
-
+	
+	const confirmeComButton = document.createElement('button');
+	confirmeComButton.className = 'btn btn-info forButton3';
+	confirmeComButton.innerHTML = 'Confirme';
+	confirmeComButton.onclick = function () { confirmeComment(comment); };
+	
 	commentDiv.appendChild(userHeader);
 	commentDiv.appendChild(line1);
 	commentDiv.appendChild(commentString);
 	commentDiv.appendChild(rate);
+	
+	if(role2=== "HOST" && comment.visible === false){
+		commentDiv.appendChild(confirmeComButton);
+	}
+	
 	containerList.appendChild(commentDiv);
 	
+}
+function confirmeComment(comment){
+	$.ajax({
+        url: 'rest/comment/' + comment.id ,
+		contnentType: 'application/json',
+		type: 'PUT',
+        success: function () {
+			$('#successMessage').text('You have successfully set comment on visible.');
+			$('#successMessage').css({"color": "#7FFF00", "font-size": "16px"});
+			$("#successMessage").show().delay(3000).fadeOut();
+			$('#commentsModal').modal('hide');
+			getAllApartments(); 
+        }
+	});
 }
 
 function deleteApartment(){

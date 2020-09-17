@@ -129,6 +129,13 @@ h2 {
 	width : 180px;
 	right : -200px;
 }
+.forButton3{
+	position : absolute;
+	height : 30px;
+	width : 104px;
+	right : -200px;
+    margin-top : -40px;
+}
 
 
 .forButtonSaveApartment{
